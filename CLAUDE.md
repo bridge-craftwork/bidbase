@@ -3,7 +3,8 @@
 Workspace for Nelson Ford's **CardShark BidBase**, a rule-based bridge
 bidding program: Visual Basic 6 code plus an Access database of bidding
 rules. All of it is public domain (his license page, below). Started
-2026-10-09 from a rusty-bidding-bot session. Not a git repo yet.
+2026-10-09 from a rusty-bidding-bot session. Git repo, private on GitHub:
+`bridge-craftwork/bidbase`.
 
 ## Goals (Rick, 2026-10-09)
 
@@ -66,6 +67,12 @@ a fix that works for him).
 ## What's here
 
 ```
+crates/engine/               bidbase-engine: the Rust port of the VB6 engine (docs/PORTING.md)
+crates/cli/                  bidbase-cli: the `bidbase` binary (bid, rule, selftest)
+data/2018/                   CSV export of the 2018 BidBase.accdb (Bids, BidNames, DupePBs, Garbage, schema, queries)
+docs/PORTING.md              what was ported, what wasn't, every departure from the VB, self-test numbers
+tools/export-db.sh           .accdb -> CSV (mdbtools); the engine reads only the CSVs
+dev-build.sh, cpu-gate.sh    copied from rusty-bidding-bot; see Commands
 sourceforge-2018/            all 26 files of https://sourceforge.net/projects/bidbase/ (Sept 2018)
   CardShark BidBase Bidding Module/        engine (DLL) source
     BidBaseDB_Bidder.cls                   the engine, 6,701 lines VB6
@@ -87,6 +94,38 @@ the other zips were only listed.
 
 Treat these as untrusted downloads: don't run the `.exe`/`.dll` on the Mac.
 Read with `python3 -I` and tools from outside the folder.
+
+## Commands
+
+**Use `./dev-build.sh`, not bare cargo** (same pattern as rusty-bidding-bot,
+whose CLAUDE.md explains it). `bridge-types` is a git dependency; the
+gitignored `.cargo/config.toml` patches it to `../bridge-types`. The script
+swaps in a local lock (`.cargo/dev.lock`) so the committed `Cargo.lock`
+keeps its git pins, and runs everything through `cpu-gate.sh`, which shares
+rusty-bidding-bot's machine-wide gate (`RBB_*` settings, one heavy job at a
+time). `./dev-build.sh --ci <args>` builds with the patches off. A fresh
+clone without `.cargo/config.toml` builds the GitHub revision; for local
+work create it with:
+
+```toml
+[patch.'https://github.com/bridge-craftwork/bridge-types']
+bridge-types = { path = "../bridge-types" }
+```
+
+- `./dev-build.sh test`: unit tests, plus `crates/engine/tests/rules_2018.rs`
+  (familiar auctions and floors on the self-test counts).
+- `./dev-build.sh run -q -p bidbase-cli -- bid <hand> -a <auction> [-v we|they|none|both] [--why] [-d]`:
+  a call. Hands as `AK432-64-QJT3-T2` or PBN dots; auctions `P-1C-1N` or
+  `Pass 1C 1NT`. `--why` lists every rule tried and the test it failed;
+  `-d` prints the disclosure.
+- `... -- rule <ID>`: a rule's fields and its convention's switches.
+- `... -- selftest [--list own|first|all]`: every rule against its
+  `Test_Hand`, as the Editor checks an entry.
+- `--all-conventions` (any command) ignores the `BidNames.Selected`
+  switches. In the 2018 copy 1,424 rules are switched off, including
+  natural NT responses and four-card 1-over-1 responses to 1C.
+- `tools/export-db.sh <BidBase.accdb> data/<name>`: export a new copy;
+  `--data data/<name>` (or `BIDBASE_DATA`) points the CLI at it.
 
 ## Reading the databases
 
@@ -138,12 +177,20 @@ system, the points needed for openings, responses, game, slam, NT ranges).
   `Losers_Ok`, `QuickTricks_Ok`, `Stoppers_Ok`, `Shape_Ok`,
   `Intermed_Ok`, `Vul_Ok`, `Position_Ok`, `Suits_Ok` (the longest),
   `Eval_Pts_Ok`.
-- Opening passes are ignored in the prior-bids string. Shortcuts: `1M-P` /
-  `1m-P` cover both majors or minors, NT-overcall auctions reuse `1N-P`
-  ("systems on"), `@` in place of the prior bids marks ace-asking and
-  control bidding, and `DupePBs` lists auctions that share rules.
-- `GetOtherPlayersData` / `GetOPsBid` look at other players' calls; how
-  far this goes toward modelling partner's hand is **not yet read**.
+- Opening passes are ignored in the prior-bids string. Nelson's notes
+  describe shortcuts (`1M-P`/`1m-P` for both majors/minors, `@` for
+  ace-asking, `DupePBs` for auctions sharing rules), but **neither the
+  2018 engine nor the 2018 rules use them**; slam replies are keyed by
+  pseudo-auctions like `Blackwood: 4N-P`, `RKCB: 4N-P`, `Gerber: 4C-P`.
+  Probably Editor-side or newer.
+- `GetOtherPlayersData` / `GetOPsBid` (partner's and the opponents' suits,
+  fits) are skipped on the bidding path (`GoTo SkipPard`), so the 2018
+  engine models no other hand. It looks only at the bidder's hand,
+  the auction key, seat and vulnerability.
+- The 2018 code has real bugs (NT ranges read from the wrong rules, "P"
+  HCP specs never converted, seats counted from the opener...). The port
+  does what was meant; docs/PORTING.md lists each case with VB line
+  numbers.
 - `GetDiscl` / `AddToDisclosure` build the description of a bid shown to
   the user.
 
@@ -163,15 +210,19 @@ every entry. There's no judgment layer after the rule match, though
 `Pct_Used` can pick randomly. Hand valuation is a separate database. The
 rule set grew one auction at a time since 2004.
 
-## Ideas for goals 2-4 (unverified)
+## Status of goal 2: the port (2026-10-09)
 
-- **Port:** a Rust reader for `BidBase.accdb`, via `mdb-export` or
-  bridge-parsers, turning each `Bids` row into a typed rule. Then a
-  matcher reproducing `LookUpBid` and the `*_Ok` tests from the VB6
-  source. Check it against the `Test_Hand` column: each rule should bid
-  its own test hand. That needs no Windows at all. Keep the
-  `.accdb` as the source of truth so Nelson can keep editing in his
-  Editor, or offer him an export to text.
+Done for the 2018 engine, without hand valuation (3 rules need it). Of
+5,258 rules with test hands: 3,440 are the first match for their own hand,
+1,454 more are switched off but accept it, 289 are taken by an earlier
+rule, 66 reject their own hand (mostly 2004 test hands that don't fit
+their rules), 9 test hands have typos. Details and the open questions in
+docs/PORTING.md. Next: port Nelson's current engine and data when his zip
+arrives (diff its `.cls` against 2018 first), and choose a convention
+profile for comparisons.
+
+## Ideas for goals 3-4 (unverified)
+
 - **Measure:** have the port bid PBN deals and write auctions in bba-cli's
   PBN layout. Then score with rusty-bidding-bot's tools: `rbb dd`/par, and
   `compare`, which reads PBS-shaped directories of bba-cli output, as

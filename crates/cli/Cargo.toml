@@ -1,0 +1,16 @@
+[package]
+name = "bidbase-cli"
+description = "Command-line bidding and rule checks for the BidBase port"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "bidbase"
+path = "src/main.rs"
+
+[dependencies]
+bidbase-engine.workspace = true
+bridge-types.workspace = true
+clap = { version = "4", features = ["derive", "env"] }

@@ -1,0 +1,12 @@
+[package]
+name = "bidbase-engine"
+description = "Rust port of Nelson Ford's CardShark BidBase bidding engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+bridge-types.workspace = true
+csv.workspace = true
+serde.workspace = true

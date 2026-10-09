@@ -1,0 +1,472 @@
+IDnum,Selected,SubCat_Selected,Bid_Name,Bid_Description
+4," ",,,
+5,,,"2/1 Forcing",
+6," ",,"2C Strong",
+8,," ","4th Chair Openings: Weak Twos",
+9,"0",,"ASTRO",
+10,"0",,"Brozel",
+11,"0",,"Cappelletti Over NT",
+12,,,"Convenient Minor",
+17,"0",,"Flannery",
+19,,"0","Raise of 1C/D: Inverted Minors",
+20,,,"Raise, Jacoby 2NT",
+21,,,"Jump NT Shift By Opener",
+29,"0",,"Landy",
+30,,,"Lead-Directing Double",
+31,,,"Raise, Limit: Non-competitive","Of opening bid. See Takeout & Overcalls for those LR's"
+32,"0",,"Michaels",
+33,"0",,"Mini-Roman 2D",
+36,"0",,"Free Bid, Negative","After RHO overcalls pard, a free bid= <11 HCP, Dbl= 11+."
+44,,,"Overcall",
+45,,,"Passed Hand Response","Passed hand must jump to show 11+."
+47,"0",,"Precision",
+48,"0",,"Precision: Impossible Negative",
+49,"0",,"Precision: Jacoby Transfer",
+50,"0",,"Precision: Jump Raise",
+51,"0",,"Precision: Jump Rebid",
+52,"0",,"Precision: Sign-off",
+53,"0",,"Precision: Single Raise",
+54,"0",,"Precision: Stayman",
+55,"0",,"Precision: Transfer To Clubs",
+56,,,"Preempt: Light",
+60,,,"Reverse: By Opener",
+61,"0",,"Roman 2D",
+62,,,"Solid Minor",
+63,,,"Solid Suit",
+64,,,"Splinter",
+65,,,"Jump-Shift, Strong",
+66,,,"NT, Strong",
+67,,,"Takeout Double",
+68,"0",,"MOST Doubles","Minimum off-shape takeout double"
+69,,,"Unusual NT",
+70,,"0","Unusual NT: For Minors (Always)",
+71," ",,"Weak Twos: Sound",
+72,,,"Overcall: Jump, Weak",
+73,"0",,"Jump-Shift, Weak",
+74," ",,"Western Cue Bid","Asks partner to bid NT with a stopper in the suit bid."
+76,"0",,"Splinter - Random Singleton","Jump to 3S shows any singleton, 3N reply asks which. Jump to 4 shows void in suit."
+78,,,"Natural",
+79," ",,"Weak Twos",
+81,,,"Overcall: Jump, Strong",
+82,"0",,"Truscott Double",
+83,"0",,"CRASH Over 1N","Shows 2-suited hand over 1N opening."
+85,"0",,"Truscott Over 2C",
+86,"0",,"CRASH Over 2C: Modified",
+87,"0",,"NT Take-out","Promises unbid suits"
+88,,,"Redouble, Penalty",
+89,"0",,"Splinter - Random Sing/Void","Singleton or void in an unspecified suit, plus 4+ Hearts."
+90,"0",,"Splinter - Random","Jump to 3S shows sing/void and 11-12 HCP, 3N asks which. Jump to 4 shows 13+."
+91,,,"Overcall: Jump, Weak - Sound","Unlikely to lose with specified vulnerability and number of winners."
+93,,,"Raise, Preemptive",
+94,"0",,"1N Resp. Semi-Forcing","Opener may pass with 11-13 balanced."
+95,,,"Forcing NT","Response to opening bid"
+96,"0",,"Bergen Raise",
+97,,,"Penalty Pass","Pass of a double or redouble for penalties."
+98,,,"Blackwood","Ace-asking, king-asking slam try"
+100,,,"Grand Slam Force","Partner must bid 7 with 2 of 3 top honors, else he bids 6."
+102,,,"Redouble, S.O.S.","Asks opener to bid 2C, then pass after responder bids his suit."
+103,,,"Jacoby Transfer","Asks partner to bid next higher suit."
+104,"0",,"Two-Way Stayman","2C is weak Stayman, 2D is strong Stayman"
+105,,,"Raise of 1C/D",
+107,,,"Takeout Double: Responsive Dbl","Asks partner to pick a suit."
+108,"0",,"Rosenkranz Double",
+109,,,"Overcall: 1N - Transfer","Asks partner to bid the next higher suit."
+110,"0",,"Minor Suit Stayman","Asks partner to bid a 4-card minor, if any."
+111,,,"Preempt","Could be weak or strong."
+112,,,"Overcall: Lead-Directing","Lead-directing overcall in competition."
+128,,,"3rd Chair Openings","Opening bids by the 3rd player after two passes."
+130,"0",,"Michaels: Total Tricks Resp.",
+132,,,"Overcall: Raise, Total Tricks","Bid up to the level equal to the total number of trumps."
+133,,,"Balancing: Non-Jump NT","Notrump bids in 4th seat after 1x-P-P"
+134,,,"Balancing: 3N = Running Minor","Double in balancing position (after 1x-P-P)"
+135," ","0","Cue Bid: Of Flannery - Takeout",
+136," ","0","Cue Bid: Limit Raise Of Opener","Usually 10-12 HCPs and 4+ card support for partner's suit."
+137," ","0","Overcall: Raise Cue Bid, Limit","Raise of an overcall showing 8-10 HCPs and 3-card support"
+138," ",,"Cue Bid: Strength 3rd Seat","General strength-showing bid with no other good bid to make."
+139,,,"Raise, Limit: 2N vs Takeout Double","Of opening bid. See Takeout & Overcalls for those LR's"
+140,"0",,"2C 19-HCP Opening",
+141,"0",,"CRASH Over 2C","Shows 2-suited hand over 2C opening."
+142," ",,"Cue Bid: Takeout Of Opening 3+ Bid","Shows more strength than a take-out double"
+143,,,"NT: Minor Game Force",
+144,,,"NT Invitational Response","Part of ""NT Transfer to Diamonds"""
+145,"0",,"NT Transfer to Minors",
+146,"0",,"NT Transfer to Diamonds",
+147,"0",,"NT Transfer to Clubs",
+148,,,"NT: Sign-Off At 3C/D","Weak, 6-card suit or more"
+149,,,"NT: Minor Invitational",
+150,"0",,"Jump-Shift, Fit-Showing","Response to opening bid"
+151,"0",,"Splinter - 3=Weak 4=Strong",
+152,,,"Double - Points Showing","General strength showing when no other good bid."
+153,,,"Free Bid","Unforced response to opening bid."
+156,"0",,"NT, Weak",
+157," ",,"Raise of 1H/S",
+158,"0",,"Drury",
+159,,,"Stayman","Response to 1NT opening, asking for a 4-card major"
+160,,,"Gerber","Ace asking over notrump bid"
+161," ",,"Weak Twos: Balanced NT Resp.",
+162," ",,"Weak Twos: Feature Asking",
+163," ",,"Weak Twos: Raise",
+164,"0",,"Texas Transfer",
+167,"0",,"Gambling 3N: Response",
+169," ",,"Weak Twos: Redouble",
+170," ",,"Weak Twos: Double",
+171,"0",,"Bergen Over 2NT",
+173,,,"Control-Showing Bid",
+174,,,"4th Chair Openings",
+175,,,"Overcall: Preemptive",
+176,,,"Reverse",
+177," ",,"2C Strong: 2nd Negative",
+179,"0",,"2/1 Non-Forcing",
+180,"0",,"4th Suit Forcing To Game",
+181,"0",,"1N Resp. Non-Forcing",
+182,,,"Control-Asking Bid",
+184,"0",,"Gambling 3N","Shows a running minor and usually no outside entries."
+187,,,"Overcall: New Suit, Jump",
+188,"0",,"MOST Doubles: Response",
+189,,,"Natural Bid Of Opp's Suit",
+191,,,"Balancing: 1-Level Bid",
+192,,,"Balancing: 2-Level Jump Bid",
+193,,,"Balancing: 3-Level Jump Bid",
+194,,,"Balancing: Double",
+195,,,"Balancing: Game Jump Bid",
+196,," ","Balancing: Cue Bid","Shows slam interest, game force"
+197,,,"Balancing: Jump NT",
+198,,,"Balancing: Problem Hands","Hands that don't fit into other entries' specs."
+199,,,"Overcall: 4-Card Suit",
+200,,,"Overcall: 4-Card Suit Non-Vul",
+201,,,"Overcall: 2-Level",
+202,,,"Overcall: 4th Seat",
+203,,,"Unusual NT: Lower 2 Unbid Suits",
+204,,,"Free Bid: Notrump",
+205,,,"Overcall: 4th Seat - 1 Level",
+206,,,"Overcall: 4th Seat - 2 Level",
+207,,"0","1-Over-1 Response: Maj. Before D",
+211,,,"Overcall: Jump, Weak - Light",
+212,,,"4th Chair Openings: Rule Of 15","# of Spades + HCPs => 15 to open in 4th seat."
+213,,,"Takeout Double: ELC","Equal Level Conversion (e.g.: AJ94-8-KJ9872-J8 - 2D over 2C)"
+214,,,"Overcall: Passed Hand","Overcall by passed hand."
+215,,,"Free Bid: Passed Hand",
+216,,,"Overcall: Raise",
+217,,,"Unusual NT: by Passed Hand",
+218,,,"Overcall: Passed Hand Un.NT","Response to Unusual 1NT overcall by passed hand."
+219,,,"Takeout Double: Passed Hand",
+220," ",,"Weak Twos: Favorable Vul.",
+221," ",,"Weak Twos: 3rd Position",
+222," ",,"Weak Twos: 4th Position",
+223,,,"Overcall: 5+ Card Suit",
+224,"0",,"4-Card Majors",
+225," ","0","Cue Bid: Of Michaels",
+226," ","0","Cue Bid: Of Unusual NT",
+227," ","0","Cue Bid: Transfer to 3N",
+229,,,"Free Bid: Weak",
+232,,,"Takeout Double: Jump Response",
+233,,,"Preempt: Jump-Shift Response",
+234,"0",,"Natural NT Response",
+238,,,"Preempt: New Suit Non-Forcing",
+239,,,"NT: Quantitative Raise",
+240,,,"NT Slam Invitation",
+243,,,"Overcall: 4th Seat - 3 Level",
+244,,,"Overcall: 4th Seat - Natural NT",
+245,,,"Overcall: 6-4",
+246,,,"Overcall: 6=5",
+247,,,"Overcall: 7-3",
+249,,"0","Overcall: Raise Cue Bid",
+250,,,"Overcall: Jump Opposite Passed Hand",
+251,,,"Overcall: 4-Level Non-Jump",
+252,"0",,"Overcall: Jump, Weak - Sound (Eq.)",
+253,,,"Overcall: Jump, Weak - Sound (Eq.+)",
+254,,,"Overcall: Jump, Weak - Sound (Fav)",
+255,,,"Overcall: Jump, Weak - Sound (Unfav)",
+256,,,"Overcall: New Suit, Non-Forcing",
+257,,"0","Overcall: Raise, Preemptive",
+258,,,"Overcall: Raise, Standard",
+260,"0",,"Splinter - 3=Sing., 4=Void",
+261,,,"Redouble, Support",
+262,,,"Takeout Double: Dbl. Jump",
+263,,,"Takeout Double: Game Jump",
+264,,,"Takeout Double: On Shape",
+265,,,"Takeout Double: On Strength",
+266,,,"Takeout Double: Passed Pard.",
+267,,,"Takeout Double: Forced Response",
+268," ",,"Weak Twos: New Suit Forcing",
+269,,,"Problem Hand","Hands which are 'Impossible"" to bid within the system specs."
+270,,,"Overcall: New Suit, On 3-Level",
+272,,,"Balancing: Double - Response",
+273,,,"Overcall: Raise To 3 Level, Non-Jump","Non-jump raise of an overcall to the 3-level."
+274,,,"Takeout Double: NT Response",
+276,,,"Overcall: Resp. 2N Over P",
+277,,,"Overcall: Resp. 3N Over P",
+278,,,"Overcall: Resp. 3N Over Raise",
+279,,,"Overcall: Resp.Dbl. Over Raise",
+280,,,"Overcall: Resp.Dbl. On 3-Level",
+281,,,"Overcall: Resp.Dbl. On 4-Level",
+282,,,"Overcall: 4th Seat - Takeout Double",
+283,"0",,"Takeout Double: Lebensohl",
+284,,,"Takeout Double: Cue Bid Resp.","Per MB: Stayman w/o stopper or any slam interest"
+285,,,"Takeout Double: 4th Seat",
+287,,,"Balancing: Cue Bid for NT","Asks pard to bid 3N if he has a stopper in suit bid."
+288,,,"Overcall: 6+ Card Suit",
+289,"0",,"Bridge World Standard",
+290,,,"NT, Strong: Two Doubletons",
+291,,,"NT, Strong: Six-Card Minor",
+292,"0",,"Namyats",
+293," ",,"Weak Twos: BWS",
+294,"0",,"Preempt: New Suit Forcing",
+295,"0",,"Ogust","Feature showing after 2x-P-2N-P"
+296," ",,"2C Strong: Positive Response",
+297," ",,"2C Strong: Jump Response",
+298,,,"Overcall: 3N Opp. Passed Hand",
+299,,,"Takeout Double: Balancing","Take-out double in the pass-out position."
+300,,,"Takeout Double: Pre-Balancing",
+301,"0",,"Michaels: 4th Seat",
+302,,,"Double - Optional","Partner can treat as take-out or pass for penalty"
+303,,,"Pass","BidBase strongly suggests passing."
+304,,,"Takeout Double: By Opener",
+305,,,"Takeout Double: By Overcaller",
+307,,,"Takeout Double: Support Dbl.","3-card support for partner's suit"
+308,,,"Takeout Double: Optional Dbl","Partner may pass or bid"
+309,,,"Takeout Double: 2nd Response","Next round of bidding"
+310,,,"Takeout Double: Rebid By Dblr","2nd round of bidding by doubler"
+311,,,"Takeout Double: Raise By Doubler",
+312,"0",,"MOST Doubles: 2-Level Response",
+313,"0",,"MOST Doubles: 3-Level Response",
+314,"0",,"MOST Doubles: 1-Level Response",
+315,"0",,"Raise, Jordan 2NT",
+316,,,"Takeout Double: Resp. Over Jordan",
+318,,,"Takeout Double: Jump To 4 Level",
+319,,,"Takeout Double: Pass","No 4-card suit to bid, flat hand."
+320,"0",,"Penalty Double: 4 of RHOs Suit","Bid 2 of RHO's suit to show 5+"
+321,,,"Takeout Double: 2N Free Bid",
+322,,,"Takeout Double: Free Bid 1 Level",
+323,,,"Takeout Double: Free Bid 2 Level",
+324,,,"Takeout Double: Jump To 3 Level",
+325,,,"Takeout Double: Jump To 2 Level",
+326,,,"Takeout Double: 2nd Dbl By Doubler",
+328,,,"Balancing: Double By Opener",
+329,,,"Reraise By Opener: Weak Minor","Used in ""Against"" field."
+330,,,"Takeout Double: Pard Passed",
+331,,,"Balancing: By Opener",
+332,,,"Takeout Double: Cue Bid By Doubler",
+333,,,"Takeout Double: 2N By Dblr",
+334,,,"Takeout Double: Responsive Dbl: Cue Bid Resp.",
+335,,,"Takeout Double: Responsive Dbl: Response",
+336,"0",,"Penalty Double: Penalty Pass",
+337,,,"Takeout Double: Responsive Dbl: Jump Resp.",
+338,,,"Takeout Double: Raise Of 1N",
+339,,,"Takeout Double: Splinter By Dblr",
+340,,,"Takeout Double: 3N By Doubler",
+341,,,"Takeout Double: Resp. By Dblr",
+342,"0",,"Michaels: Rebid Opp. Pass",
+343,,,"Takeout Double: Raise by Advancer",
+344,,,"Takeout Double: Resp.Dbl - Minors",
+345," ",,"Cue Bid: NT Try","Asks partner for a stopper in the opponents' suit."
+346,,,"Takeout Double: Penalty Pass",
+347,,,"5-Card Majors",
+348,,,"Natural Bid Of Opp's Suit: Raise",
+349,,,"Balancing: Suit Bid",
+350,,,"Balancing: Unusual NT",
+351,,,"Reverse: Raise 2nd Suit",
+352,"0",,"Check-Back Stayman",
+353,"0",,"Puppet Stayman",
+354,"0",,"Puppet Stayman: Strong NT",
+355,"0",,"Puppet Stayman: Weak NT",
+356,,,"Balancing: 2-Level Non-Jump Bid",
+357,,,"Balancing: 3-Level Non-Jump Bid",
+358,,,"Balancing",
+363," ",,"Weak Twos: New Suit Non-Forcing",
+364,,,"1-Over-1 Response: H Before S",
+365,,,"1-Over-1 Response: 5+ Card Suit",
+366,,,"1-Over-1 Response: Reverse",
+368,,"0","1-Over-1 Response: 4D, No 4+ H or S",
+369," ","0","Cue Bid: Of Flannery - Minors",
+371,,,"NT: vs 1-Suiter, Points Double",
+372,"0",,"Lebensohl: Nat 2C: Penalty",
+373,"0",,"Lebensohl: Sign-Off",
+374,"0",,"Lebensohl: Relay to 3C",
+375,"0",,"Lebensohl: Game Force",
+376,"0",,"Lebensohl: Stayman",
+377,"0",,"Lebensohl",
+378,"0",,"Lebensohl: 3N With No Stopper",
+379,"0",,"Lebensohl: 3N With Stopper",
+380,"0",,"Meckwell vs Strong NT",
+381,"0",,"Grano Astro",
+382,"0",,"Grano Astro: C and H",
+383,"0",,"Grano Astro: D and H",
+384,"0",,"Grano Astro: Natural",
+385,,,"NT Exceptions: 4-4 Majors",
+387,,,"NT: Good Hand Under-Minimum",
+388,,,"Stayman: Garbage","Intending to pass any rebid by opener"
+389,,,"Jacoby Transfer: Slam Interest",
+390,,,"NT: Sign-Off At 3H/S",
+391,,,"Overcall: 5-Level Non-Jump",
+392,"0",,"Brozel: H and S",
+393,"0",,"Cappelletti Over NT: H and S",
+394,"0",,"DONT",
+395,"0",,"DONT: Majors - 2N Response",
+396,,"0","NT Overcall: Solid Minor",
+397,,,"NT Overcall: Balanced",
+398,,,"Forcing Pass","Partner must bid or double."
+401,,,"2N Balanced",
+402,,,"2N Balanced: 2 Doubletons",
+403,,,"2N Balanced: Six-Card Minor",
+404,"0",,"ASTRO: H and C/D",
+405,"0",,"ASTRO: S and C/D/H",
+407,,,"Balancing: Pass",
+408,"0",,"Brozel: H and C",
+409,"0",,"Brozel: H and D",
+410,"0",,"Brozel: One-Suiter",
+411,"0",,"Cappelletti Over NT: H and C/D",
+412,"0",,"Cappelletti Over NT: One-Suiter",
+413,"0",,"Cappelletti Over NT: S and C/D",
+414,"0",,"Cappelletti Over NT: S and H",
+417," ","0","Overcall: Raise Cue Bid, 8-10 HCP, 3-Card","Raise of an overcall"
+418," ","0","Overcall: Raise Cue Bid, 5-7 HCP, 3-Card","Raise of an overcall"
+419," ","0","Overcall: Raise Cue Bid, Weak, 3+ Cards","Raise of an overcall"
+420,"0",,"2C 19-HCP Opening: Waiting",
+421,"0",,"2C 19-HCP Opening: Weak, Natural",
+422,"0",,"Drury: 2-Way","2C = 3-card support, 2D = 4-card support"
+423,"0",,"DONT: C and D/H/S 4+ 5 Non-vul",
+424,"0",,"DONT: C and D/H/S 5-5",
+425,"0",,"DONT: D and H/S 4+ 5 Non-vul",
+426,"0",,"DONT: D and H/S 5-5",
+427,"0",,"DONT: H and S 4+ 5 Non-vul",
+428,"0",,"DONT: H and S 5-5",
+429,"0",,"DONT: One-Suiter",
+431," ",,"Weak Twos: Jump Raise",
+432,"0",,"Jump-Shift, Weak: 4-Level",
+433,"0",,"Jump-Shift, Weak: 3-Level",
+434,"0",,"Jump-Shift, Weak: 2-Level",
+435,"0",,"Jump-Shift, Weak: Vul",
+436,"0",,"Jump-Shift, Weak: Non-Vul",
+437,,,"Transfer For 1NT Opening",
+438,,,"Transfer For 1NT Balance",
+439,,,"Takeout Double: Free Bid 3 Level",
+440,,,"Takeout Double: Free Bid 4 Level",
+441,,,"Takeout Double: Resp.Dbl - Unbids",
+443,,,"Takeout Double: Penalty Dbl.",
+444,,,"Takeout Double: Natural Cue Bid",
+445,,,"Takeout Double: Free Bid 5 Level",
+446,,,"NT, Strong, Exceptions: Upgrade 17HCP",
+447,,,"Jump-Shift, Strong: 2-Level",
+448,,,"Jump-Shift, Strong: 3-Level",
+449,,,"Jump-Shift, Strong: 4-Level",
+450,,,"Jump-Shift, Strong: 5-Level",
+451,,,"2C Strong: 2D Waiting: Continuation",
+453,"0",,"Splinter - Random, Strong",
+454,"0",,"Overcall: Snapdragon Double",
+457,,,"Rule Of 20",
+458,"0",,"Preempt, Sound: Favorable Vul",
+459,"0",,"Preempt, Sound: Equal Vul",
+460,,,"Preempt: Raise",
+461,,,"Preempt: Light: Favorable Vul",
+462,,,"Overcall: Responsive Dbl. On 2-Level",
+463,,,"Overcall: Resp.Dbl. On 1-Level",
+464,,,"Overcall: Resp.Dbl. Over 1N",
+465,,,"Overcall: Resp. 3N Over D",
+466,,,"Overcall: Resp. 3N Over 1x",
+467,,,"Overcall: Resp. 2N Over D",
+468,,,"Overcall: Resp. 2N Over 2x",
+469,,,"Overcall: Resp. 2N Over 1x",
+470,,,"Overcall: Resp. 2N Over 1N",
+471,,,"Overcall: Resp. 1N Over P",
+472,,,"Overcall: Resp. 1N Over D",
+473,,,"Overcall: Resp. 1N Over 1x",
+474,,,"Overcall: Raise to 3 Over 2N",
+475,,"0","Overcall: Raise, Limit",
+476,,,"Overcall: 5+ Card Suit (Fav)",
+477,,,"Overcall: 4th Seat - Jump",
+478,,,"Overcall: 4th Seat - 4 Level",
+479,,,"Overcall: 3-Level Non-Jump",
+480,,,"Overcall: 2-Level Non-Jump",
+481,,,"Opening 2N HCP Specification",
+482,,,"Opening 1N HCP Specification",
+483,,,"NT: Sign-Off At 2H/S",
+484,,,"NT: Sign-Off At 4H/S",
+485,"0",,"Stayman: Cue Of Natural 2C",
+486,"0",,"NT: Over Natural 2C - Penalty Dbl",
+487,,,"NT: Game Force",
+489,"0",,"Stayman: Cue Of Natural 2D",
+491," ",,"Negative Double: Of 3C Thru 3S",
+492," ",,"Negative Double: Of 4C+",
+493,,,"NT: Penalty Redouble",
+494,"0",,"MOST Doubles: Responsive Double",
+495,"0",,"MOST Doubles: Free Bid",
+496,"0",,"MOST Doubles: 2N Response",
+497,"0",,"MOST Doubles: 1N Response",
+498,"0",,"Meckwell vs Strong NT: Natural",
+499,"0",,"Meckwell vs Strong NT: D and 1M",
+500,"0",,"Meckwell vs Strong NT: C and 1M",
+501,"0",,"Meckwell vs Strong NT: 2M or 1m",
+503,"0",,"Grano Astro: S and C/D/H",
+504,,,"Feature Asking 2N","Response to Weak-2 opening"
+505,"0",,"DONT: One-Suiter S - Strong",
+506,"0",,"Brozel: S and C/D",
+507," ",,"2C Strong: 2D Waiting",
+508," ",,"2C Strong: Negative",
+509," ",,"2C Strong: Balanced",
+510,,,"===================","Bidding section divider for grids in BidBase Editor"
+512," ",,"Weak Twos: Light",
+513,,"0","Unusual NT: Any Strength Hand",
+514," ","0","2C Strong: Balanced, 25-27 HCPs","In SAYC, open 3N with 25-27 HCPs."
+515,,,"Raise, Limit: vs Overcall","Of opening bid. See Takeoutt & Overcalls for those LR's"
+516," ",,"Cue Bid: GF Raise Of Opener",
+517,,,"Preempt.Raise: Of Opener, vs Overcall",
+518," ","0","Overcall: Raise Cue Bid, Forcing","Forcing raise of an overcall"
+519," ",,"Cue Bid: Strength 4th Seat",
+522,,,"Jacoby Transfer: 2N Opened",
+523,,,"Jacoby Transfer: Accepted",
+524,,,"Jacoby Transfer: Super Accepted",
+525,"0",,"Raise, Limit: vs Takeout Double","Of opening bid. See Takeoutt & Overcalls for those LR's"
+526,,,"Minor Suit Stayman: 1N Overcall",
+527,,,"NT: Over Natural 2C - Sign-Off",
+528,,,"NT: Sign-Off At 2C/D",
+529,"0",,"Sandwich Notrump",
+530,,,"Unusual NT In 4th Seat, Non-Jump",
+531,,,"Penalty Redouble Of 1C/D Opening",
+532,,,"Takeout Double: Resp.Dbl","Responsive Double after pard doubles and RHO raises opener."
+533,,,"Takeout Double: NT Resp. For Minors","Mainly after 4H/4S - Dbl - P"
+534,,,"Help-Suit Game Try","After suit has been raised, bid 2nd suit to ask for help for game."
+537,,,"Raise By Opener Of 1/1 With 3+",
+540,,,"Jump-Shift, Weak, Over TOX","SAYC"
+541,,,"Raise, Preemptive vs TOX","SAYC: Jump Raise is Preemptive over TOX; otherwise, Limit"
+542,,,"Overcall: Responsive Double",
+543,,,"Raise of 1C/D: Standard",
+544,,,"Overcall: Cue Bid, Points","General strength-showing cue bid."
+545,"0",,"Raise By Opener Of 1/1 With 4+","After 1H-P-1S-P, must have 4+ to raise Spades."
+546,,,"Takeout Double: Continuation",
+547,,,"Balancing: Prebalancing",
+548,," ","2C Strong: 2D Waiting: Splinter",
+549,,,"Unusual NT: 6=4 Minors","After bidding Diamonds, a later 2N overcall shows 6D, 4C."
+550,,,"Help-Suit Game Try: Control-Showing Bid",
+551,,,"Overcall: Jump, Fit-Showing",
+553,,,"4th Suit Forcing 1 Round",
+554,,,"Raise, Limit: Minor Suit, Non-competitive",
+555,"x","x","Inverted Minors [See: Raise of 1C/D…]","Raise of 1C/D: Inverted Minors"
+556,,"0","Takeout Double: 6-5 Over 2NT","6-5 in majors over an opening 2NT."
+557,,"0","Unusual NT: High Level 2-Suiter",
+558,,,"1-Over-1 Response: Up The Line","Bid 4-card D suit before 4-card major."
+559,"0",,"Splinter - Random Sing/Void, Wk/Str",
+560,,,"1-Over-1 Response",
+561,,,"Jump-Shift, Weak: Non-Vul Over TOX",
+562,,,"Jump-Shift, Weak: Vul Over TOX",
+563,,,"3N Balanced",
+564,,,"Jump-Shift, Weak Over TOX: Non-Vul",
+565,"0",,"Jump-Shift, Strong Over TOX: 2-Level",
+566,,,"Jump-Shift, Weak Over TOX: Vul",
+567,"0",,"Jump-Shift, Strong Over TOX: 3-Level",
+568,,,"Jump-Shift, Weak Over TOX: 3-Level",
+569,,,"Cue Bid: Takeout By 4th Chair",
+570,,,"Cue Bid: Takeout Of Overcall",
+571,," ","Slam Try - 5T Jump: Control Ask","Asks pard to bid slam with stopper in opp's suit."
+572,,,"Slam Try - 5T Jump: Invitational",
+573," ",,"RKCB 1430","Roman Keycard Blackwood 1430"
+574,,,"DOPI","Double = 0, 2 or 4.  Pass = 1, 3, 5 key cards."
+575,,,"RKCB","Standard RKCB or bids which apply to all variants like void showing."
+576,"0",,"ROPI Modified","RKCB 1430 in Competition"
+46,"0",,"Penalty Double",
+490," ",,"Negative Double",
+536," ",,"Negative Double: 2nd Double","Doubler doubles a second time after a pass by partner."
+237," ",,"Negative Double: Penalty Pass",
+552," ",,"Negative Double: Rebid By Opener","After responder passes, opener doubles when short in LHO's suit."
+236," ",,"Negative Double: Response",
+34," ",,"Negative Double: Through 2S",

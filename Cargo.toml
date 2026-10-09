@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["crates/engine", "crates/cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Unlicense"
+repository = "https://github.com/bridge-craftwork/bidbase"
+
+[workspace.dependencies]
+bridge-types = { git = "https://github.com/bridge-craftwork/bridge-types" }
+bidbase-engine = { path = "crates/engine" }
+csv = "1"
+serde = { version = "1", features = ["derive"] }
