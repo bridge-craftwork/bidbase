@@ -99,7 +99,8 @@ Read with `python3 -I` and tools from outside the folder.
 
 **Use `./dev-build.sh`, not bare cargo** (same pattern as rusty-bidding-bot,
 whose CLAUDE.md explains it). `bridge-types` is a git dependency; the
-gitignored `.cargo/config.toml` patches it to `../bridge-types`. The script
+gitignored `.cargo/config.toml` patches it to `../bridge-types` (and
+`bridge-card` to `../convention-card`). The script
 swaps in a local lock (`.cargo/dev.lock`) so the committed `Cargo.lock`
 keeps its git pins, and runs everything through `cpu-gate.sh`, which shares
 rusty-bidding-bot's machine-wide gate (`RBB_*` settings, one heavy job at a
@@ -110,7 +111,12 @@ work create it with:
 ```toml
 [patch.'https://github.com/bridge-craftwork/bridge-types']
 bridge-types = { path = "../bridge-types" }
+[patch.'https://github.com/bridge-craftwork/convention-card']
+bridge-card = { path = "../convention-card/crates/bridge-card" }
 ```
+
+`bridge-card` (convention-card's Rust crate) is pinned to a tag
+(`v0.9.0`); move the pin to pick up a newer card spec.
 
 - `./dev-build.sh test`: unit tests, plus `crates/engine/tests/rules_2018.rs`
   (familiar auctions and floors on the self-test counts).
@@ -124,6 +130,15 @@ bridge-types = { path = "../bridge-types" }
 - `--all-conventions` (any command) ignores the `BidNames.Selected`
   switches. In the 2018 copy 1,424 rules are switched off, including
   natural NT responses and four-card 1-over-1 responses to 1C.
+- `--card <card.json>` (any command) sets the switches from a convention
+  card in convention-card's native JSON, through `card/bidbase-map.toml`:
+  each `BidNames` ID is on when its card fields say so, `always` for
+  BidBase categories every system has, and unlisted IDs keep the
+  database's setting. `bidbase card [-v]` shows the map's coverage;
+  `bidbase --card X card -v` what a card switched. The map is checked
+  against convention-card's `spec/fields.toml` when it loads (paths and
+  enum values), so a spec rename fails the build's tests. Example card:
+  `card/examples/21GF-DEFAULT.card.json` (from convention-card's goldens).
 - `tools/export-db.sh <BidBase.accdb> data/<name>`: export a new copy;
   `--data data/<name>` (or `BIDBASE_DATA`) points the CLI at it.
 

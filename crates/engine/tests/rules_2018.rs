@@ -88,3 +88,23 @@ fn rules_bid_their_test_hands() {
     assert!(own <= 66, "rejects its own test hand: {own}");
     assert!(other <= 9, "unreadable or errors: {other}");
 }
+
+#[test]
+fn a_two_over_one_card_sets_the_switches() {
+    use bidbase_engine::card::CardMap;
+    let (map, vocab) = CardMap::standard().unwrap();
+    let text = std::fs::read_to_string(
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("../../card/examples/21GF-DEFAULT.card.json"),
+    )
+    .unwrap();
+    let (card, _) = bridge_card::Card::from_json(&vocab, &text).unwrap();
+    let mut base = base();
+    let applied = map.apply(&card, &mut base);
+    // 2/1 game force on, its non-forcing alternative and Precision off.
+    assert!(applied.on.contains(&5));
+    assert!(applied.off.contains(&179));
+    assert!(applied.off.contains(&47));
+    let mut b = Bidder::new(base);
+    assert_eq!(call(&mut b, "K32-KJ32-A32-Q32", "1C-P").0, "1H");
+    assert_eq!(call(&mut b, "KQ32-A32-K432-32", "1N-P").0, "2C");
+}

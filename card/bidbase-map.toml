@@ -1,0 +1,417 @@
+# Map from a convention card (convention-card's native JSON, the fields in
+# its spec/fields.toml) to BidBase's convention switches (`BidNames`:
+# `Selected` / `SubCat_Selected`). With a card, each listed convention is
+# switched on or off by the card; the rest keep the database's setting.
+#
+# Keys are `BidNames.IDnum`; `name` is the `Bid_Name`, for reading only.
+#
+#   on = "path"                  on when the bool field is true
+#   on = "!path"                 on when the bool field is false
+#   on = { "path" = value, ... } on when every field has that value
+#   on = [ cond, cond, ... ]     on when any of them holds
+#   always = true                a BidBase category every system has
+#                                ("Overcall: Resp. 2N Over P"): always on
+#
+# Unset card fields read as their spec default (bools: false). A path or
+# value the card spec doesn't have is an error when the map loads.
+#
+# Unlisted on purpose (they keep the database's setting): conventions the
+# card has no field for (Rosenkranz double, Brozel, ASTRO, CRASH, Truscott
+# over 2C, 2C 19-HCP openings, Roman 2D, Two-Way Stayman, random splinters,
+# "Free Bid, Negative", the variants of overcall cue-bid raises), and
+# those used only to describe the opponents' methods (`AgainstID`).
+#
+# Sources: BidBase names and rule counts from data/2018 (BidNames.csv,
+# Bids.csv); card fields from convention-card v0.9.0 spec/fields.toml.
+
+# ── Structure: BidBase categories, on in every system ─────────────────
+4   = { name = "(no name; general entries)", always = true }
+510 = { name = "=== section end ===", always = true }
+482 = { name = "Opening 1N HCP Specification", always = true }
+481 = { name = "Opening 2N HCP Specification", always = true }
+385 = { name = "NT Exceptions: 4-4 Majors", always = true }
+446 = { name = "NT, Strong, Exceptions: Upgrade 17HCP", always = true }
+401 = { name = "2N Balanced", always = true }
+402 = { name = "2N Balanced: 2 Doubletons", always = true }
+403 = { name = "2N Balanced: Six-Card Minor", always = true }
+128 = { name = "3rd Chair Openings", always = true }
+174 = { name = "4th Chair Openings", always = true }
+212 = { name = "4th Chair Openings: Rule Of 15", always = true }
+8   = { name = "4th Chair Openings: Weak Twos", always = true }
+457 = { name = "Rule Of 20", always = true }
+60  = { name = "Reverse: By Opener", always = true }
+351 = { name = "Reverse: Raise 2nd Suit", always = true }
+365 = { name = "1-Over-1 Response: 5+ Card Suit", always = true }
+366 = { name = "1-Over-1 Response: Reverse", always = true }
+45  = { name = "Passed Hand Response", always = true }
+105 = { name = "Raise of 1C/D", always = true }
+157 = { name = "Raise of 1H/S", always = true }
+31  = { name = "Raise, Limit: Non-competitive", always = true }
+554 = { name = "Raise, Limit: Minor Suit, Non-competitive", always = true }
+515 = { name = "Raise, Limit: vs Overcall", always = true }
+525 = { name = "Raise, Limit: vs Takeout Double", always = true }
+516 = { name = "Cue Bid: GF Raise Of Opener", always = true }
+537 = { name = "Raise By Opener Of 1/1 With 3+", always = true }
+234 = { name = "Natural NT Response", always = true }
+144 = { name = "NT Invitational Response", always = true }
+149 = { name = "NT: Minor Invitational", always = true }
+487 = { name = "NT: Game Force", always = true }
+528 = { name = "NT: Sign-Off At 2C/D", always = true }
+483 = { name = "NT: Sign-Off At 2H/S", always = true }
+148 = { name = "NT: Sign-Off At 3C/D", always = true }
+390 = { name = "NT: Sign-Off At 3H/S", always = true }
+484 = { name = "NT: Sign-Off At 4H/S", always = true }
+371 = { name = "NT: vs 1-Suiter, Points Double", always = true }
+493 = { name = "NT: Penalty Redouble", always = true }
+563 = { name = "3N Balanced", on = "!notrump.three_nt.one_suit" }
+296 = { name = "2C Strong: Positive Response", always = true }
+297 = { name = "2C Strong: Jump Response", always = true }
+507 = { name = "2C Strong: 2D Waiting", always = true }
+451 = { name = "2C Strong: 2D Waiting: Continuation", always = true }
+548 = { name = "2C Strong: 2D Waiting: Splinter", always = true }
+177 = { name = "2C Strong: 2nd Negative", always = true }
+509 = { name = "2C Strong: Balanced", always = true }
+111 = { name = "Preempt", always = true }
+233 = { name = "Preempt: Jump-Shift Response", always = true }
+294 = { name = "Preempt: New Suit Forcing", always = true }
+460 = { name = "Preempt: Raise", always = true }
+517 = { name = "Preempt.Raise: Of Opener, vs Overcall", always = true }
+100 = { name = "Grand Slam Force", always = true }
+571 = { name = "Slam Try - 5T Jump: Control Ask", always = true }
+572 = { name = "Slam Try - 5T Jump: Invitational", always = true }
+62  = { name = "Solid Minor", always = true }
+63  = { name = "Solid Suit", always = true }
+153 = { name = "Free Bid", always = true }
+215 = { name = "Free Bid: Passed Hand", always = true }
+229 = { name = "Free Bid: Weak", always = true }
+97  = { name = "Penalty Pass", always = true }
+88  = { name = "Redouble, Penalty", always = true }
+302 = { name = "Double - Optional", always = true }
+152 = { name = "Double - Points Showing", always = true }
+303 = { name = "Pass", always = true }
+269 = { name = "Problem Hand", always = true }
+189 = { name = "Natural Bid Of Opp's Suit", always = true }
+348 = { name = "Natural Bid Of Opp's Suit: Raise", always = true }
+138 = { name = "Cue Bid: Strength 3rd Seat", always = true }
+519 = { name = "Cue Bid: Strength 4th Seat", always = true }
+569 = { name = "Cue Bid: Takeout By 4th Chair", always = true }
+142 = { name = "Cue Bid: Takeout Of Opening 3+ Bid", always = true }
+570 = { name = "Cue Bid: Takeout Of Overcall", always = true }
+345 = { name = "Cue Bid: NT Try", always = true }
+
+# Balancing
+358 = { name = "Balancing", always = true }
+191 = { name = "Balancing: 1-Level Bid", always = true }
+192 = { name = "Balancing: 2-Level Jump Bid", always = true }
+356 = { name = "Balancing: 2-Level Non-Jump Bid", always = true }
+193 = { name = "Balancing: 3-Level Jump Bid", always = true }
+357 = { name = "Balancing: 3-Level Non-Jump Bid", always = true }
+134 = { name = "Balancing: 3N = Running Minor", always = true }
+331 = { name = "Balancing: By Opener", always = true }
+196 = { name = "Balancing: Cue Bid", always = true }
+287 = { name = "Balancing: Cue Bid for NT", always = true }
+194 = { name = "Balancing: Double", always = true }
+272 = { name = "Balancing: Double - Response", always = true }
+328 = { name = "Balancing: Double By Opener", always = true }
+195 = { name = "Balancing: Game Jump Bid", always = true }
+197 = { name = "Balancing: Jump NT", always = true }
+133 = { name = "Balancing: Non-Jump NT", always = true }
+407 = { name = "Balancing: Pass", always = true }
+547 = { name = "Balancing: Prebalancing", always = true }
+198 = { name = "Balancing: Problem Hands", always = true }
+349 = { name = "Balancing: Suit Bid", always = true }
+350 = { name = "Balancing: Unusual NT", always = true }
+
+# Overcalls and advances
+480 = { name = "Overcall: 2-Level Non-Jump", always = true }
+479 = { name = "Overcall: 3-Level Non-Jump", always = true }
+298 = { name = "Overcall: 3N Opp. Passed Hand", always = true }
+251 = { name = "Overcall: 4-Level Non-Jump", always = true }
+205 = { name = "Overcall: 4th Seat - 1 Level", always = true }
+206 = { name = "Overcall: 4th Seat - 2 Level", always = true }
+243 = { name = "Overcall: 4th Seat - 3 Level", always = true }
+478 = { name = "Overcall: 4th Seat - 4 Level", always = true }
+477 = { name = "Overcall: 4th Seat - Jump", always = true }
+244 = { name = "Overcall: 4th Seat - Natural NT", always = true }
+223 = { name = "Overcall: 5+ Card Suit", always = true }
+476 = { name = "Overcall: 5+ Card Suit (Fav)", always = true }
+391 = { name = "Overcall: 5-Level Non-Jump", always = true }
+288 = { name = "Overcall: 6+ Card Suit", always = true }
+245 = { name = "Overcall: 6-4", always = true }
+246 = { name = "Overcall: 6=5", always = true }
+247 = { name = "Overcall: 7-3", always = true }
+544 = { name = "Overcall: Cue Bid, Points", always = true }
+250 = { name = "Overcall: Jump Opposite Passed Hand", always = true }
+187 = { name = "Overcall: New Suit, Jump", always = true }
+270 = { name = "Overcall: New Suit, On 3-Level", always = true }
+216 = { name = "Overcall: Raise", always = true }
+258 = { name = "Overcall: Raise, Standard", always = true }
+273 = { name = "Overcall: Raise To 3 Level, Non-Jump", always = true }
+474 = { name = "Overcall: Raise to 3 Over 2N", always = true }
+132 = { name = "Overcall: Raise, Total Tricks", always = true }
+473 = { name = "Overcall: Resp. 1N Over 1x", always = true }
+472 = { name = "Overcall: Resp. 1N Over D", always = true }
+471 = { name = "Overcall: Resp. 1N Over P", always = true }
+470 = { name = "Overcall: Resp. 2N Over 1N", always = true }
+469 = { name = "Overcall: Resp. 2N Over 1x", always = true }
+468 = { name = "Overcall: Resp. 2N Over 2x", always = true }
+467 = { name = "Overcall: Resp. 2N Over D", always = true }
+276 = { name = "Overcall: Resp. 2N Over P", always = true }
+466 = { name = "Overcall: Resp. 3N Over 1x", always = true }
+465 = { name = "Overcall: Resp. 3N Over D", always = true }
+277 = { name = "Overcall: Resp. 3N Over P", always = true }
+278 = { name = "Overcall: Resp. 3N Over Raise", always = true }
+397 = { name = "NT Overcall: Balanced", always = true }
+199 = { name = "Overcall: 4-Card Suit", on = "overcalls.often_4_cards" }
+
+# Takeout doubles
+67  = { name = "Takeout Double", always = true }
+333 = { name = "Takeout Double: 2N By Dblr", always = true }
+321 = { name = "Takeout Double: 2N Free Bid", always = true }
+326 = { name = "Takeout Double: 2nd Dbl By Doubler", always = true }
+309 = { name = "Takeout Double: 2nd Response", always = true }
+340 = { name = "Takeout Double: 3N By Doubler", always = true }
+285 = { name = "Takeout Double: 4th Seat", always = true }
+299 = { name = "Takeout Double: Balancing", always = true }
+304 = { name = "Takeout Double: By Opener", always = true }
+305 = { name = "Takeout Double: By Overcaller", always = true }
+546 = { name = "Takeout Double: Continuation", always = true }
+332 = { name = "Takeout Double: Cue Bid By Doubler", always = true }
+284 = { name = "Takeout Double: Cue Bid Resp.", always = true }
+213 = { name = "Takeout Double: ELC", always = true }
+267 = { name = "Takeout Double: Forced Response", always = true }
+322 = { name = "Takeout Double: Free Bid 1 Level", always = true }
+323 = { name = "Takeout Double: Free Bid 2 Level", always = true }
+439 = { name = "Takeout Double: Free Bid 3 Level", always = true }
+440 = { name = "Takeout Double: Free Bid 4 Level", always = true }
+445 = { name = "Takeout Double: Free Bid 5 Level", always = true }
+263 = { name = "Takeout Double: Game Jump", always = true }
+232 = { name = "Takeout Double: Jump Response", always = true }
+325 = { name = "Takeout Double: Jump To 2 Level", always = true }
+324 = { name = "Takeout Double: Jump To 3 Level", always = true }
+318 = { name = "Takeout Double: Jump To 4 Level", always = true }
+533 = { name = "Takeout Double: NT Resp. For Minors", always = true }
+274 = { name = "Takeout Double: NT Response", always = true }
+444 = { name = "Takeout Double: Natural Cue Bid", always = true }
+264 = { name = "Takeout Double: On Shape", always = true }
+265 = { name = "Takeout Double: On Strength", always = true }
+308 = { name = "Takeout Double: Optional Dbl", always = true }
+330 = { name = "Takeout Double: Pard Passed", always = true }
+319 = { name = "Takeout Double: Pass", always = true }
+266 = { name = "Takeout Double: Passed Pard.", always = true }
+443 = { name = "Takeout Double: Penalty Dbl.", always = true }
+346 = { name = "Takeout Double: Penalty Pass", always = true }
+300 = { name = "Takeout Double: Pre-Balancing", always = true }
+311 = { name = "Takeout Double: Raise By Doubler", always = true }
+338 = { name = "Takeout Double: Raise Of 1N", always = true }
+343 = { name = "Takeout Double: Raise by Advancer", always = true }
+341 = { name = "Takeout Double: Resp. By Dblr", always = true }
+316 = { name = "Takeout Double: Resp. Over Jordan", always = true }
+339 = { name = "Takeout Double: Splinter By Dblr", always = true }
+556 = { name = "Takeout Double: 6-5 Over 2NT", always = true }
+
+# ── General approach ───────────────────────────────────────────────────
+5   = { name = "2/1 Forcing", on = "major_openings.two_over_one.game_force" }
+179 = { name = "2/1 Non-Forcing", on = "!major_openings.two_over_one.game_force" }
+224 = { name = "4-Card Majors", on = "!major_openings.five_card_majors" }
+47  = { name = "Precision", on = { "general.system_category" = "precision" } }
+48  = { name = "Precision: Impossible Negative", on = { "general.system_category" = "precision" } }
+49  = { name = "Precision: Jacoby Transfer", on = { "general.system_category" = "precision" } }
+50  = { name = "Precision: Jump Raise", on = { "general.system_category" = "precision" } }
+51  = { name = "Precision: Jump Rebid", on = { "general.system_category" = "precision" } }
+52  = { name = "Precision: Sign-off", on = { "general.system_category" = "precision" } }
+53  = { name = "Precision: Single Raise", on = { "general.system_category" = "precision" } }
+54  = { name = "Precision: Stayman", on = { "general.system_category" = "precision" } }
+55  = { name = "Precision: Transfer To Clubs", on = { "general.system_category" = "precision" } }
+
+# ── Notrump openings and responses ─────────────────────────────────────
+290 = { name = "NT, Strong: Two Doubletons", on = "notrump.one_nt.allow_5422" }
+291 = { name = "NT, Strong: Six-Card Minor", on = "notrump.one_nt.allow_6_minor" }
+387 = { name = "NT: Good Hand Under-Minimum", on = "notrump.one_nt.allow_one_less" }
+159 = { name = "Stayman", on = "notrump.stayman.play" }
+388 = { name = "Stayman: Garbage", on = "notrump.stayman.garbage" }
+353 = { name = "Puppet Stayman", on = "notrump.stayman.puppet_1nt" }
+354 = { name = "Puppet Stayman: Strong NT", on = { "notrump.stayman.puppet_1nt" = true, "general.nt_open_style" = "strong" } }
+355 = { name = "Puppet Stayman: Weak NT", on = { "notrump.stayman.puppet_1nt" = true, "general.nt_open_style" = "weak" } }
+103 = { name = "Jacoby Transfer", on = "notrump.transfers.jacoby" }
+523 = { name = "Jacoby Transfer: Accepted", on = "notrump.transfers.jacoby" }
+389 = { name = "Jacoby Transfer: Slam Interest", on = "notrump.transfers.jacoby" }
+524 = { name = "Jacoby Transfer: Super Accepted", on = "notrump.transfers.super_accept" }
+522 = { name = "Jacoby Transfer: 2N Opened", on = "notrump.two_nt.transfers_3level" }
+164 = { name = "Texas Transfer", on = "notrump.transfers.texas" }
+110 = { name = "Minor Suit Stayman", on = "notrump.minor_suit_stayman.play" }
+526 = { name = "Minor Suit Stayman: 1N Overcall", on = { "notrump.minor_suit_stayman.play" = true, "nt_overcalls.direct.systems_on" = true } }
+145 = { name = "NT Transfer to Minors", on = { "notrump.minor_transfers" = "relay" } }
+147 = { name = "NT Transfer to Clubs", on = ["notrump.transfers.two_s_clubs", { "notrump.minor_transfers" = "four_way" }] }
+146 = { name = "NT Transfer to Diamonds", on = ["notrump.transfers.two_nt_diamonds", { "notrump.minor_transfers" = "four_way" }] }
+239 = { name = "NT: Quantitative Raise", on = "slam.quantitative_4nt.play" }
+240 = { name = "NT Slam Invitation", on = "slam.quantitative_4nt.play" }
+486 = { name = "NT: Over Natural 2C - Penalty Dbl", on = "notrump.dbl.penalty" }
+378 = { name = "Lebensohl: 3N With No Stopper", on = "notrump.lebensohl.over_interference" }
+375 = { name = "Lebensohl: Game Force", on = "notrump.lebensohl.over_interference" }
+372 = { name = "Lebensohl: Nat 2C: Penalty", on = "notrump.lebensohl.over_interference" }
+374 = { name = "Lebensohl: Relay to 3C", on = "notrump.lebensohl.over_interference" }
+373 = { name = "Lebensohl: Sign-Off", on = "notrump.lebensohl.over_interference" }
+376 = { name = "Lebensohl: Stayman", on = "notrump.lebensohl.over_interference" }
+184 = { name = "Gambling 3N", on = "notrump.three_nt.one_suit" }
+167 = { name = "Gambling 3N: Response", on = "notrump.three_nt.one_suit" }
+514 = { name = "2C Strong: Balanced, 25-27 HCPs", on = "notrump.three_nt.one_suit" }
+109 = { name = "Overcall: 1N - Transfer", on = "nt_overcalls.direct.systems_on" }
+
+# ── Major and minor openings ───────────────────────────────────────────
+181 = { name = "1N Resp. Non-Forcing", on = { "major_openings.one_nt_response.forcing" = false, "major_openings.one_nt_response.semi_forcing" = false } }
+94  = { name = "1N Resp. Semi-Forcing", on = "major_openings.one_nt_response.semi_forcing" }
+20  = { name = "Raise, Jacoby 2NT", on = "major_openings.jacoby_2nt.play" }
+96  = { name = "Bergen Raise", on = ["major_openings.bergen_raises.play", "major_openings.bergen_raises.reverse"] }
+171 = { name = "Bergen Over 2NT", on = ["major_openings.bergen_raises.play", "major_openings.bergen_raises.reverse"] }
+158 = { name = "Drury", on = "major_openings.drury.play" }
+64  = { name = "Splinter", on = "major_openings.splinters.play" }
+93  = { name = "Raise, Preemptive", on = ["major_openings.jump_raise.weak", "minor_openings.one_club.jump_raise.weak", "minor_openings.one_diamond.jump_raise.weak"] }
+19  = { name = "Raise of 1C/D: Inverted Minors", on = "minor_openings.inverted_minors.play" }
+# BidBase's only four-card 1-over-1 responses: a major before up to four
+# diamonds (207), 1D without a four-card major (368). That is Walsh style;
+# BidBase has no up-the-line rule for 4-4 in the red suits, so both stay on
+# whatever minor_openings.one_club_responses says.
+207 = { name = "1-Over-1 Response: Maj. Before D", always = true }
+368 = { name = "1-Over-1 Response: 4D, No 4+ H or S", always = true }
+136 = { name = "Cue Bid: Limit Raise Of Opener", on = "competitive.cue_bid_raise.play" }
+139 = { name = "Raise, Limit: 2N vs Takeout Double", on = "vs_to_double.two_nt_raise_majors.play" }
+
+# Jump shifts
+73  = { name = "Jump-Shift, Weak", on = ["general.jump_shifts.weak_2", "other_conventions.weak_jump_shifts_not_in_comp"] }
+433 = { name = "Jump-Shift, Weak: 3-Level", on = "general.jump_shifts.weak_3" }
+432 = { name = "Jump-Shift, Weak: 4-Level", on = "general.jump_shifts.weak_3" }
+65  = { name = "Jump-Shift, Strong", on = ["general.jump_shifts.strong_2", "general.jump_shifts.strong_3"] }
+447 = { name = "Jump-Shift, Strong: 2-Level", on = "general.jump_shifts.strong_2" }
+448 = { name = "Jump-Shift, Strong: 3-Level", on = "general.jump_shifts.strong_3" }
+449 = { name = "Jump-Shift, Strong: 4-Level", on = "general.jump_shifts.strong_3" }
+450 = { name = "Jump-Shift, Strong: 5-Level", on = "general.jump_shifts.strong_3" }
+565 = { name = "Jump-Shift, Strong Over TOX: 2-Level", on = { "vs_to_double.jump_shift" = "forcing" } }
+567 = { name = "Jump-Shift, Strong Over TOX: 3-Level", on = { "vs_to_double.jump_shift" = "forcing" } }
+568 = { name = "Jump-Shift, Weak Over TOX: 3-Level", on = { "vs_to_double.jump_shift" = "weak" } }
+561 = { name = "Jump-Shift, Weak: Non-Vul Over TOX", on = { "vs_to_double.jump_shift" = "weak" } }
+562 = { name = "Jump-Shift, Weak: Vul Over TOX", on = { "vs_to_double.jump_shift" = "weak" } }
+
+# Rebids and game tries
+553 = { name = "4th Suit Forcing 1 Round", on = ["other_conventions.fourth_suit_forcing.one_round", { "other_conventions.fourth_suit_forcing.play" = true, "other_conventions.fourth_suit_forcing.game_force" = false }] }
+180 = { name = "4th Suit Forcing To Game", on = "other_conventions.fourth_suit_forcing.game_force" }
+534 = { name = "Help-Suit Game Try", on = "other_conventions.help_suit_game_tries.play" }
+550 = { name = "Help-Suit Game Try: Control-Showing Bid", on = "other_conventions.help_suit_game_tries.play" }
+
+# ── Two-level openings, preempts ───────────────────────────────────────
+6   = { name = "2C Strong", on = [{ "two_level.two_clubs.meaning" = "strong" }, { "two_level.two_clubs.meaning" = "very_strong" }] }
+79  = { name = "Weak Twos", on = [{ "two_level.two_hearts.meaning" = "weak" }, { "two_level.two_spades.meaning" = "weak" }, { "two_level.two_diamonds.meaning" = "weak" }] }
+161 = { name = "Weak Twos: Balanced NT Resp.", always = true }
+170 = { name = "Weak Twos: Double", always = true }
+220 = { name = "Weak Twos: Favorable Vul.", always = true }
+431 = { name = "Weak Twos: Jump Raise", always = true }
+163 = { name = "Weak Twos: Raise", always = true }
+169 = { name = "Weak Twos: Redouble", always = true }
+162 = { name = "Weak Twos: Feature Asking", on = { "two_level.weak_two_2nt_response" = "feature" } }
+504 = { name = "Feature Asking 2N", on = { "two_level.weak_two_2nt_response" = "feature" } }
+295 = { name = "Ogust", on = ["two_level.ogust.play", { "two_level.weak_two_2nt_response" = "ogust" }] }
+363 = { name = "Weak Twos: New Suit Non-Forcing", on = ["two_level.two_hearts.new_suit_nf", "two_level.two_spades.new_suit_nf", "two_level.two_diamonds.new_suit_nf"] }
+268 = { name = "Weak Twos: New Suit Forcing", on = { "two_level.two_hearts.new_suit_nf" = false, "two_level.two_spades.new_suit_nf" = false } }
+17  = { name = "Flannery", on = "two_level.flannery.play" }
+33  = { name = "Mini-Roman 2D", on = "two_level.two_diamonds.mini_roman" }
+292 = { name = "Namyats", on = "preempts.namyats.play" }
+56  = { name = "Preempt: Light", on = "general.very_light.preempts" }
+461 = { name = "Preempt: Light: Favorable Vul", on = "general.very_light.preempts" }
+458 = { name = "Preempt, Sound: Favorable Vul", on = "!general.very_light.preempts" }
+459 = { name = "Preempt, Sound: Equal Vul", on = "!general.very_light.preempts" }
+
+# ── Slam ───────────────────────────────────────────────────────────────
+98  = { name = "Blackwood", on = "slam.blackwood.standard" }
+575 = { name = "RKCB", on = ["slam.blackwood.rkcb_1430", "slam.blackwood.rkcb_0314"] }
+573 = { name = "RKCB 1430", on = "slam.blackwood.rkcb_1430" }
+576 = { name = "ROPI Modified", on = "slam.ropi" }
+160 = { name = "Gerber", on = "slam.gerber.play" }
+74  = { name = "Western Cue Bid", on = "slam.western_cuebid.play" }
+173 = { name = "Control-Showing Bid", on = "slam.cue_bids.play" }
+
+# ── Competition ────────────────────────────────────────────────────────
+490 = { name = "Negative Double", on = "doubles.negative.play" }
+536 = { name = "Negative Double: 2nd Double", on = "doubles.negative.play" }
+491 = { name = "Negative Double: Of 3C Thru 3S", on = "doubles.negative.play" }
+237 = { name = "Negative Double: Penalty Pass", on = "doubles.negative.play" }
+552 = { name = "Negative Double: Rebid By Opener", on = "doubles.negative.play" }
+236 = { name = "Negative Double: Response", on = "doubles.negative.play" }
+34  = { name = "Negative Double: Through 2S", on = "doubles.negative.play" }
+46  = { name = "Penalty Double", on = "!doubles.negative.play" }
+320 = { name = "Penalty Double: 4 of RHOs Suit", on = "!doubles.negative.play" }
+336 = { name = "Penalty Double: Penalty Pass", on = "!doubles.negative.play" }
+107 = { name = "Takeout Double: Responsive Dbl", on = "doubles.responsive.play" }
+532 = { name = "Takeout Double: Resp.Dbl", on = "doubles.responsive.play" }
+344 = { name = "Takeout Double: Resp.Dbl - Minors", on = "doubles.responsive.play" }
+441 = { name = "Takeout Double: Resp.Dbl - Unbids", on = "doubles.responsive.play" }
+334 = { name = "Takeout Double: Responsive Dbl: Cue Bid Resp.", on = "doubles.responsive.play" }
+337 = { name = "Takeout Double: Responsive Dbl: Jump Resp.", on = "doubles.responsive.play" }
+335 = { name = "Takeout Double: Responsive Dbl: Response", on = "doubles.responsive.play" }
+462 = { name = "Overcall: Responsive Dbl. On 2-Level", on = "doubles.responsive.play" }
+463 = { name = "Overcall: Resp.Dbl. On 1-Level", on = "doubles.responsive.play" }
+280 = { name = "Overcall: Resp.Dbl. On 3-Level", on = "doubles.responsive.play" }
+281 = { name = "Overcall: Resp.Dbl. On 4-Level", on = "doubles.responsive.play" }
+464 = { name = "Overcall: Resp.Dbl. Over 1N", on = "doubles.responsive.play" }
+279 = { name = "Overcall: Resp.Dbl. Over Raise", on = "doubles.responsive.play" }
+307 = { name = "Takeout Double: Support Dbl.", on = "doubles.support.play" }
+261 = { name = "Redouble, Support", on = "doubles.support.rdbl" }
+102 = { name = "Redouble, S.O.S.", on = "other_conventions.sos_redouble.play" }
+68  = { name = "MOST Doubles", on = "doubles.min_offshape_to" }
+497 = { name = "MOST Doubles: 1N Response", on = "doubles.min_offshape_to" }
+312 = { name = "MOST Doubles: 2-Level Response", on = "doubles.min_offshape_to" }
+496 = { name = "MOST Doubles: 2N Response", on = "doubles.min_offshape_to" }
+313 = { name = "MOST Doubles: 3-Level Response", on = "doubles.min_offshape_to" }
+495 = { name = "MOST Doubles: Free Bid", on = "doubles.min_offshape_to" }
+188 = { name = "MOST Doubles: Response", on = "doubles.min_offshape_to" }
+494 = { name = "MOST Doubles: Responsive Double", on = ["doubles.min_offshape_to", "doubles.responsive.play"] }
+283 = { name = "Takeout Double: Lebensohl", on = "competitive.lebensohl_weak_twos.play" }
+30  = { name = "Lead-Directing Double", on = "competitive.lead_directing_double.play" }
+454 = { name = "Overcall: Snapdragon Double", on = "competitive.snapdragon.play" }
+529 = { name = "Sandwich Notrump", on = "competitive.sandwich_nt.play" }
+551 = { name = "Overcall: Jump, Fit-Showing", on = "competitive.fit_showing_jumps.play" }
+
+# Overcalls
+211 = { name = "Overcall: Jump, Weak - Light", on = { "overcalls.jump" = "weak" } }
+252 = { name = "Overcall: Jump, Weak - Sound (Eq.)", on = { "overcalls.jump" = "weak" } }
+253 = { name = "Overcall: Jump, Weak - Sound (Eq.+)", on = { "overcalls.jump" = "weak" } }
+254 = { name = "Overcall: Jump, Weak - Sound (Fav)", on = { "overcalls.jump" = "weak" } }
+255 = { name = "Overcall: Jump, Weak - Sound (Unfav)", on = { "overcalls.jump" = "weak" } }
+81  = { name = "Overcall: Jump, Strong", on = { "overcalls.jump" = "strong" } }
+256 = { name = "Overcall: New Suit, Non-Forcing", on = [{ "overcalls.responses.new_suit" = "nf" }, { "overcalls.responses.new_suit" = "nf_constructive" }] }
+257 = { name = "Overcall: Raise, Preemptive", on = { "overcalls.responses.jump_raise" = "weak" } }
+475 = { name = "Overcall: Raise, Limit", on = { "overcalls.responses.jump_raise" = "invitational" } }
+137 = { name = "Overcall: Raise Cue Bid, Limit", on = "overcalls.responses.support_cuebid" }
+518 = { name = "Overcall: Raise Cue Bid, Forcing", on = "overcalls.responses.support_cuebid" }
+
+# Two-suited overcalls
+32  = { name = "Michaels", on = "competitive.michaels.play" }
+301 = { name = "Michaels: 4th Seat", on = "competitive.michaels.play" }
+130 = { name = "Michaels: Total Tricks Resp.", on = "competitive.michaels.play" }
+69  = { name = "Unusual NT", on = "competitive.unusual_2nt.play" }
+203 = { name = "Unusual NT: Lower 2 Unbid Suits", on = ["nt_overcalls.jump_2nt_lowest_unbid", { "competitive.unusual_2nt.play" = true, "nt_overcalls.jump_2nt_minors" = false }] }
+70  = { name = "Unusual NT: For Minors (Always)", on = "nt_overcalls.jump_2nt_minors" }
+530 = { name = "Unusual NT In 4th Seat, Non-Jump", on = "competitive.unusual_2nt.play" }
+549 = { name = "Unusual NT: 6=4 Minors", on = "competitive.unusual_2nt.play" }
+217 = { name = "Unusual NT: by Passed Hand", on = "competitive.unusual_2nt.play" }
+218 = { name = "Overcall: Passed Hand Un.NT", on = "competitive.unusual_2nt.play" }
+226 = { name = "Cue Bid: Of Unusual NT", on = "competitive.unusual_vs_unusual.play" }
+
+# Defence to 1NT
+411 = { name = "Cappelletti Over NT: H and C/D", on = [{ "competitive.vs_1nt_strong.system" = "cappelletti" }, { "competitive.vs_1nt_strong.system" = "modified_cappelletti" }] }
+393 = { name = "Cappelletti Over NT: H and S", on = [{ "competitive.vs_1nt_strong.system" = "cappelletti" }, { "competitive.vs_1nt_strong.system" = "modified_cappelletti" }] }
+412 = { name = "Cappelletti Over NT: One-Suiter", on = [{ "competitive.vs_1nt_strong.system" = "cappelletti" }, { "competitive.vs_1nt_strong.system" = "modified_cappelletti" }] }
+413 = { name = "Cappelletti Over NT: S and C/D", on = [{ "competitive.vs_1nt_strong.system" = "cappelletti" }, { "competitive.vs_1nt_strong.system" = "modified_cappelletti" }] }
+414 = { name = "Cappelletti Over NT: S and H", on = [{ "competitive.vs_1nt_strong.system" = "cappelletti" }, { "competitive.vs_1nt_strong.system" = "modified_cappelletti" }] }
+423 = { name = "DONT: C and D/H/S 4+ 5 Non-vul", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+424 = { name = "DONT: C and D/H/S 5-5", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+425 = { name = "DONT: D and H/S 4+ 5 Non-vul", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+426 = { name = "DONT: D and H/S 5-5", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+427 = { name = "DONT: H and S 4+ 5 Non-vul", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+428 = { name = "DONT: H and S 5-5", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+395 = { name = "DONT: Majors - 2N Response", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+429 = { name = "DONT: One-Suiter", on = ["competitive.dont.play", { "competitive.vs_1nt_strong.system" = "dont" }] }
+29  = { name = "Landy", on = [{ "competitive.vs_1nt_strong.system" = "landy" }, { "competitive.vs_1nt_strong.system" = "multi_landy" }] }
+498 = { name = "Meckwell vs Strong NT: Natural", on = { "competitive.vs_1nt_strong.system" = "meckwell" } }
+499 = { name = "Meckwell vs Strong NT: D and 1M", on = { "competitive.vs_1nt_strong.system" = "meckwell" } }
+500 = { name = "Meckwell vs Strong NT: C and 1M", on = { "competitive.vs_1nt_strong.system" = "meckwell" } }
+501 = { name = "Meckwell vs Strong NT: 2M or 1m", on = { "competitive.vs_1nt_strong.system" = "meckwell" } }

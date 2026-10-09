@@ -13,4 +13,5 @@ path = "src/main.rs"
 [dependencies]
 bidbase-engine.workspace = true
 bridge-types.workspace = true
+bridge-card.workspace = true
 clap = { version = "4", features = ["derive", "env"] }

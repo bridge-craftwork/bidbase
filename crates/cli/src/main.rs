@@ -5,8 +5,10 @@ use std::collections::BTreeMap;
 use std::path::PathBuf;
 use std::process::ExitCode;
 
+use bidbase_engine::card::{Applied, CardMap, Switch};
 use bidbase_engine::selftest::{check_rule, Verdict};
 use bidbase_engine::{Bidder, Request, Rule, RuleBase, Scoring, Vul};
+use bridge_card::Card;
 use bridge_types::{Call, Hand};
 use clap::{Parser, Subcommand};
 
@@ -24,6 +26,10 @@ struct Cli {
     /// use every convention.
     #[arg(long, global = true)]
     all_conventions: bool,
+    /// Set the convention switches from a convention card (convention-card's
+    /// native JSON), through card/bidbase-map.toml.
+    #[arg(long, global = true)]
+    card: Option<PathBuf>,
     #[command(subcommand)]
     command: Command,
 }
@@ -61,6 +67,13 @@ enum Command {
         /// The rule's ID.
         id: i64,
     },
+    /// Show which conventions a card switches on and off (--card), or with
+    /// no card, what the map covers.
+    Card {
+        /// List each convention, not just the totals.
+        #[arg(short, long)]
+        verbose: bool,
+    },
     /// Check every rule against its test hand, as the BidBase Editor does
     /// when an entry is saved.
     Selftest {
@@ -86,7 +99,18 @@ fn main() -> ExitCode {
     if cli.all_conventions {
         base.switch_all_on();
     }
+    let applied = match &cli.card {
+        Some(path) => match apply_card(path, &mut base) {
+            Ok(a) => Some(a),
+            Err(e) => {
+                eprintln!("bidbase: {e}");
+                return ExitCode::FAILURE;
+            }
+        },
+        None => None,
+    };
     match cli.command {
+        Command::Card { verbose } => show_card(&base, applied.as_ref(), verbose),
         Command::Bid {
             hand,
             auction,
@@ -224,6 +248,67 @@ fn normalize_auction(auction: &str) -> Option<String> {
         out.push(token);
     }
     Some(out.join("-"))
+}
+
+fn apply_card(path: &std::path::Path, base: &mut RuleBase) -> Result<Applied, String> {
+    let (map, vocab) = CardMap::standard()?;
+    let text = std::fs::read_to_string(path).map_err(|e| format!("{}: {e}", path.display()))?;
+    let (card, report) =
+        Card::from_json(&vocab, &text).map_err(|e| format!("{}: {e}", path.display()))?;
+    if !report.is_clean() {
+        eprintln!("bidbase: {}: {report:?}", path.display());
+    }
+    Ok(map.apply(&card, base))
+}
+
+/// With a card: the switches it set. Without: how much of the database the
+/// map covers, by rules.
+fn show_card(base: &RuleBase, applied: Option<&Applied>, verbose: bool) -> ExitCode {
+    let mut rules_of: BTreeMap<i64, usize> = BTreeMap::new();
+    for r in base.rules.iter().filter(|r| !r.is_section_end()) {
+        *rules_of.entry(r.convention()).or_default() += 1;
+    }
+    let count = |ids: &[i64]| -> (usize, usize) {
+        let used: Vec<_> = ids.iter().filter(|id| rules_of.contains_key(id)).collect();
+        (used.len(), used.iter().map(|id| rules_of[id]).sum())
+    };
+    let line = |label: &str, ids: &[i64]| {
+        let (n, rules) = count(ids);
+        println!("{label:<34} {n:>4} conventions, {rules:>5} rules");
+        if verbose {
+            for id in ids.iter().filter(|id| rules_of.contains_key(id)) {
+                let name = base.conventions.get(id).map_or("", |c| c.name.as_str());
+                println!("    {id:>4} {:>4}  {name}", rules_of[id]);
+            }
+        }
+    };
+    match applied {
+        Some(a) => {
+            line("on (card or always)", &a.on);
+            line("off (card)", &a.off);
+            line("not in the map: database setting", &a.kept);
+        }
+        None => {
+            let Ok((map, _)) = CardMap::standard() else {
+                eprintln!("bidbase: the card map doesn't load");
+                return ExitCode::FAILURE;
+            };
+            let ids: Vec<i64> = rules_of.keys().copied().filter(|id| *id != 0).collect();
+            let (always, carded): (Vec<i64>, Vec<i64>) = ids
+                .iter()
+                .filter(|id| map.entries.contains_key(id))
+                .partition(|id| map.entries[id].switch == Switch::Always);
+            let unmapped: Vec<i64> = ids
+                .iter()
+                .copied()
+                .filter(|id| !map.entries.contains_key(id))
+                .collect();
+            line("set by card fields", &carded);
+            line("always on (BidBase categories)", &always);
+            line("not in the map", &unmapped);
+        }
+    }
+    ExitCode::SUCCESS
 }
 
 fn show_rule(base: &RuleBase, id: i64) -> ExitCode {

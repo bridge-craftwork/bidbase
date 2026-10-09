@@ -21,6 +21,7 @@
 //! ```
 
 pub mod auction;
+pub mod card;
 pub mod checks;
 pub mod convert;
 pub mod hand;
