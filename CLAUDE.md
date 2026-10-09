@@ -113,6 +113,8 @@ work create it with:
 bridge-types = { path = "../bridge-types" }
 [patch.'https://github.com/bridge-craftwork/convention-card']
 bridge-card = { path = "../convention-card/crates/bridge-card" }
+[patch.'https://github.com/bridge-craftwork/bridge-encodings']
+bridge-encodings = { path = "../bridge-encodings" }
 ```
 
 `bridge-card` (convention-card's Rust crate) is pinned to a tag
@@ -139,6 +141,15 @@ bridge-card = { path = "../convention-card/crates/bridge-card" }
   against convention-card's `spec/fields.toml` when it loads (paths and
   enum values), so a spec rename fails the build's tests. Example card:
   `card/examples/21GF-DEFAULT.card.json` (from convention-card's goldens).
+- `... --card X.json -- bid-pbn -i deals.pbn -o out.pbn`: bid every deal
+  at all four seats, written in bba-cli's layout. No rule means Pass (as
+  the 2018 practice program); after partner's 4NT the "RKCB: 4N-x" /
+  "Blackwood: 4N-x" keys are tried.
+- `python3 -I tools/compare_runs.py DD.jsonl NAME=FILE.pbn ...`: score
+  engines' contracts double-dummy against par (`rbb dd` output), with
+  agreement and head-to-head IMPs. `runs/random-500/` is the first run
+  (README there): BidBase 6.6 IMPs/board from par, BBA 4.3, Rusty 4.8;
+  BidBase's gap is rule coverage (no rule for 68% of calls).
 - `tools/export-db.sh <BidBase.accdb> data/<name>`: export a new copy;
   `--data data/<name>` (or `BIDBASE_DATA`) points the CLI at it.
 

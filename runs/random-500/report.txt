@@ -1,0 +1,15 @@
+500 deals, scored double-dummy against par.
+
+engine      IMPs from par  at par  passed out  partscore   game   slam
+BBA             4.32/brd     37%           2        268    203     27
+Rusty           4.80/brd     31%           1        260    217     22
+BidBase         6.61/brd     16%          26        426     48      0
+
+Agreement with BBA:
+  Rusty      same auction  20%   same contract and declarer  37%
+  BidBase    same auction   6%   same contract and declarer  12%
+
+Head to head (IMPs nearer par, on boards where the contracts differ):
+  BBA vs Rusty: +241 IMPs to BBA over 314 boards (+0.77 per differing board)
+  BBA vs BidBase: +1143 IMPs to BBA over 440 boards (+2.60 per differing board)
+  Rusty vs BidBase: +902 IMPs to Rusty over 442 boards (+2.04 per differing board)

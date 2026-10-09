@@ -1,6 +1,8 @@
 //! `bidbase`: ask the BidBase port for a call, look at a rule, or check
 //! every rule against its own test hand.
 
+mod bid_pbn;
+
 use std::collections::BTreeMap;
 use std::path::PathBuf;
 use std::process::ExitCode;
@@ -67,6 +69,17 @@ enum Command {
         /// The rule's ID.
         id: i64,
     },
+    /// Bid every deal of a PBN file at all four seats; write the auctions
+    /// in bba-cli's layout. The card (--card) plays both sides.
+    BidPbn {
+        #[arg(short, long)]
+        input: PathBuf,
+        #[arg(short, long)]
+        output: PathBuf,
+        /// Seed for rules used a percentage of the time.
+        #[arg(long, default_value_t = 1)]
+        seed: u64,
+    },
     /// Show which conventions a card switches on and off (--card), or with
     /// no card, what the map covers.
     Card {
@@ -111,6 +124,14 @@ fn main() -> ExitCode {
     };
     match cli.command {
         Command::Card { verbose } => show_card(&base, applied.as_ref(), verbose),
+        Command::BidPbn { input, output, seed } => {
+            let card = cli
+                .card
+                .as_ref()
+                .and_then(|p| p.file_stem())
+                .map_or("BidBase database switches".to_string(), |s| s.to_string_lossy().into_owned());
+            run_bid_pbn(base, &input, &output, seed, &card)
+        }
         Command::Bid {
             hand,
             auction,
@@ -248,6 +269,43 @@ fn normalize_auction(auction: &str) -> Option<String> {
         out.push(token);
     }
     Some(out.join("-"))
+}
+
+fn run_bid_pbn(base: RuleBase, input: &std::path::Path, output: &std::path::Path, seed: u64, card: &str) -> ExitCode {
+    let text = match std::fs::read_to_string(input) {
+        Ok(t) => t,
+        Err(e) => {
+            eprintln!("bidbase: {}: {e}", input.display());
+            return ExitCode::FAILURE;
+        }
+    };
+    let mut bidder = Bidder::new(base);
+    bidder.seed(seed);
+    let started = std::time::Instant::now();
+    match bid_pbn::bid_pbn(&text, &mut bidder, card, card) {
+        Ok((out, st)) => {
+            if let Err(e) = std::fs::write(output, out) {
+                eprintln!("bidbase: {}: {e}", output.display());
+                return ExitCode::FAILURE;
+            }
+            eprintln!(
+                "{} deals, {} calls in {:.1}s: {} with no rule (passed), {} illegal (passed), \
+                 {} 4NT replies by ace-asking key, {} runaway",
+                st.deals,
+                st.calls,
+                started.elapsed().as_secs_f64(),
+                st.no_rule,
+                st.illegal,
+                st.slam_keys,
+                st.runaway
+            );
+            ExitCode::SUCCESS
+        }
+        Err(e) => {
+            eprintln!("bidbase: {e}");
+            ExitCode::FAILURE
+        }
+    }
 }
 
 fn apply_card(path: &std::path::Path, base: &mut RuleBase) -> Result<Applied, String> {

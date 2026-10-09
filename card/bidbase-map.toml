@@ -237,7 +237,10 @@
 523 = { name = "Jacoby Transfer: Accepted", on = "notrump.transfers.jacoby" }
 389 = { name = "Jacoby Transfer: Slam Interest", on = "notrump.transfers.jacoby" }
 524 = { name = "Jacoby Transfer: Super Accepted", on = "notrump.transfers.super_accept" }
-522 = { name = "Jacoby Transfer: 2N Opened", on = "notrump.two_nt.transfers_3level" }
+# Transfers over 2NT: the card often leaves the field unset (BBA's .bbsa
+# has no key; BBA plays them), and BidBase has no other 3-level responses
+# to 2NT, so Jacoby over 1NT turns them on too.
+522 = { name = "Jacoby Transfer: 2N Opened", on = ["notrump.two_nt.transfers_3level", "notrump.transfers.jacoby"] }
 164 = { name = "Texas Transfer", on = "notrump.transfers.texas" }
 110 = { name = "Minor Suit Stayman", on = "notrump.minor_suit_stayman.play" }
 526 = { name = "Minor Suit Stayman: 1N Overcall", on = { "notrump.minor_suit_stayman.play" = true, "nt_overcalls.direct.systems_on" = true } }
@@ -309,7 +312,9 @@
 169 = { name = "Weak Twos: Redouble", always = true }
 162 = { name = "Weak Twos: Feature Asking", on = { "two_level.weak_two_2nt_response" = "feature" } }
 504 = { name = "Feature Asking 2N", on = { "two_level.weak_two_2nt_response" = "feature" } }
-295 = { name = "Ogust", on = ["two_level.ogust.play", { "two_level.weak_two_2nt_response" = "ogust" }] }
+# BidBase's only replies to 2NT over a weak two are Ogust's; feature
+# replies have no rules, so Ogust stays on whatever the card asks for.
+295 = { name = "Ogust", always = true }
 363 = { name = "Weak Twos: New Suit Non-Forcing", on = ["two_level.two_hearts.new_suit_nf", "two_level.two_spades.new_suit_nf", "two_level.two_diamonds.new_suit_nf"] }
 268 = { name = "Weak Twos: New Suit Forcing", on = { "two_level.two_hearts.new_suit_nf" = false, "two_level.two_spades.new_suit_nf" = false } }
 17  = { name = "Flannery", on = "two_level.flannery.play" }
