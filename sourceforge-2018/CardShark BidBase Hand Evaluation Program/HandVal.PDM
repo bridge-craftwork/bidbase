@@ -1,0 +1,846 @@
+[Root]
+Most Recent Package=CSBB_HEP2
+
+
+[Package|BBHEP Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\HandVal_Pkg
+
+[Package|BBHEP Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Jet 2.x=Yes
+Lotus=No
+Paradox=No
+
+[Package|BBHEP Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=
+
+[Package|BBHEP Standard Setup Package 1|Files Found]
+
+[Package|BBHEP Standard Setup Package 1|Files Released]
+
+[Package|BBHEP Standard Setup Package 1|Missing Dependency Information]
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=
+
+[Package|BBHEP Standard Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|BBHEP Standard Setup Package 1|Files Added]
+c:\programming\microsoft visual studio\vb98\bridge\bb-hep.mdb=
+c:\programming\microsoft visual studio\vb98\bridge\table16.ico=
+c:\programming\microsoft visual studio\vb98\bridge\table.ico=
+c:\programming\microsoft visual studio\vb98\bridge\tablespecs.htm=
+c:\programming\microsoft visual studio\vb98\bridge\bidbase fileviewer.exe=
+c:\programming\microsoft visual studio\vb98\bridge\notes\zar_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\bidbase_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_abbreviations.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_background.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_bid_simulator.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_editor_input_boxes.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_editor_menus.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_file_viewer.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_hand_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_nt_specs_background.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cardshark_bidbase_practice_program.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\cobra_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\fifths_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\goren_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\knr_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\notes\pavlicek_evaluation.htm=
+c:\programming\microsoft visual studio\vb98\bridge\gridfix.exe=
+c:\programming\microsoft visual studio\vb98\bridge\bidbasefileviewer.cfg=
+
+[Package|BBHEP Standard Setup Package 1|Files Removed]
+
+[Package|BBHEP Standard Setup Package 1|Files In Project]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM32\expsrv.dll=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=Yes
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=Yes
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=Yes
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=Yes
+C:\WINDOWS\SYSTEM32\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM32\msrepl35.dll=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+
+[Package|BBHEP Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|BBHEP Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|BBHEP Standard Setup Package 1|Install Locations]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao360.dll=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\expsrv.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mswstr10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mswdat10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd3x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjtes40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=$(WinSysPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSDBRPTR.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+
+[Package|BBHEP Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=No
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+
+[Package|BBHEP Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=CardShark BidBase Hand Evaluator
+
+[Package|BBHEP Standard Setup Package 1|Package]
+PackageFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\HandVal_Pkg
+ProjectFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge
+ServerSideCab=
+File1=C:\Programming\Microsoft Visual Studio\VB98\Bridge\HandVal_Pkg\setup.exe
+File2=C:\Programming\Microsoft Visual Studio\VB98\Bridge\HandVal_Pkg\Setup.Lst
+File3=C:\Programming\Microsoft Visual Studio\VB98\Bridge\HandVal_Pkg\CardShark BidBase HandVal.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|BBHEP Standard Setup Package 1|IconGroups]
+Group0=CardShark BidBase Hand Evaluator
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|BBHEP Standard Setup Package 1|CardShark BidBase Hand Evaluator]
+Icon1="CardShark BidBase HandVal.exe"
+Title1=CardShark BidBase Hand Evaluator
+StartIn1=$(AppPath)
+Key1=Icon1
+
+
+[Package|CSBB_HandVal Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal
+
+[Package|CSBB_HandVal Setup Package 1|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Jet 2.x=No
+Lotus=No
+Paradox=No
+
+[Package|CSBB_HandVal Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|CSBB_HandVal Setup Package 1|Files Found]
+
+[Package|CSBB_HandVal Setup Package 1|Files Released]
+
+[Package|CSBB_HandVal Setup Package 1|Missing Dependency Information]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=
+
+[Package|CSBB_HandVal Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|CSBB_HandVal Setup Package 1|Files Added]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\vbarepair.exe=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=
+
+[Package|CSBB_HandVal Setup Package 1|Files Removed]
+
+[Package|CSBB_HandVal Setup Package 1|Files In Project]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=Yes
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=Yes
+C:\WINDOWS\SYSTEM32\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM32\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM32\expsrv.dll=Yes
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM32\msrepl35.dll=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=Yes
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\vbarepair.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=Yes
+
+[Package|CSBB_HandVal Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|CSBB_HandVal Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|CSBB_HandVal Setup Package 1|Install Locations]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\expsrv.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=$(WinSysPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\vbarepair.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=$(AppPath)\Notes
+
+[Package|CSBB_HandVal Setup Package 1|Configure Shared Files]
+Applicable=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\vbarepair.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\BidBase_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=No
+
+[Package|CSBB_HandVal Setup Package 1|Distribution]
+Type=single
+Size=
+Title=CardShark BidBase Hand Evaluation Program
+
+[Package|CSBB_HandVal Setup Package 1|IconGroups]
+Group0=CardShark BidBase Hand Evaluation Program
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|CSBB_HandVal Setup Package 1|CardShark BidBase Hand Evaluation Program]
+Icon1="CardShark BidBase HandVal.exe"
+Title1=CardShark BidBase Hand Evaluation Program
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|CSBB_HandVal Setup Package 1|Package]
+PackageFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal
+ProjectFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge
+ServerSideCab=
+File1=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal\setup.exe
+File2=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal\Setup.Lst
+File3=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal\CardShark BidBase HandVal.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|CSBB_HEP2|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal2
+
+[Package|CSBB_HEP2|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=No
+Excel=No
+Exchange=No
+Text=No
+Jet 2.x=No
+Lotus=No
+Paradox=No
+
+[Package|CSBB_HEP2|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=
+
+[Package|CSBB_HEP2|Files Found]
+
+[Package|CSBB_HEP2|Files Released]
+
+[Package|CSBB_HEP2|Missing Dependency Information]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=
+
+[Package|CSBB_HEP2|Out-of-Date Dependency Information]
+
+[Package|CSBB_HEP2|Files Added]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\FileViewer.ico=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Cappelletti_Over_NT.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programmer_Notes.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programming_Notes.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Version_Changes.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=
+
+[Package|CSBB_HEP2|Files Removed]
+
+[Package|CSBB_HEP2|Files In Project]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=Yes
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=Yes
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=Yes
+C:\WINDOWS\SYSTEM32\msjet35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjter35.dll=Yes
+C:\WINDOWS\SYSTEM32\msjint35.dll=Yes
+C:\WINDOWS\SYSTEM32\vbajet32.dll=Yes
+C:\WINDOWS\SYSTEM32\expsrv.dll=Yes
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=Yes
+C:\WINDOWS\SYSTEM32\msrepl35.dll=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=Yes
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=Yes
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\FileViewer.ico=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Cappelletti_Over_NT.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programmer_Notes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programming_Notes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Version_Changes.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=Yes
+
+[Package|CSBB_HEP2|Configure Registry Files]
+Applicable=No
+
+[Package|CSBB_HEP2|Configure Remote Servers]
+Applicable=No
+
+[Package|CSBB_HEP2|Install Locations]
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSBIND.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msstdfmt.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO350.DLL=$(MSDAOPath)
+C:\WINDOWS\SYSTEM32\msjet35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjter35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msjint35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\expsrv.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrd2x35.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\msrepl35.dll=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\dbgrid32.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\msflxgrd.ocx=$(WinSysPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\FileViewer.ico=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Cappelletti_Over_NT.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programmer_Notes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programming_Notes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Version_Changes.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=$(AppPath)\Notes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=$(AppPath)\Notes
+
+[Package|CSBB_HEP2|Configure Shared Files]
+Applicable=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\CardShark BidBase HandVal.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\gridfix.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBase FileViewer.exe=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\TableSpecs.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BB-HEP.mdb=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\BidBaseFileViewer.cfg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\FileViewer.ico=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table16.ico=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Table.ico=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Zar_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\c.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Cappelletti_Over_NT.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Abbreviations.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Bid_Simulator.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Input_Boxes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Editor_Menus.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_File_Viewer.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Hand_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_NT_Specs_Background.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programmer_Notes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Programming_Notes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CardShark_BidBase_Version_Changes.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\COBRA_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\CompareAdjustments.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\d.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dc.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\dealer.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Fifths_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\findbid.jpg=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Goren_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\h.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\hs.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\KNR_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\Pavlicek_Evaluation.htm=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s1.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s2.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s3.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\s.gif=No
+C:\Programming\Microsoft Visual Studio\VB98\Bridge\Notes\TSP_Evaluation.htm=No
+
+[Package|CSBB_HEP2|Distribution]
+Type=single
+Size=
+Title=CardShark BidBase Hand Evaluation System
+
+[Package|CSBB_HEP2|Package]
+PackageFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal2
+ProjectFolder=C:\Programming\Microsoft Visual Studio\VB98\Bridge
+ServerSideCab=
+File1=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal2\setup.exe
+File2=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal2\Setup.Lst
+File3=C:\Programming\Microsoft Visual Studio\VB98\Bridge\Package HandVal2\CardShark BidBase HandVal.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|CSBB_HEP2|IconGroups]
+Group0=CardShark BidBase Hand Evaluation System
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|CSBB_HEP2|CardShark BidBase Hand Evaluation System]
+Icon1="CardShark BidBase HandVal.exe"
+Title1=CardShark BidBase Hand Evaluation System
+StartIn1=$(AppPath)
+Key1=Icon1
