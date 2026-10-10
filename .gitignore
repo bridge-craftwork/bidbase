@@ -4,3 +4,4 @@ __pycache__/
 *.laccdb
 /target
 /.cargo/
+/nelson-2026/

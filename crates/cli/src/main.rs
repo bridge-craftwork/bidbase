@@ -80,6 +80,15 @@ enum Command {
         #[arg(long, default_value_t = 1)]
         seed: u64,
     },
+    /// Walk the auctions of another engine's PBN (bba-cli layout) and ask
+    /// BidBase for every call in the same position: how often its rules
+    /// fire, and how often they agree. `-v` lists every disagreement.
+    Replay {
+        #[arg(short, long)]
+        input: PathBuf,
+        #[arg(short, long)]
+        verbose: bool,
+    },
     /// Show which conventions a card switches on and off (--card), or with
     /// no card, what the map covers.
     Card {
@@ -124,12 +133,19 @@ fn main() -> ExitCode {
     };
     match cli.command {
         Command::Card { verbose } => show_card(&base, applied.as_ref(), verbose),
-        Command::BidPbn { input, output, seed } => {
+        Command::Replay { input, verbose } => run_replay(base, &input, verbose),
+        Command::BidPbn {
+            input,
+            output,
+            seed,
+        } => {
             let card = cli
                 .card
                 .as_ref()
                 .and_then(|p| p.file_stem())
-                .map_or("BidBase database switches".to_string(), |s| s.to_string_lossy().into_owned());
+                .map_or("BidBase database switches".to_string(), |s| {
+                    s.to_string_lossy().into_owned()
+                });
             run_bid_pbn(base, &input, &output, seed, &card)
         }
         Command::Bid {
@@ -224,9 +240,15 @@ fn bid(
     }
     match out.result {
         Ok(found) => {
-            println!("{}  (rule #{})", found.call, found.rule_id);
-            if disclose && !found.disclosure.is_empty() {
-                println!("\n{}", found.disclosure.trim_end());
+            println!(
+                "{}  (rule #{}) {}",
+                found.call, found.rule_id, found.meaning
+            );
+            if disclose {
+                println!("\n{} can show (every enabled rule for it):", found.call);
+                for (id, m) in &found.meanings {
+                    println!("  #{id:<6} {m}");
+                }
             }
             ExitCode::SUCCESS
         }
@@ -271,7 +293,90 @@ fn normalize_auction(auction: &str) -> Option<String> {
     Some(out.join("-"))
 }
 
-fn run_bid_pbn(base: RuleBase, input: &std::path::Path, output: &std::path::Path, seed: u64, card: &str) -> ExitCode {
+fn run_replay(base: RuleBase, input: &std::path::Path, verbose: bool) -> ExitCode {
+    let text = match std::fs::read_to_string(input) {
+        Ok(t) => t,
+        Err(e) => {
+            eprintln!("bidbase: {}: {e}", input.display());
+            return ExitCode::FAILURE;
+        }
+    };
+    let mut bidder = Bidder::new(base);
+    let calls = match bid_pbn::replay(&text, &mut bidder) {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("bidbase: {e}");
+            return ExitCode::FAILURE;
+        }
+    };
+    // Split by whether the reference call is a pass, since "no rule fits"
+    // is BidBase passing.
+    #[derive(Default)]
+    struct Tally {
+        calls: usize,
+        unknown: usize,
+        no_fit: usize,
+        fired: usize,
+        agree: usize,
+    }
+    let mut by_kind: BTreeMap<&str, Tally> = BTreeMap::new();
+    for c in &calls {
+        let kind = if c.theirs == "P" {
+            "their pass"
+        } else {
+            "their bid/double"
+        };
+        for key in [kind, "all"] {
+            let t = by_kind.entry(key).or_default();
+            t.calls += 1;
+            match &c.ours {
+                Some(ours) => {
+                    t.fired += 1;
+                    t.agree += usize::from(*ours == c.theirs);
+                }
+                None if c.known => t.no_fit += 1,
+                None => t.unknown += 1,
+            }
+        }
+        if verbose {
+            if let Some(ours) = c.ours.as_ref().filter(|o| **o != c.theirs) {
+                println!(
+                    "board {:>3} {:<28} theirs {:<3} ours {:<3} (#{})",
+                    c.board,
+                    format!("{:?}", c.prior),
+                    c.theirs,
+                    ours,
+                    c.rule_id.unwrap_or(0)
+                );
+            }
+        }
+    }
+    let pct = |a: usize, b: usize| 100.0 * a as f64 / b.max(1) as f64;
+    println!(
+        "{:<17} {:>6} {:>15} {:>14} {:>12} {:>16}",
+        "", "calls", "no rules (seq)", "rules, no fit", "rule fired", "fired and agree"
+    );
+    for (kind, t) in by_kind.iter().rev() {
+        println!(
+            "{kind:<17} {:>6} {:>14.0}% {:>13.0}% {:>11.0}% {:>9} = {:.0}%",
+            t.calls,
+            pct(t.unknown, t.calls),
+            pct(t.no_fit, t.calls),
+            pct(t.fired, t.calls),
+            t.agree,
+            pct(t.agree, t.fired)
+        );
+    }
+    ExitCode::SUCCESS
+}
+
+fn run_bid_pbn(
+    base: RuleBase,
+    input: &std::path::Path,
+    output: &std::path::Path,
+    seed: u64,
+    card: &str,
+) -> ExitCode {
     let text = match std::fs::read_to_string(input) {
         Ok(t) => t,
         Err(e) => {
@@ -289,12 +394,13 @@ fn run_bid_pbn(base: RuleBase, input: &std::path::Path, output: &std::path::Path
                 return ExitCode::FAILURE;
             }
             eprintln!(
-                "{} deals, {} calls in {:.1}s: {} with no rule (passed), {} illegal (passed), \
-                 {} 4NT replies by ace-asking key, {} runaway",
+                "{} deals, {} calls in {:.1}s: {} with no rule (passed; {} in sequences with \
+                 no rules), {} illegal (passed), {} 4NT replies by ace-asking key, {} runaway",
                 st.deals,
                 st.calls,
                 started.elapsed().as_secs_f64(),
                 st.no_rule,
+                st.unknown_auction,
                 st.illegal,
                 st.slam_keys,
                 st.runaway

@@ -3,6 +3,12 @@
 
     python3 -I tools/compare_runs.py DD.jsonl NAME=FILE.pbn NAME=FILE.pbn ...
 
+Filters, any number, applied to the deals before scoring:
+    --keep NAME:TAG=VALUE   keep deals where engine NAME's board has TAG=VALUE
+    --drop NAME:TAG=VALUE   drop them instead
+e.g. `--drop BidBase:Contract=Pass` (deals BidBase passed out) or
+`--keep BidBase:BidBaseUnknownAuction=0`.
+
 DD.jsonl is `rbb dd` output for the deals (tricks per declarer N E S W and
 strain C D H S NT, `par_ns`). Each FILE.pbn is one engine's auctions, in
 bba-cli's layout (`[Deal]`, `[Vulnerable]`, `[Contract]`, `[Declarer]`,
@@ -102,7 +108,15 @@ def ns_score(board, tricks_by_decl):
 
 
 def main():
-    dd_path, *runs = sys.argv[1:]
+    args = sys.argv[1:]
+    filters = []
+    while args and args[0] in ("--keep", "--drop"):
+        flag, spec = args[0], args[1]
+        name, cond = spec.split(":", 1)
+        tag, value = cond.split("=", 1)
+        filters.append((flag == "--keep", name, tag, value))
+        args = args[2:]
+    dd_path, *runs = args
     dd = {}
     for line in open(dd_path):
         rec = json.loads(line)
@@ -110,6 +124,9 @@ def main():
     names = [r.split("=", 1)[0] for r in runs]
     data = {r.split("=", 1)[0]: read_pbn(r.split("=", 1)[1]) for r in runs}
     deals = [d for d in data[names[0]] if d in dd and all(d in data[n] for n in names)]
+    all_deals = len(deals)
+    for keep, name, tag, value in filters:
+        deals = [d for d in deals if (data[name][d].get(tag) == value) == keep]
     ref = names[0]
     dist = {n: [] for n in names}
     contracts = {n: [] for n in names}
@@ -134,7 +151,11 @@ def main():
                 same_auction[n] += b["calls"] == data[ref][deal]["calls"]
                 same_contract[n] += c == contracts[ref][-1]
     total = len(deals)
-    print(f"{total} deals, scored double-dummy against par.\n")
+    if filters:
+        shown = ", ".join(f"{'keep' if k else 'drop'} {n}:{t}={v}" for k, n, t, v in filters)
+        print(f"{total} of {all_deals} deals ({shown}), scored double-dummy against par.\n")
+    else:
+        print(f"{total} deals, scored double-dummy against par.\n")
     print(f"{'engine':<10} {'IMPs from par':>14} {'at par':>7} {'passed out':>11} {'partscore':>10} {'game':>6} {'slam':>6}")
     for n in names:
         d = dist[n]

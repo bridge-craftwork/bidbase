@@ -92,38 +92,7 @@ impl<'a> Ctx<'a> {
         if let Some(result) = self.count_spec(&spec, r) {
             return result;
         }
-        let prior = &self.auction.prior_bids;
-        let bid = r.bid.as_str();
-        let (min_nt, max_nt) = if prior.starts_with("1N")
-            || (spec.starts_with("min") && bid.starts_with("1N"))
-            || spec.starts_with("hcp1n")
-        {
-            (self.nt.one_min, self.nt.one_max)
-        } else if prior.starts_with("2N") || spec.starts_with("min") || spec.starts_with("hcp2n") {
-            (self.nt.two_min, self.nt.two_max)
-        } else {
-            (0, 0)
-        };
-        let (lo, hi) = if spec == "min" {
-            (min_nt, min_nt)
-        } else if let Some(rest) = spec.strip_prefix("min") {
-            match ival(rest) {
-                0 => (min_nt + 1, max_nt),
-                n => (min_nt + n, min_nt + n),
-            }
-        } else if spec == "hcp1n" || spec == "hcp2n" {
-            (min_nt, max_nt)
-        } else if let Some(rest) = spec.strip_prefix('p') {
-            // Partnership total: "P24-25" opposite 15-17 is 9-10. The VB
-            // tested for "P" after lower-casing the spec, so it never
-            // fired and "P24-25" read as 0-25.
-            let (lo, hi) = int_range(rest, 40);
-            let lo = if lo > 0 { lo - min_nt } else { 0 };
-            let hi = if hi < 40 { hi - min_nt } else { 40 };
-            (lo.max(0), hi)
-        } else {
-            int_range(&spec, 40)
-        };
+        let (lo, hi) = hcp_bounds(&spec, &self.auction.prior_bids, &r.bid, self.nt);
         if have < lo || have > hi {
             return Err(format!("{} HCP, needs {lo}-{hi}", have));
         }
@@ -799,9 +768,45 @@ fn min_spec(spec: &str, have: f64, what: &str) -> Check {
     }
 }
 
+/// The HCP range a rule's `HCP` spec (lower-cased, not an ace or key-card
+/// count) stands for after `prior` bids. "Min", "HCP1N" and "P24-25"
+/// (partnership total) read from the notrump ranges.
+pub fn hcp_bounds(spec: &str, prior: &str, bid: &str, nt: NtRanges) -> (i32, i32) {
+    let (min_nt, max_nt) = if prior.starts_with("1N")
+        || (spec.starts_with("min") && bid.starts_with("1N"))
+        || spec.starts_with("hcp1n")
+    {
+        (nt.one_min, nt.one_max)
+    } else if prior.starts_with("2N") || spec.starts_with("min") || spec.starts_with("hcp2n") {
+        (nt.two_min, nt.two_max)
+    } else {
+        (0, 0)
+    };
+    if spec == "min" {
+        (min_nt, min_nt)
+    } else if let Some(rest) = spec.strip_prefix("min") {
+        match ival(rest) {
+            0 => (min_nt + 1, max_nt),
+            n => (min_nt + n, min_nt + n),
+        }
+    } else if spec == "hcp1n" || spec == "hcp2n" {
+        (min_nt, max_nt)
+    } else if let Some(rest) = spec.strip_prefix('p') {
+        // Partnership total: "P24-25" opposite 15-17 is 9-10. The VB
+        // tested for "P" after lower-casing the spec, so it never fired
+        // and "P24-25" read as 0-25.
+        let (lo, hi) = int_range(rest, 40);
+        let lo = if lo > 0 { lo - min_nt } else { 0 };
+        let hi = if hi < 40 { hi - min_nt } else { 40 };
+        (lo.max(0), hi)
+    } else {
+        int_range(spec, 40)
+    }
+}
+
 /// A points range as the HCP and Dist_Pts fields write it: "12" (exactly),
 /// "12+", "12-14", "<12", ">12", "12-" (up to 12). `top` caps open ranges.
-fn int_range(spec: &str, top: i32) -> (i32, i32) {
+pub fn int_range(spec: &str, top: i32) -> (i32, i32) {
     let spec = spec.trim();
     let n = ival(spec);
     if let Some(t) = spec.strip_prefix('<') {

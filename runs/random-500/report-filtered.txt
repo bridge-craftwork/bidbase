@@ -1,0 +1,33 @@
+## Deals BidBase did not pass out
+474 of 500 deals (drop BidBase:Contract=Pass), scored double-dummy against par.
+
+engine      IMPs from par  at par  passed out  partscore   game   slam
+BBA             4.25/brd     38%           0        250    197     27
+Rusty           4.86/brd     31%           0        241    211     22
+BidBase         6.62/brd     16%           0        426     48      0
+
+Agreement with BBA:
+  Rusty      same auction  20%   same contract and declarer  38%
+  BidBase    same auction   6%   same contract and declarer  12%
+
+Head to head (IMPs nearer par, on boards where the contracts differ):
+  BBA vs Rusty: +290 IMPs to BBA over 293 boards (+0.99 per differing board)
+  BBA vs BidBase: +1121 IMPs to BBA over 416 boards (+2.69 per differing board)
+  Rusty vs BidBase: +831 IMPs to Rusty over 417 boards (+1.99 per differing board)
+
+## Deals with no pass in a sequence BidBase has no rules for
+122 of 500 deals (keep BidBase:BidBaseUnknownAuction=0), scored double-dummy against par.
+
+engine      IMPs from par  at par  passed out  partscore   game   slam
+BBA             4.45/brd     30%           2         79     41      0
+Rusty           4.73/brd     25%           1         74     46      1
+BidBase         5.84/brd     14%          26         96      0      0
+
+Agreement with BBA:
+  Rusty      same auction  20%   same contract and declarer  35%
+  BidBase    same auction  11%   same contract and declarer  14%
+
+Head to head (IMPs nearer par, on boards where the contracts differ):
+  BBA vs Rusty: +34 IMPs to BBA over 79 boards (+0.43 per differing board)
+  BBA vs BidBase: +169 IMPs to BBA over 105 boards (+1.61 per differing board)
+  Rusty vs BidBase: +135 IMPs to Rusty over 111 boards (+1.22 per differing board)

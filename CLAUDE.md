@@ -28,8 +28,27 @@ rules. All of it is public domain (his license page, below). Started
   browse. `http://www.aeyec.com/bidbase/source/` and `/bidbase/Source/`
   exist (403, not 404), so the upload is probably there. Guessed names
   (`BidBase.zip`, `source.zip`, ...) all 404.
-- Until that arrives we have only the **September 2018 SourceForge
-  release** (below).
+- 2026-10-10: Nelson sent the FTP path `/[account]/AIC/CSBB`. The web
+  root is the `AIC` folder (IIS error pages show `...\www\AIC\`), so it is
+  `http://www.aeyec.com/CSBB/` (listing off). Found by guessing:
+  `CSBB/BidBase.accdb` (69 MB, modified 2026-02-10). Downloaded to
+  `nelson-2026/` (gitignored until Nelson agrees to publishing): 12,200
+  rules (2018: 5,465), 613 conventions, new tables `Combos` (card-play
+  odds) and `HandData`. **No source code found there yet**; ask him for
+  the file names (the engine `.cls`, the Editor project).
+- **2026 schema change, the likely `Adodc1` cause:** `Bids` dropped
+  `AgainstID`, `ValSystem`, `SuitVal`, `NT_Val`, `Strength_Discl`,
+  `xLen`..`CLen`, and gained `LHO`, `Pard`, `RHO`, `MySpecs` (Long, probably
+  links to other players' rules). His saved queries match the new columns;
+  the 2018 engine's SQL (`GetOPsBid`) and any form whose data control still
+  names a dropped column would raise "No value given for one or more
+  required parameters". Confirming needs his current source.
+- The port reads the 2026 export (`--data nelson-2026/data`): 8,352 of
+  12,083 rules are first match for their test hand, 1,379 reject it, mostly
+  because the newer engine reads fields differently (`Losers` is a maximum
+  with half losers, e.g. "6.5"; suit specs). Porting 2026 needs his engine.
+- Until then the port follows the **September 2018 SourceForge release**
+  (below).
 
 ## The error Nelson sees
 

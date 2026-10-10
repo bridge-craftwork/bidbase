@@ -1,0 +1,11 @@
+## Along BBA's auctions
+                   calls  no rules (seq)  rules, no fit   rule fired  fired and agree
+their pass          3087             61%            35%           4%        19 = 16%
+their bid/double    2145             29%            22%          49%       784 = 74%
+all                 5232             48%            30%          22%       803 = 68%
+
+## Along Rusty's auctions
+                   calls  no rules (seq)  rules, no fit   rule fired  fired and agree
+their pass          2972             59%            37%           4%        18 = 15%
+their bid/double    1913             20%            23%          57%       793 = 72%
+all                 4885             43%            32%          25%       811 = 67%

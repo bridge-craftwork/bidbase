@@ -26,6 +26,7 @@ pub mod checks;
 pub mod convert;
 pub mod hand;
 pub mod lookup;
+pub mod meaning;
 pub mod rules;
 pub mod selftest;
 pub mod vb;

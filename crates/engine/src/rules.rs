@@ -11,7 +11,12 @@ use crate::vb::{ival, val};
 /// One row of the `Bids` table: a call, the auction it applies to, and
 /// the hand it needs. The conditions stay as the text Nelson typed; the
 /// checks in `checks.rs` read them the way the VB6 engine did.
-#[derive(Debug, Clone, Deserialize)]
+///
+/// Columns missing from an export read as empty: the 2026 database
+/// dropped `AgainstID`, `ValSystem`, `SuitVal`, `NT_Val`, `Strength_Discl`
+/// and the disclosed lengths (`xLen`..`CLen`).
+#[derive(Debug, Clone, Default, Deserialize)]
+#[serde(default)]
 pub struct Rule {
     #[serde(rename = "ID")]
     pub id: i64,

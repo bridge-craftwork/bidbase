@@ -21,6 +21,9 @@ pub struct Stats {
     pub calls: usize,
     /// Calls where no rule fitted, so the bidder passed.
     pub no_rule: usize,
+    /// Of those, calls in an auction with no rules at all (BidBase doesn't
+    /// know the sequence); the rest had rules the hand didn't fit.
+    pub unknown_auction: usize,
     /// Calls a rule made that were not legal at that point (made Pass).
     pub illegal: usize,
     /// Replies to 4NT found under the "RKCB:" / "Blackwood:" keys.
@@ -30,17 +33,34 @@ pub struct Stats {
 }
 
 const MAX_CALLS: usize = 60;
-const SEATS: [Direction; 4] = [Direction::North, Direction::East, Direction::South, Direction::West];
+const SEATS: [Direction; 4] = [
+    Direction::North,
+    Direction::East,
+    Direction::South,
+    Direction::West,
+];
 
-pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -> Result<(String, Stats), String> {
+pub fn bid_pbn(
+    input: &str,
+    bidder: &mut Bidder,
+    ns_card: &str,
+    ew_card: &str,
+) -> Result<(String, Stats), String> {
     let mut doc = PbnDocument::parse(input).map_err(|e| e.to_string())?;
     let boards = doc.boards().to_vec();
-    let mut stats = Stats { deals: boards.len(), ..Stats::default() };
+    let mut stats = Stats {
+        deals: boards.len(),
+        ..Stats::default()
+    };
     for (idx, board) in boards.iter().enumerate() {
-        let hands: Vec<String> = SEATS.iter().map(|&d| hand_to_bidbase(board.deal.hand(d))).collect();
+        let hands: Vec<String> = SEATS
+            .iter()
+            .map(|&d| hand_to_bidbase(board.deal.hand(d)))
+            .collect();
         let dealer = board.dealer.unwrap_or(Direction::North);
         let mut auction = Auction::new(dealer);
         let mut tokens: Vec<String> = Vec::new();
+        let (mut unknown, mut unfit) = (0, 0);
         while !auction.is_complete() {
             if tokens.len() >= MAX_CALLS {
                 stats.runaway += 1;
@@ -57,6 +77,7 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
                 scoring: Scoring::Matchpoints,
                 ..Default::default()
             };
+            let mut no_rules = false;
             let found = match bidder.lookup(&req).result {
                 Ok(found) => Some(found),
                 Err(LookupError::NoRules(_)) => {
@@ -64,6 +85,7 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
                     if found.is_some() {
                         stats.slam_keys += 1;
                     }
+                    no_rules = found.is_none();
                     found
                 }
                 Err(_) => None,
@@ -77,6 +99,12 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
                 }
                 None => {
                     stats.no_rule += 1;
+                    if no_rules {
+                        stats.unknown_auction += 1;
+                        unknown += 1;
+                    } else {
+                        unfit += 1;
+                    }
                     Call::Pass
                 }
             };
@@ -94,6 +122,12 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
         };
         doc.set_tag(idx, "Declarer", &declarer).map_err(e)?;
         doc.set_tag(idx, "Contract", &contract).map_err(e)?;
+        // Passes made for want of a rule: in a sequence BidBase has no
+        // rules for, and where its rules didn't fit the hand.
+        doc.set_tag(idx, "BidBaseUnknownAuction", &unknown.to_string())
+            .map_err(e)?;
+        doc.set_tag(idx, "BidBaseNoFit", &unfit.to_string())
+            .map_err(e)?;
         // They described another contract.
         doc.remove_tag(idx, "Result").map_err(e)?;
         doc.remove_tag(idx, "Score").map_err(e)?;
@@ -104,7 +138,13 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
             .collect();
         let rows: Vec<String> = calls
             .chunks(4)
-            .map(|row| row.iter().map(|c| format!("{c:<5}")).collect::<String>().trim_end().to_string())
+            .map(|row| {
+                row.iter()
+                    .map(|c| format!("{c:<5}"))
+                    .collect::<String>()
+                    .trim_end()
+                    .to_string()
+            })
             .collect();
         let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
         doc.set_section(idx, "Auction", &dealer.to_char().to_string(), &rows)
@@ -119,7 +159,11 @@ pub fn bid_pbn(input: &str, bidder: &mut Bidder, ns_card: &str, ew_card: &str) -
 
 /// After partner's 4NT and RHO's call, look the reply up under the ace-
 /// asking keys, with our side's last suit before 4NT as trumps.
-fn slam_reply(bidder: &mut Bidder, req: &Request, tokens: &[String]) -> Option<bidbase_engine::Found> {
+fn slam_reply(
+    bidder: &mut Bidder,
+    req: &Request,
+    tokens: &[String],
+) -> Option<bidbase_engine::Found> {
     let n = tokens.len();
     if n < 2 || tokens[n - 2] != "4N" {
         return None;
@@ -145,4 +189,66 @@ fn slam_reply(bidder: &mut Bidder, req: &Request, tokens: &[String]) -> Option<b
         }
     }
     None
+}
+
+/// One call of a replayed auction: what the file's engine called and what
+/// BidBase would call in the same position.
+pub struct Replayed {
+    pub board: usize,
+    /// The calls before this one, BidBase style ("P-1C-1N").
+    pub prior: String,
+    pub theirs: String,
+    /// BidBase's call, `None` when no rule fits (it would pass).
+    pub ours: Option<String>,
+    /// Whether BidBase has any rules for the sequence.
+    pub known: bool,
+    pub rule_id: Option<i64>,
+}
+
+/// Walk every auction in a PBN file (another engine's) and ask BidBase for
+/// each call in the same position: the auction so far, the caller's hand
+/// and vulnerability.
+pub fn replay(input: &str, bidder: &mut Bidder) -> Result<Vec<Replayed>, String> {
+    let doc = PbnDocument::parse(input).map_err(|e| e.to_string())?;
+    let mut out = Vec::new();
+    for (idx, board) in doc.boards().iter().enumerate() {
+        let Some(auction) = &board.auction else {
+            continue;
+        };
+        let hands: Vec<String> = SEATS
+            .iter()
+            .map(|&d| hand_to_bidbase(board.deal.hand(d)))
+            .collect();
+        let mut seat = auction.dealer;
+        let mut tokens: Vec<String> = Vec::new();
+        for c in &auction.calls {
+            let theirs = call_to_bidbase(&c.call);
+            let req = Request {
+                hand: hands[seat.to_index()].clone(),
+                prior_calls: tokens.join("-"),
+                vul: vul_for(board.vulnerable, seat),
+                scoring: Scoring::Matchpoints,
+                ..Default::default()
+            };
+            let (ours, known, rule_id) = match bidder.lookup(&req).result {
+                Ok(f) => (Some(f.call), true, Some(f.rule_id)),
+                Err(LookupError::NoRules(_)) => match slam_reply(bidder, &req, &tokens) {
+                    Some(f) => (Some(f.call), true, Some(f.rule_id)),
+                    None => (None, false, None),
+                },
+                Err(_) => (None, true, None),
+            };
+            out.push(Replayed {
+                board: idx + 1,
+                prior: tokens.join("-"),
+                theirs: theirs.clone(),
+                ours,
+                known,
+                rule_id,
+            });
+            tokens.push(theirs);
+            seat = seat.next();
+        }
+    }
+    Ok(out)
 }

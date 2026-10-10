@@ -34,3 +34,16 @@ of 3,819 calls found no rule. Examples: flat 12-HCP openers (the plain
 HCP passed in front of the opening), and continuations after forcing
 calls. Rules were written around Nelson's test hands one auction at a
 time since 2004; his current database (8 more years) may cover more.
+
+## Where BidBase has rules (`replay.txt`, `report-filtered.txt`)
+
+Filtering deals doesn't isolate this: dropping the 26 deals BidBase
+passed out changes nothing, and keeping only deals where it never met a
+sequence without rules (122) keeps the short auctions (no games at all
+for BidBase there). So `bidbase replay` walks BBA's auctions and asks
+BidBase for each call in the same position. Where BBA bid or doubled
+(2,145 calls): BidBase had no rules for the sequence 29% of the time,
+had rules that didn't fit the hand 22%, and fired 49%; when it fired it
+made BBA's call 74% of the time (68% over all calls). Along Rusty's
+auctions: 72%. Disagreements come mostly from responses and opener's
+rebids; the commonest single one is 1D where BBA opens 1C.

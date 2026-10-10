@@ -158,6 +158,13 @@ pub struct Found {
     /// The call, with "x" replaced by the suit ("2x" -> "2H").
     pub call: String,
     pub rule_id: i64,
+    /// What the call shows by the rule that made it (`meaning::describe`).
+    pub meaning: String,
+    /// With `disclose`: every enabled rule for this auction that makes the
+    /// call, with its meaning. That is what partner and the opponents may
+    /// know: which of them matched is the bidder's secret (VB `GetDiscl`).
+    pub meanings: Vec<(i64, String)>,
+    /// With `disclose`: the 2018 engine's disclosure text.
     pub disclosure: String,
 }
 
@@ -252,14 +259,22 @@ impl Bidder {
                     } else {
                         rule.bid.clone()
                     };
-                    let disclosure = if req.disclose {
-                        self.disclosure(&auction, &call)
+                    let x_suit = call.chars().nth(1).map_or(0, suit_index);
+                    let meaning =
+                        crate::meaning::describe(&self.base, rule, &auction.prior_bids, x_suit);
+                    let (meanings, disclosure) = if req.disclose {
+                        (
+                            self.meanings(&auction, &call),
+                            self.disclosure(&auction, &call),
+                        )
                     } else {
-                        String::new()
+                        (Vec::new(), String::new())
                     };
                     return Ok(Found {
                         call,
                         rule_id: rule.id,
+                        meaning,
+                        meanings,
                         disclosure,
                     });
                 }
@@ -338,6 +353,25 @@ impl Bidder {
             return Ok(k);
         }
         Err(format!("Pct_Used {pct:?}"))
+    }
+
+    /// Every enabled rule for the auction that makes `call`, with what it
+    /// shows.
+    pub fn meanings(&self, auction: &AuctionFacts, call: &str) -> Vec<(i64, String)> {
+        let x_suit = call.chars().nth(1).map_or(0, suit_index);
+        self.base
+            .for_auction(&auction.prior_bids)
+            .iter()
+            .map(|&i| &self.base.rules[i])
+            .take_while(|r| !r.is_section_end())
+            .filter(|r| bid_makes(&r.bid, call) && self.is_enabled(r, auction.pos_num))
+            .map(|r| {
+                (
+                    r.id,
+                    crate::meaning::describe(&self.base, r, &auction.prior_bids, x_suit),
+                )
+            })
+            .collect()
     }
 
     /// VB `GetDiscl`: what partner (and the opponents) may know about the
@@ -452,7 +486,7 @@ fn bid_makes(bid: &str, call: &str) -> bool {
 }
 
 /// The explanation with "[private notes]" removed, as the VB showed it.
-fn public_explanation(text: &str) -> String {
+pub(crate) fn public_explanation(text: &str) -> String {
     let a = text.trim();
     match (a.find('['), a.find(']')) {
         (Some(open), Some(close)) if close > open => {
