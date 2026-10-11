@@ -30,9 +30,12 @@ rules. All of it is public domain (his license page, below). Started
   404.0), hence his `BidBase.zip`. A forgotten **2023** copy of the rules
   was at `http://www.aeyec.com/CSBB/BidBase.accdb` (12,200 rules; kept
   locally in the gitignored `nelson-2026/`, not published).
-- Publishing: Rick expects Nelson to agree to making this repo public (he
+- Publishing: the repo was made **public on 2026-10-11** so Nelson can see
+  it before giving a formal permission statement, which Rick expects (he
   published the 2018 release himself and has been trying to put the source
-  on his site); a clear statement from him is pending.
+  on his site). Before that, history was rewritten to drop his web-host
+  account number and his handle. Keep personal details (accounts, email
+  addresses, FTP paths) out of commits.
 - **`Adodc1` error: found (2026-10-11).** The Editor's five ADO data
   controls `Data1(0..4)` (all captioned "Adodc1") run SQL (`RecordSource`
   in `BidBase Editor.frx` at 0xD3C9, 0xD6DE, 0xD9F0, 0xDD05, 0xE01A) that
@@ -264,8 +267,9 @@ profile for comparisons.
   (and Nelson) as a source wherever its rules inform Rusty's.
 - His files are kept byte for byte (`.gitattributes`: no line-ending
   conversion). Don't run his `.exe`/`.dll` here; read the source.
-- Publishing his current code: see "People and status" (statement from
-  Nelson pending; the repo stays private until then).
+- The repo is public. Port, tools and docs: MIT OR Apache-2.0. Nelson's
+  files (`sourceforge-2018/`, `aeyec-2026/`, `data/`): his public-domain
+  work; his formal statement is pending (see "People and status").
 
 ## Sources
 
