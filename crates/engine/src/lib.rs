@@ -23,12 +23,14 @@
 pub mod auction;
 pub mod card;
 pub mod checks;
+pub mod checks2026;
 pub mod convert;
 pub mod hand;
 pub mod lookup;
 pub mod meaning;
 pub mod rules;
 pub mod selftest;
+pub mod table;
 pub mod vb;
 
 pub use auction::AuctionFacts;

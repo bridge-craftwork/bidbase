@@ -8,12 +8,12 @@
 use crate::auction::AuctionFacts;
 use crate::hand::{HandFacts, ACE, KING, QUEEN};
 use crate::lookup::Request;
-use crate::rules::{NtRanges, Rule};
+use crate::rules::{Dialect, NtRanges, Rule};
 use crate::vb::{ival, split_alt, suit_index, suit_letter, val};
 
 pub type Check = Result<(), String>;
 
-type Test<'a> = fn(&mut Ctx<'a>, &Rule) -> Check;
+pub(crate) type Test<'a> = fn(&mut Ctx<'a>, &Rule) -> Check;
 
 /// What the checks read, plus the state one rule's tests share.
 pub struct Ctx<'a> {
@@ -26,6 +26,12 @@ pub struct Ctx<'a> {
     pub intermediates: i32,
     /// The suit (1-4) that matched the rule's "x" specs, 0 if none.
     pub x_suit: usize,
+    pub dialect: Dialect,
+    /// The trump suit (1-4, 0 unknown) for ace-asking replies: from the
+    /// request, else (2026) the "@" code of the prior bids. A 2026 rule's
+    /// "Trmp" can move it; `trump0` keeps the one the counts were made for.
+    pub trump: usize,
+    pub trump0: usize,
 }
 
 impl<'a> Ctx<'a> {
@@ -34,7 +40,12 @@ impl<'a> Ctx<'a> {
         auction: &'a AuctionFacts,
         req: &'a Request,
         nt: NtRanges,
+        dialect: Dialect,
     ) -> Self {
+        let trump = match (req.trump, dialect) {
+            (0, Dialect::V2026) => crate::checks2026::trump_from_prior(&auction.prior_bids),
+            (t, _) => t,
+        };
         Ctx {
             hand,
             auction,
@@ -42,6 +53,9 @@ impl<'a> Ctx<'a> {
             nt,
             intermediates: hand.intermediates[0],
             x_suit: 0,
+            dialect,
+            trump,
+            trump0: trump,
         }
     }
 
@@ -52,6 +66,27 @@ impl<'a> Ctx<'a> {
         // module variable, so it grew with every rule tested.
         self.intermediates = self.hand.intermediates[0];
         self.x_suit = 0;
+        self.trump = self.trump0;
+        if self.dialect == Dialect::V2026 {
+            let tests: [(&'static str, Test<'a>); 12] = [
+                ("HCP", Self::total_hcp_2026),
+                ("Cust_Pts", Self::custom_points_2026),
+                ("Dist_Pts", Self::distribution_points_2026),
+                ("Winrs", Self::winners),
+                ("Losers", Self::losers_2026),
+                ("QTs", Self::quick_tricks),
+                ("Stopped_Suits", Self::stoppers),
+                ("Shape", Self::shape),
+                ("Intermed", Self::intermed_2026),
+                ("Vul", Self::vul_2026),
+                ("Pos", Self::position_2026),
+                ("Suits", Self::suits_2026),
+            ];
+            for (name, test) in tests {
+                test(self, r).map_err(|why| (name, why))?;
+            }
+            return Ok(());
+        }
         let tests: [(&'static str, Test<'a>); 13] = [
             ("HCP", Self::total_hcp),
             ("Cust_Pts", Self::custom_points),

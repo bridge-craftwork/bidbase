@@ -10,6 +10,8 @@
 
 use std::fmt;
 
+use crate::rules::Dialect;
+
 pub const ACE: usize = 14;
 pub const KING: usize = 13;
 pub const QUEEN: usize = 12;
@@ -77,6 +79,9 @@ pub struct HandFacts {
     pub shape: &'static str,
     /// "v" void, "s" singleton (and no void), or "".
     pub shortness: &'static str,
+    /// Solid suits (2026: five+ cards with all 10 top HCP, six+ headed
+    /// AKQT, nine+ with 9 HCP, eight+ with 9+ HCP).
+    pub solid: [bool; 5],
 }
 
 impl HandFacts {
@@ -84,6 +89,11 @@ impl HandFacts {
     /// costs some holdings a stopper; the 2018 engine never filled it in
     /// on the bidding path, so callers pass 0 for now.
     pub fn analyze(hand: &str, lho_suit: usize) -> Result<Self, HandError> {
+        Self::analyze_as(hand, lho_suit, Dialect::V2018)
+    }
+
+    /// Analyse a hand as the given engine does (docs/ENGINE-2026.md).
+    pub fn analyze_as(hand: &str, lho_suit: usize, dialect: Dialect) -> Result<Self, HandError> {
         let mut h = HandFacts {
             text: hand.to_string(),
             suit: Default::default(),
@@ -99,13 +109,24 @@ impl HandFacts {
             distrib: [0; 5],
             shape: "",
             shortness: "",
+            solid: [false; 5],
         };
         h.read_cards()?;
         h.count_winners();
-        h.count_losers();
+        match dialect {
+            Dialect::V2018 => h.count_losers(),
+            Dialect::V2026 => h.count_losers_2026(),
+        }
         h.count_quick_tricks();
-        h.count_stoppers(lho_suit);
-        h.classify_shape();
+        h.count_stoppers(lho_suit, dialect);
+        h.classify_shape(dialect);
+        for s in 1..=4 {
+            let (len, hcp) = (h.len[s], h.hcp[s]);
+            h.solid[s] = (len > 4 && hcp == 10)
+                || (len > 5 && h.starts(s, "AKQT"))
+                || (len > 8 && hcp == 9)
+                || (len > 7 && hcp > 8);
+        }
         Ok(h)
     }
 
@@ -271,6 +292,52 @@ impl HandFacts {
         }
     }
 
+    /// 2026 `Calculate_LosingTrickCount`: a table with half losers, stored
+    /// per suit in a VB `Integer`, which rounds half to even (0.5 -> 0,
+    /// 1.5 -> 2, 2.5 -> 2).
+    fn count_losers_2026(&mut self) {
+        for s in 1..=4 {
+            let suit = self.suit[s].as_str();
+            let top3 = suit.get(..3).unwrap_or(suit);
+            let first = suit.chars().next();
+            let half: f64 = match suit.len() {
+                0 => 0.0,
+                1 => f64::from(u8::from(suit != "A")),
+                2 => match suit {
+                    "AK" => 0.0,
+                    "AQ" => 0.5,
+                    _ if first == Some('A') || first == Some('K') => 1.0,
+                    _ => 2.0,
+                },
+                _ => {
+                    if top3 == "AKQ" {
+                        0.0
+                    } else if suit.starts_with("AK") || top3 == "AQJ" || top3 == "AQT" {
+                        1.0
+                    } else if top3 == "AJT" {
+                        1.5
+                    } else if first == Some('A') {
+                        2.0
+                    } else if top3 == "KQJ" {
+                        1.0
+                    } else if top3 == "KQT" {
+                        1.5
+                    } else if first == Some('K') || suit.starts_with("QJ") || suit.starts_with("QT")
+                    {
+                        2.0
+                    } else if first == Some('Q') {
+                        2.5
+                    } else {
+                        3.0
+                    }
+                }
+            };
+            let l = crate::vb::cint(half);
+            self.losers[s] = l;
+            self.losers[0] += l;
+        }
+    }
+
     /// VB `Calculate_QuickTricks`: AK 2, AQ 1.5, A 1, KQ 1, Kx .5; AK, AQ
     /// and KQ lose a half in a suit of six or more.
     fn count_quick_tricks(&mut self) {
@@ -296,7 +363,8 @@ impl HandFacts {
 
     /// VB `Calculate_Stoppers`: notrump stoppers per suit (0, .5, 1 or 2)
     /// and the number of suits stopped.
-    fn count_stoppers(&mut self, lho_suit: usize) {
+    fn count_stoppers(&mut self, lho_suit: usize, dialect: Dialect) {
+        let v26 = dialect == Dialect::V2026;
         for s in 1..=4 {
             let has = |r: usize| self.held[s][r];
             let len = self.len[s];
@@ -346,12 +414,14 @@ impl HandFacts {
                 };
             } else if has(QUEEN) && len > 2 {
                 if has(JACK) {
-                    n = 1.0;
+                    // 2026: QJ with the 9 or 8 is a double stopper.
+                    n = if v26 && (has(9) || has(8)) { 2.0 } else { 1.0 };
                 } else if has(TEN) && len > 3 {
                     if has(9) {
                         n = if lho { 1.0 } else { 2.0 };
                     }
-                    if has(8) && has(7) {
+                    // 2026: QT8x counts like QT9x.
+                    if (v26 && has(8)) || (has(8) && has(7)) {
                         n = if lho { 1.0 } else { 2.0 };
                     }
                     if has(7) {
@@ -362,10 +432,19 @@ impl HandFacts {
                         n = 1.0;
                     }
                 } else {
-                    n = if lho { 0.0 } else { 1.0 };
+                    // Qxx: 2026 counts half a stopper.
+                    n = if lho {
+                        0.0
+                    } else if v26 {
+                        0.5
+                    } else {
+                        1.0
+                    };
                 }
             } else if has(JACK) && len > 3 {
-                n = if has(TEN) && (has(9) || has(8)) {
+                n = if v26 && len > 4 {
+                    1.0
+                } else if has(TEN) && (has(9) || has(8)) {
                     1.0
                 } else if c3 == "J98" && len > 4 {
                     1.0
@@ -385,7 +464,7 @@ impl HandFacts {
     }
 
     /// VB `Calculate_Shape`.
-    fn classify_shape(&mut self) {
+    fn classify_shape(&mut self, dialect: Dialect) {
         let (mut n4, mut n5, mut n6, mut singles, mut voids) = (0, 0, 0, 0, 0);
         for s in 1..=4 {
             match self.len[s] {
@@ -411,7 +490,12 @@ impl HandFacts {
             } else {
                 "1"
             }
-        } else if n5 == 2 || n6 == 2 || (n5 == 1 && n6 == 1) {
+        } else if n5 == 2
+            || n6 == 2
+            || (n5 == 1 && n6 == 1)
+            || (dialect == Dialect::V2026 && n4 > 0 && (n5 == 1 || n6 == 1))
+        {
+            // 2026: a 5-4 is a two-suiter too (5-4-4-0 included).
             "2"
         } else if n5 + n4 == 3 {
             "3"
@@ -491,6 +575,19 @@ mod tests {
         assert_eq!(h("AK5432-AK2-AK2-K").shape, "1");
         assert_eq!(h("AK54-AK32-AK32-K").shape, "3");
         assert_eq!(h("AK54-AK32-AK2-K2").shape, "b");
+    }
+
+    #[test]
+    fn the_2026_engine_counts_differently() {
+        let h26 = |s: &str| HandFacts::analyze_as(s, 0, Dialect::V2026).unwrap();
+        // Half losers round half to even: AQ 0.5 -> 0, AJT 1.5 -> 2, Q32 2.5 -> 2.
+        let f = h26("AQ-AJT2-Q32-5432");
+        assert_eq!(f.losers, [7, 3, 2, 2, 0]);
+        // A 5-4 is a two-suiter; Qxx is half a stopper.
+        assert_eq!(h26("AK432-KQ32-32-32").shape, "2");
+        assert_eq!(h("AK432-KQ32-32-32").shape, "");
+        assert_eq!(h26("Q32-A32-A32-5432").stops[4], 0.5);
+        assert!(h26("AKQJ2-32-32-5432").solid[4]);
     }
 
     #[test]

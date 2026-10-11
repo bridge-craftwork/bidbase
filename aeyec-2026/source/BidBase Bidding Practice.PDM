@@ -1,0 +1,232 @@
+[Root]
+Most Recent Package=Bridge Bidding Pactice Install
+
+
+[Package|Bridge Bidding Pactice Install|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Programming\VB98\Bridge\Package
+
+[Package|Bridge Bidding Pactice Install|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Bridge Bidding Pactice Install|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Bridge Bidding Pactice Install|Files Found]
+MSADODC.OCX=C:\Windows\SysWOW64\MSADODC.OCX
+
+[Package|Bridge Bidding Pactice Install|Files Released]
+
+[Package|Bridge Bidding Pactice Install|Missing Dependency Information]
+C:\Programming\VB98\Bridge\BidBaseDB.dll=
+C:\Programming\VB98\Bridge\dds.dll=
+C:\Programming\VB98\Bridge\BidBase Editor.exe=
+C:\Programming\VB98\Bridge\BidBase File Viewer.exe=
+C:\Programming\VB98\Bridge\MSCOMCTL.OCX=
+C:\Programming\VB98\Bridge\MSINET.OCX=
+C:\Programming\VB98\Bridge\SysWow64\MSDATGRD.OCX=
+C:\Programming\VB98\Bridge\SysWow64\Richtx32.ocx=
+C:\Programming\VB98\Bridge\SysWow64\MSADODC.OCX=
+
+[Package|Bridge Bidding Pactice Install|Out-of-Date Dependency Information]
+C:\Windows\SysWOW64\Richtx32.ocx=
+C:\Windows\SysWOW64\MSSTDFMT.DLL=
+C:\Windows\SysWOW64\MSCOMCTL.OCX=
+C:\Windows\SysWOW64\msflxgrd.ocx=
+C:\Windows\SysWOW64\COMDLG32.OCX=
+C:\Windows\System32\Richtx32.ocx=
+C:\Windows\System32\MSSTDFMT.DLL=
+C:\Windows\System32\MSCOMCTL.OCX=
+
+[Package|Bridge Bidding Pactice Install|Files Added]
+c:\programming\vb98\bridge\bbeditor.cfg=
+c:\programming\vb98\bridge\bbpractice.cfg=
+c:\programming\vb98\bridge\bidbasefileviewer.cfg=
+c:\programming\vb98\bridge\aic words.accdb=
+c:\programming\vb98\bridge\bidbase.accdb=
+c:\programming\vb98\bridge\bidbase editor.exe=
+c:\programming\vb98\bridge\bidbase file viewer.exe=
+c:\windows\system32\mscomctl.ocx=
+c:\windows\system32\msinet.ocx=
+c:\programming\vb98\bridge\notes\cardshark_bidbase_practice_program.htm=
+c:\windows\system32\msdatgrd.ocx=
+c:\windows\system32\richtx32.ocx=
+c:\windows\system32\msadodc.ocx=
+c:\programming\vb98\bridge\temp98765.htm=
+c:\programming\vb98\bridge\practicedeals\bergen raises=
+c:\programming\vb98\bridge\practicedeals\deals\bergen raises.deals=
+c:\programming\vb98\bridge\practicedeals\deals\bergen raises.txt=
+c:\programming\vb98\bridge\bbeditor-starting.cfg=
+c:\programming\vb98\bridge\pbns\casacarta_20200313_2.pbn=
+c:\programming\vb98\bridge\sims\1c_overcall.sim=
+c:\programming\vb98\bridge\userenteredhands\2020-03-23 #01 bul 20-01 p39 #6.txt=
+c:\programming\vb98\bridge\notes\_what hcp do bids show.htm=
+c:\programming\vb98\bridge\notes\entrynotes\1c_id17.txt=
+
+[Package|Bridge Bidding Pactice Install|Files Removed]
+
+[Package|Bridge Bidding Pactice Install|Files In Project]
+C:\Programming\VB98\Bridge\BidBase Bidding Practice.exe=Yes
+C:\Windows\System32\msvbvm60.dll=Yes
+C:\Programming\VB98\Bridge\qcard32.dll=Yes
+C:\Programming\VB98\Bridge\dds.dll=Yes
+C:\Programming\VB98\Bridge\BidBaseDB.dll=Yes
+C:\Windows\System32\VB6STKIT.DLL=Yes
+C:\Programming\VB98\Bridge\BBEditor.cfg=Yes
+C:\Programming\VB98\Bridge\BBPractice.cfg=Yes
+C:\Programming\VB98\Bridge\BidBaseFileViewer.cfg=Yes
+C:\Programming\VB98\Bridge\AIC Words.accdb=Yes
+C:\Programming\VB98\Bridge\BidBase.accdb=Yes
+C:\Programming\VB98\Bridge\BidBase Editor.exe=Yes
+C:\Programming\VB98\Bridge\BidBase File Viewer.exe=Yes
+C:\Programming\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=Yes
+C:\Programming\VB98\Bridge\temp98765.htm=Yes
+C:\Programming\VB98\Bridge\PracticeDeals\Bergen Raises=Yes
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.Deals=Yes
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.txt=Yes
+C:\Programming\VB98\Bridge\BBEditor-Starting.cfg=Yes
+C:\Windows\System32\oleaut32.dll=Yes
+C:\Windows\System32\olepro32.dll=Yes
+C:\Windows\System32\asycfilt.dll=Yes
+C:\Windows\System32\stdole2.tlb=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Windows\SysWOW64\COMDLG32.OCX=Yes
+C:\Windows\SysWOW64\msflxgrd.ocx=Yes
+C:\Windows\SysWOW64\SYSINFO.OCX=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\Programming\VB98\Bridge\PBNs\casacarta_20200313_2.pbn=Yes
+C:\Programming\VB98\Bridge\Sims\1C_Overcall.sim=Yes
+C:\Programming\VB98\Bridge\UserEnteredHands\2020-03-23 #01 Bul 20-01 p39 #6.txt=Yes
+C:\Programming\VB98\Bridge\Notes\_What HCP do bids show.htm=Yes
+C:\Programming\VB98\Bridge\Notes\EntryNotes\1C_ID17.txt=Yes
+C:\Windows\System32\MSCOMCTL.OCX=Yes
+C:\Windows\System32\MSINET.OCX=Yes
+C:\Windows\System32\MSDATGRD.OCX=Yes
+C:\Windows\System32\MSSTDFMT.DLL=Yes
+C:\Windows\System32\Richtx32.ocx=Yes
+C:\Windows\System32\MSADODC.OCX=Yes
+
+[Package|Bridge Bidding Pactice Install|Configure Registry Files]
+Applicable=No
+
+[Package|Bridge Bidding Pactice Install|Configure Remote Servers]
+Applicable=No
+
+[Package|Bridge Bidding Pactice Install|Install Locations]
+C:\Programming\VB98\Bridge\BidBase Bidding Practice.exe=$(AppPath)
+C:\Windows\System32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Programming\VB98\Bridge\qcard32.dll=$(AppPath)
+C:\Programming\VB98\Bridge\dds.dll=$(WinSysPath)
+C:\Programming\VB98\Bridge\BidBaseDB.dll=$(WinSysPath)
+C:\Windows\System32\COMDLG32.OCX=$(WinSysPath)
+C:\Windows\System32\MSFLXGRD.OCX=$(WinSysPath)
+C:\Windows\System32\SYSINFO.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\Windows\System32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Programming\VB98\Bridge\BBEditor.cfg=$(AppPath)
+C:\Programming\VB98\Bridge\BBPractice.cfg=$(AppPath)
+C:\Programming\VB98\Bridge\BidBaseFileViewer.cfg=$(AppPath)
+C:\Programming\VB98\Bridge\AIC Words.accdb=$(AppPath)
+C:\Programming\VB98\Bridge\BidBase.accdb=$(AppPath)
+C:\Programming\VB98\Bridge\BidBase Editor.exe=$(AppPath)
+C:\Programming\VB98\Bridge\BidBase File Viewer.exe=$(AppPath)
+C:\Programming\VB98\Bridge\MSCOMCTL.OCX=$(WinSysPath)
+C:\Programming\VB98\Bridge\MSINET.OCX=$(WinSysPath)
+C:\Programming\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=$(AppPath)\Notes
+C:\Programming\VB98\Bridge\SysWow64\MSDATGRD.OCX=$(WinSysPath)
+C:\Programming\VB98\Bridge\SysWow64\Richtx32.ocx=$(WinSysPath)
+C:\Programming\VB98\Bridge\SysWow64\MSADODC.OCX=$(WinSysPath)
+C:\Programming\VB98\Bridge\temp98765.htm=$(AppPath)
+C:\Programming\VB98\Bridge\PracticeDeals\Bergen Raises=$(AppPath)\PracticeDeals
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.Deals=$(AppPath)\PracticeDeals\Deals
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.txt=$(AppPath)\PracticeDeals\Deals
+C:\Programming\VB98\Bridge\BBEditor-Starting.cfg=$(AppPath)
+C:\Windows\System32\oleaut32.dll=$(WinSysPathSysFile)
+C:\Windows\System32\olepro32.dll=$(WinSysPathSysFile)
+C:\Windows\System32\asycfilt.dll=$(WinSysPathSysFile)
+C:\Windows\System32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Windows\SysWOW64\COMDLG32.OCX=$(WinSysPath)
+C:\Windows\SysWOW64\msflxgrd.ocx=$(WinSysPath)
+C:\Windows\SysWOW64\SYSINFO.OCX=$(WinSysPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Windows\SysWOW64\MSCOMCTL.OCX=$(WinSysPath)
+C:\Windows\SysWOW64\MSINET.OCX=$(WinSysPath)
+C:\Windows\SysWOW64\MSDATGRD.OCX=$(WinSysPath)
+C:\Windows\SysWOW64\Richtx32.ocx=$(WinSysPath)
+C:\Windows\SysWOW64\MSADODC.OCX=$(WinSysPath)
+C:\Windows\SysWOW64\MSSTDFMT.DLL=$(WinSysPath)
+C:\Programming\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\Programming\VB98\Bridge\PBNs\casacarta_20200313_2.pbn=$(AppPath)
+C:\Programming\VB98\Bridge\UserEnteredHands\2020-03-23 #01 Bul 20-01 p39 #6.txt=$(AppPath)
+C:\Programming\VB98\Bridge\Notes\_What HCP do bids show.htm=$(AppPath)
+C:\Programming\VB98\Bridge\Notes\EntryNotes\1C_ID17.txt=$(AppPath)
+C:\Windows\System32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Windows\System32\MSINET.OCX=$(WinSysPath)
+C:\Windows\System32\MSDATGRD.OCX=$(WinSysPath)
+C:\Windows\System32\MSSTDFMT.DLL=$(WinSysPath)
+C:\Windows\System32\Richtx32.ocx=$(WinSysPath)
+C:\Windows\System32\MSADODC.OCX=$(WinSysPath)
+C:\Programming\VB98\Bridge\Sims\1C_Overcall.sim=$(AppPath)
+
+[Package|Bridge Bidding Pactice Install|Configure Shared Files]
+Applicable=Yes
+C:\Programming\VB98\Bridge\BidBase Bidding Practice.exe=No
+C:\Programming\VB98\Bridge\qcard32.dll=No
+C:\Programming\VB98\Bridge\BBEditor.cfg=No
+C:\Programming\VB98\Bridge\BBPractice.cfg=No
+C:\Programming\VB98\Bridge\BidBaseFileViewer.cfg=No
+C:\Programming\VB98\Bridge\AIC Words.accdb=No
+C:\Programming\VB98\Bridge\BidBase.accdb=No
+C:\Programming\VB98\Bridge\BidBase Editor.exe=No
+C:\Programming\VB98\Bridge\BidBase File Viewer.exe=No
+C:\Programming\VB98\Bridge\Notes\CardShark_BidBase_Practice_Program.htm=No
+C:\Programming\VB98\Bridge\temp98765.htm=No
+C:\Programming\VB98\Bridge\PracticeDeals\Bergen Raises=No
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.Deals=No
+C:\Programming\VB98\Bridge\PracticeDeals\Deals\Bergen Raises.txt=No
+C:\Programming\VB98\Bridge\BBEditor-Starting.cfg=No
+C:\Programming\VB98\Bridge\PBNs\casacarta_20200313_2.pbn=No
+C:\Programming\VB98\Bridge\UserEnteredHands\2020-03-23 #01 Bul 20-01 p39 #6.txt=No
+C:\Programming\VB98\Bridge\Notes\_What HCP do bids show.htm=No
+C:\Programming\VB98\Bridge\Notes\EntryNotes\1C_ID17.txt=No
+C:\Programming\VB98\Bridge\Sims\1C_Overcall.sim=No
+
+[Package|Bridge Bidding Pactice Install|Distribution]
+Type=single
+Size=
+Title=BiddingPractice
+
+[Package|Bridge Bidding Pactice Install|IconGroups]
+Group0=BiddingPractice
+PrivateGroup0=False
+Parent0=$(Programs)
+
+[Package|Bridge Bidding Pactice Install|BiddingPractice]
+Icon1="BidBase Bidding Practice.exe"
+Title1=BiddingPractice
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Bridge Bidding Pactice Install|Package]
+PackageFolder=C:\Programming\VB98\Bridge\Package
+ProjectFolder=C:\Programming\VB98\Bridge
+ServerSideCab=
+File1=C:\Programming\VB98\Bridge\Package\setup.exe
+File2=C:\Programming\VB98\Bridge\Package\Setup.Lst
+File3=C:\Programming\VB98\Bridge\Package\BidBase Bidding Practice.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

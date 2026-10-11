@@ -108,3 +108,28 @@ fn a_two_over_one_card_sets_the_switches() {
     assert_eq!(call(&mut b, "K32-KJ32-A32-Q32", "1C-P").0, "1H");
     assert_eq!(call(&mut b, "KQ32-A32-K432-32", "1N-P").0, "2C");
 }
+
+/// Nelson's 2026 rules (data/2026). Floors on the self-test.
+#[test]
+fn the_2026_rules_bid_their_test_hands() {
+    let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../data/2026");
+    let base = RuleBase::load(&dir).unwrap();
+    assert_eq!(base.dialect, bidbase_engine::rules::Dialect::V2026);
+    let rules: Vec<_> = base
+        .rules
+        .iter()
+        .filter(|r| !r.is_section_end() && r.has_test_hand())
+        .cloned()
+        .collect();
+    let mut b = Bidder::new(base);
+    let (mut ok, mut own) = (0, 0);
+    for r in &rules {
+        match check_rule(&mut b, r) {
+            Verdict::Ok => ok += 1,
+            Verdict::OwnFails(_) => own += 1,
+            _ => {}
+        }
+    }
+    assert!(ok >= 13100, "first match is the rule itself: {ok}");
+    assert!(own <= 850, "rejects its own test hand: {own}");
+}

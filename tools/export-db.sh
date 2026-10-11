@@ -21,7 +21,7 @@ mkdir -p "$out"
 
 # Row order matters: rules with the same Bid_Order_Number keep the order
 # the database stores them in, so export rows as stored (no sorting here).
-for table in Bids BidNames DupePBs Garbage; do
+mdb-tables -1 "$db" | while IFS= read -r table; do
     mdb-export "$db" "$table" > "$out/$table.csv"
     echo "$table: $(($(wc -l < "$out/$table.csv") - 1)) lines" >&2
 done

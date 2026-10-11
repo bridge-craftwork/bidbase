@@ -36,7 +36,9 @@ pub struct AuctionFacts {
 
 impl AuctionFacts {
     pub fn new(prior_calls: &str) -> Self {
-        let prior_calls = prior_calls.trim().to_ascii_uppercase();
+        // Upper case, but "Mw" (Minorwood, in 2026 ace-asking codes) keeps
+        // its lower-case w, as the VB `PriorCalls` restores it.
+        let prior_calls = prior_calls.trim().to_ascii_uppercase().replace("MW", "Mw");
         let tokens: Vec<String> = if prior_calls.is_empty() {
             Vec::new()
         } else {

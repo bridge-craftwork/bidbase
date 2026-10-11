@@ -21,74 +21,50 @@ rules. All of it is public domain (his license page, below). Started
 - **Nelson Ford** (`www.aeyec.com`), author since about 2000;
   the project started earlier in Visual Basic. He posted on the bridge-dev
   forum (groups.io/g/bridge-dev) and wants to share his code.
-- 2026-10-09: Rick offered to get it running. Nelson uploaded his
-  **current** code and data with FileZilla to his website but sent no URL.
-  Google Drive upload failed for him. **Rick is asking him for the exact
-  URL.** Folder listing on aeyec.com is off (IIS 403.14), so we can't
-  browse. `http://www.aeyec.com/bidbase/source/` and `/bidbase/Source/`
-  exist (403, not 404), so the upload is probably there. Guessed names
-  (`BidBase.zip`, `source.zip`, ...) all 404.
-- 2026-10-10: Nelson sent the FTP path `/[account]/AIC/CSBB`. The web
-  root is the `AIC` folder (IIS error pages show `...\www\AIC\`), so it is
-  `http://www.aeyec.com/CSBB/` (listing off). Found by guessing:
-  `CSBB/BidBase.accdb` (69 MB, modified 2026-02-10). Downloaded to
-  `nelson-2026/` (gitignored until Nelson agrees to publishing): 12,200
-  rules (2018: 5,465), 613 conventions, new tables `Combos` (card-play
-  odds) and `HandData`. **No source code found there yet**; ask him for
-  the file names (the engine `.cls`, the Editor project).
-- **2026 schema change, the likely `Adodc1` cause:** `Bids` dropped
-  `AgainstID`, `ValSystem`, `SuitVal`, `NT_Val`, `Strength_Discl`,
-  `xLen`..`CLen`, and gained `LHO`, `Pard`, `RHO`, `MySpecs` (Long, probably
-  links to other players' rules). His saved queries match the new columns;
-  the 2018 engine's SQL (`GetOPsBid`) and any form whose data control still
-  names a dropped column would raise "No value given for one or more
-  required parameters". Confirming needs his current source.
-- The port reads the 2026 export (`--data nelson-2026/data`): 8,352 of
-  12,083 rules are first match for their test hand, 1,379 reject it, mostly
-  because the newer engine reads fields differently (`Losers` is a maximum
-  with half losers, e.g. "6.5"; suit specs). Porting 2026 needs his engine.
-- Until then the port follows the **September 2018 SourceForge release**
-  (below).
-
-## The error Nelson sees
-
-A message box titled **`Adodc1`** saying **"No value given for one or more
-required parameters."** (screenshot in his email; he says nobody online has
-a fix that works for him).
-
-- `Adodc1` is the default name of a VB6 **ADO Data Control** on a form.
-  The message is the Access engine's error 0x80040E10: a SQL statement
-  names a column or table the engine can't find, so it treats the name as
-  a parameter and has no value for it.
-- So: some query no longer matches the database it opens. Likely causes,
-  most likely first: (a) the database changed (a renamed or dropped column,
-  an older copy restored); (b) the program opens a different file than
-  intended (a config path, or Windows VirtualStore redirection of files
-  under Program Files); (c) a Windows or Office update changed the Access
-  database engine (ACE) that reads `.accdb`. No 2026 ACE fix found matching
-  this exact error, but (c) fits "stopped two weeks ago, nothing changed".
-- **No `Adodc1` in the 2018 source.** The failing program is probably his
-  BidBase Editor (not in the SourceForge release) or a newer build, so the
-  diagnosis needs his current zip.
-- Leads in the 2018 code: `InitializeBidBaseDLL` opens a saved query
-  `GridQuery`. A join at `BidBaseDB_Bidder.cls` ~line 4792 names
-  `BidNames.Selected`, `BidNames.SubCat_Selected`, `UseAgainst.Bid_Name`,
-  `Bids.DateOfEntry`, ... **The column names have changed before:** the
-  `Garbage` table (same layout as `Bids`) has `Round_of_Bidding` and
-  `Date_of_Entry` where `Bids` has `RoundOfBidding` and `DateOfEntry`.
-- **Plan once his zip arrives:** pull every SQL string and every
-  `RecordSource` (from the `.frm` files and code) and every saved query
-  (`mdb-queries`, `mdb-schema`). Check each column name against the
-  current `.accdb` schema; the one that doesn't resolve is the bug. Also
-  diff his schema against the 2018 one. A fix can be found on the Mac; it
-  needs Windows (VM or Nelson) to test the VB6 build.
+- 2026-10-09: Rick offered to get it running. 2026-10-11: Nelson's
+  current files arrived through his web site and are in **`aeyec-2026/`**
+  (README there), rules exported to `data/2026`. His FTP paths map to the
+  web from the `AIC` folder down (`AIC` is the web root);
+  listing is off, so files are fetched by name, and IIS refuses unknown
+  types (`.cls`, `.frm`, `.vbp`...: HTTP 404.3, a missing name gives
+  404.0), hence his `BidBase.zip`. A forgotten **2023** copy of the rules
+  was at `http://www.aeyec.com/CSBB/BidBase.accdb` (12,200 rules; kept
+  locally in the gitignored `nelson-2026/`, not published).
+- Publishing: Rick expects Nelson to agree to making this repo public (he
+  published the 2018 release himself and has been trying to put the source
+  on his site); a clear statement from him is pending.
+- **`Adodc1` error: found (2026-10-11).** The Editor's five ADO data
+  controls `Data1(0..4)` (all captioned "Adodc1") run SQL (`RecordSource`
+  in `BidBase Editor.frx` at 0xD3C9, 0xD6DE, 0xD9F0, 0xDD05, 0xE01A) that
+  selects `Bids.LHO`, `Bids.Pard`, `Bids.RHO`. The 2023 database has those
+  columns (Long Integer, plus `MySpecs`); the **2026 one doesn't**, so
+  Access takes them for parameters: "No value given for one or more
+  required parameters". The engine uses them too (`BidBaseDB_Bidder.cls`
+  SQL at line 6492, `!LHO = lng_LHO` at 8541). **Fix sent to Nelson: add
+  `LHO`, `Pard`, `RHO`, `MySpecs` (Number, Long Integer) back to `Bids`.**
+  Only 3-5 rows had values in 2023.
+- **2026 engine compared and ported (2026-10-11):** docs/ENGINE-2026.md
+  lists every change from 2018 that decides a match. The port picks the
+  dialect from the export (no `Strength_Discl` column = 2026) and follows
+  the 2026 code (`checks2026.rs`). Self-test on his rules
+  (`--data data/2026`): 13,133 of 16,673 first match, 840 reject their own
+  test hand (was 1,681), the rest checked to match his code as written. On
+  runs/random-500: 6.39 IMPs/board from par (2018 rules 6.61, BBA 4.32,
+  Rusty 4.80). Not ported: `ComputeOptBid`, the double-dummy fallback when
+  no rule fits.
+- Nelson's design notes (email 2026-10-10): rules are in sections by the
+  prior bids; within a section the first entry that matches the hand and
+  the conventions in use wins (as the port does). Docs start at
+  http://www.aeyec.com/bidbase/ (design overview first).
 
 ## What's here
 
 ```
 crates/engine/               bidbase-engine: the Rust port of the VB6 engine (docs/PORTING.md)
 crates/cli/                  bidbase-cli: the `bidbase` binary (bid, rule, selftest)
-data/2018/                   CSV export of the 2018 BidBase.accdb (Bids, BidNames, DupePBs, Garbage, schema, queries)
+data/2018/, data/2026/       CSV exports of the 2018 and 2026 BidBase.accdb (every table, schema, queries)
+aeyec-2026/                  Nelson's current files (Oct 2026): VB6 source in source/, the rules in BidBase database.zip
+docs/ENGINE-2026.md          how the 2026 engine differs from 2018, and the port's 2026 dialect
 docs/PORTING.md              what was ported, what wasn't, every departure from the VB, self-test numbers
 tools/export-db.sh           .accdb -> CSV (mdbtools); the engine reads only the CSVs
 dev-build.sh, cpu-gate.sh    copied from rusty-bidding-bot; see Commands
@@ -286,8 +262,10 @@ profile for comparisons.
 - BidBase is public domain and unrelated to BBA/EPBot, so rusty-bidding-bot's
   clean-room rule (no decompiled BBA) does not apply to it. Cite BidBase
   (and Nelson) as a source wherever its rules inform Rusty's.
-- Ask Nelson before publishing his current code anywhere (GitHub etc.); the
-  2018 release is already public.
+- His files are kept byte for byte (`.gitattributes`: no line-ending
+  conversion). Don't run his `.exe`/`.dll` here; read the source.
+- Publishing his current code: see "People and status" (statement from
+  Nelson pending; the repo stays private until then).
 
 ## Sources
 

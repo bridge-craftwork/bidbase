@@ -7,7 +7,7 @@ use std::fmt;
 use crate::auction::AuctionFacts;
 use crate::checks::Ctx;
 use crate::hand::{HandError, HandFacts};
-use crate::rules::{pct_number, Rule, RuleBase};
+use crate::rules::{pct_number, Dialect, Rule, RuleBase};
 use crate::vb::{suit_index, suit_letter};
 
 /// Vulnerability as the client gives it. A rule's `Vul` field passes
@@ -43,6 +43,19 @@ impl Vul {
         }
     }
 
+    /// The one-letter code the 2026 engine compares with a rule's `Vul`,
+    /// as the practice program passes it: U (we alone vulnerable), F
+    /// (they alone), B (both), "" (neither, or not given).
+    pub fn code_2026(&self) -> &str {
+        match self {
+            Vul::We => "U",
+            Vul::They => "F",
+            Vul::Both => "B",
+            Vul::Neither | Vul::Unknown => "",
+            Vul::Spec(s) => s.as_str(),
+        }
+    }
+
     /// Parse "we", "they", "none"/"neither", "both", or an editor code.
     pub fn parse(s: &str) -> Option<Vul> {
         Some(match s.trim().to_ascii_uppercase().as_str() {
@@ -57,6 +70,8 @@ impl Vul {
             "UNFAV" => Vul::Spec("Unfav".into()),
             "EQ" => Vul::Spec("Eq".into()),
             "EQ+" => Vul::Spec("Eq+".into()),
+            // 2026 codes.
+            c @ ("U" | "F" | "B" | "V" | "X") => Vul::Spec(c.into()),
             _ => return None,
         })
     }
@@ -157,6 +172,10 @@ pub struct Tried {
 pub struct Found {
     /// The call, with "x" replaced by the suit ("2x" -> "2H").
     pub call: String,
+    /// The rule's bid as the auction carries it: the call plus a 2026
+    /// ace-asking code ("4N@30" asks with hearts as trumps). The calls
+    /// after it are looked up from this token on ("4N@30-P").
+    pub token: String,
     pub rule_id: i64,
     /// What the call shows by the rule that made it (`meaning::describe`).
     pub meaning: String,
@@ -209,7 +228,8 @@ impl Bidder {
     ) -> Result<Found, LookupError> {
         let auction = AuctionFacts::new(&req.prior_calls);
         // LHO's suit stays unknown, as in the 2018 engine (PORTING.md).
-        let hand = HandFacts::analyze(req.hand.trim(), 0).map_err(LookupError::Hand)?;
+        let hand = HandFacts::analyze_as(req.hand.trim(), 0, self.base.dialect)
+            .map_err(LookupError::Hand)?;
 
         let list: Vec<usize> = if req.test_entry && req.test_id > 0 {
             match self.base.index_of(req.test_id) {
@@ -231,7 +251,7 @@ impl Bidder {
             )));
         }
 
-        let mut ctx = Ctx::new(&hand, &auction, req, self.base.nt);
+        let mut ctx = Ctx::new(&hand, &auction, req, self.base.nt, self.base.dialect);
         let mut k = 0;
         while k < list.len() {
             let rule = &self.base.rules[list[k]];
@@ -254,11 +274,27 @@ impl Bidder {
             }
             match verdict {
                 Ok(()) => {
-                    let call = if rule.bid.contains('x') {
-                        format!("{}{}", &rule.bid[..1], suit_letter(ctx.x_suit))
+                    let mut x_suit = ctx.x_suit;
+                    if self.base.dialect == Dialect::V2026
+                        && rule.bid.to_ascii_lowercase().contains('x')
+                        && x_suit == 0
+                    {
+                        // 2026: an "x" bid with no x suit bids the longest
+                        // suit (the lowest of equal ones).
+                        let mut best = 0;
+                        for s in 1..=4 {
+                            if hand.len[s] > best {
+                                best = hand.len[s];
+                                x_suit = s;
+                            }
+                        }
+                    }
+                    let token = if rule.bid.to_ascii_lowercase().contains('x') {
+                        format!("{}{}", &rule.bid[..1], suit_letter(x_suit))
                     } else {
-                        rule.bid.clone()
+                        rule.bid.trim().to_string()
                     };
+                    let call = call_of_token(&token);
                     let x_suit = call.chars().nth(1).map_or(0, suit_index);
                     let meaning =
                         crate::meaning::describe(&self.base, rule, &auction.prior_bids, x_suit);
@@ -272,6 +308,7 @@ impl Bidder {
                     };
                     return Ok(Found {
                         call,
+                        token,
                         rule_id: rule.id,
                         meaning,
                         meanings,
@@ -312,6 +349,10 @@ impl Bidder {
         let rules = &self.base.rules;
         let rule = &rules[list[k]];
         if req.test_entry {
+            return Ok(k);
+        }
+        if self.base.dialect == Dialect::V2026 && req.test_id != 0 && rule.id == req.test_id {
+            // 2026 `Activation_Ok`: the entry under test always passes.
             return Ok(k);
         }
         if rule.id != req.test_id {
@@ -461,6 +502,16 @@ impl Bidder {
             out.push_str(&format!("Source: '{}'", r.source.trim()));
         }
         out.push_str("\n\n");
+    }
+}
+
+/// The call a rule's bid makes: "4N@30" is 4N, "2Hj" (a stray suffix)
+/// 2H, "p" P.
+pub fn call_of_token(token: &str) -> String {
+    let t = token.split('@').next().unwrap_or("").trim();
+    match t.chars().next() {
+        Some(c) if c.is_ascii_digit() => t.chars().take(2).collect::<String>().to_ascii_uppercase(),
+        _ => t.to_ascii_uppercase(),
     }
 }
 

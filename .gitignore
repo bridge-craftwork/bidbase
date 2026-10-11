@@ -5,3 +5,5 @@ __pycache__/
 /target
 /.cargo/
 /nelson-2026/
+/crates/wasm/pkg/
+/web/dist/

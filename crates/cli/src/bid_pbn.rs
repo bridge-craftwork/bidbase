@@ -10,10 +10,11 @@
 //! with no rule for the real auction, those keys are tried, with our
 //! side's last suit as trumps.
 
-use bidbase_engine::convert::{call_from_bidbase, call_to_bidbase, hand_to_bidbase, vul_for};
+use bidbase_engine::convert::{call_to_bidbase, hand_to_bidbase, vul_for};
+use bidbase_engine::table::{self, Missing};
 use bidbase_engine::{Bidder, LookupError, Request, Scoring};
 use bridge_encodings::pbn::PbnDocument;
-use bridge_types::{Auction, Call, Direction};
+use bridge_types::Direction;
 
 #[derive(Debug, Default)]
 pub struct Stats {
@@ -58,58 +59,38 @@ pub fn bid_pbn(
             .map(|&d| hand_to_bidbase(board.deal.hand(d)))
             .collect();
         let dealer = board.dealer.unwrap_or(Direction::North);
-        let mut auction = Auction::new(dealer);
-        let mut tokens: Vec<String> = Vec::new();
+        let hands: [String; 4] = [
+            hands[0].clone(),
+            hands[1].clone(),
+            hands[2].clone(),
+            hands[3].clone(),
+        ];
+        let (auction, calls, runaway) = table::bid_deal(
+            bidder,
+            &hands,
+            dealer,
+            board.vulnerable,
+            Scoring::Matchpoints,
+            MAX_CALLS,
+        );
+        stats.runaway += usize::from(runaway);
         let (mut unknown, mut unfit) = (0, 0);
-        while !auction.is_complete() {
-            if tokens.len() >= MAX_CALLS {
-                stats.runaway += 1;
-                while !auction.is_complete() {
-                    auction.add_call(Call::Pass);
-                }
-                break;
-            }
-            let seat = auction.next_caller();
-            let req = Request {
-                hand: hands[seat.to_index()].clone(),
-                prior_calls: tokens.join("-"),
-                vul: vul_for(board.vulnerable, seat),
-                scoring: Scoring::Matchpoints,
-                ..Default::default()
-            };
-            let mut no_rules = false;
-            let found = match bidder.lookup(&req).result {
-                Ok(found) => Some(found),
-                Err(LookupError::NoRules(_)) => {
-                    let found = slam_reply(bidder, &req, &tokens);
-                    if found.is_some() {
-                        stats.slam_keys += 1;
-                    }
-                    no_rules = found.is_none();
-                    found
-                }
-                Err(_) => None,
-            };
+        for c in &calls {
             stats.calls += 1;
-            let call = match found.and_then(|f| call_from_bidbase(&f.call)) {
-                Some(c) if auction.is_legal(&c) => c,
-                Some(_) => {
-                    stats.illegal += 1;
-                    Call::Pass
-                }
-                None => {
+            stats.slam_keys += usize::from(c.slam_key);
+            match c.missing {
+                Some(Missing::Illegal) => stats.illegal += 1,
+                Some(Missing::UnknownAuction) => {
                     stats.no_rule += 1;
-                    if no_rules {
-                        stats.unknown_auction += 1;
-                        unknown += 1;
-                    } else {
-                        unfit += 1;
-                    }
-                    Call::Pass
+                    stats.unknown_auction += 1;
+                    unknown += 1;
                 }
-            };
-            tokens.push(call_to_bidbase(&call));
-            auction.add_call(call);
+                Some(Missing::NoFit) => {
+                    stats.no_rule += 1;
+                    unfit += 1;
+                }
+                None => {}
+            }
         }
 
         let e = |e: bridge_encodings::ParseError| format!("board {}: {e}", idx + 1);
@@ -157,40 +138,6 @@ pub fn bid_pbn(
     Ok((header + &doc.to_pbn(), stats))
 }
 
-/// After partner's 4NT and RHO's call, look the reply up under the ace-
-/// asking keys, with our side's last suit before 4NT as trumps.
-fn slam_reply(
-    bidder: &mut Bidder,
-    req: &Request,
-    tokens: &[String],
-) -> Option<bidbase_engine::Found> {
-    let n = tokens.len();
-    if n < 2 || tokens[n - 2] != "4N" {
-        return None;
-    }
-    // Our side's calls: partner at n-2, n-6, ...; ours at n-4, n-8, ...
-    let trump = (2..=n)
-        .step_by(2)
-        .skip(1)
-        .map(|back| tokens[n - back].as_str())
-        .find_map(|t| match t.as_bytes() {
-            [b'1'..=b'7', s] => Some(bidbase_engine::vb::suit_index(*s as char)).filter(|&x| x > 0),
-            _ => None,
-        })
-        .unwrap_or(0);
-    for key in ["RKCB: ", "Blackwood: "] {
-        let r = Request {
-            prior_calls: format!("{key}4N-{}", tokens[n - 1]),
-            trump,
-            ..req.clone()
-        };
-        if let Ok(found) = bidder.lookup(&r).result {
-            return Some(found);
-        }
-    }
-    None
-}
-
 /// One call of a replayed auction: what the file's engine called and what
 /// BidBase would call in the same position.
 pub struct Replayed {
@@ -232,7 +179,7 @@ pub fn replay(input: &str, bidder: &mut Bidder) -> Result<Vec<Replayed>, String>
             };
             let (ours, known, rule_id) = match bidder.lookup(&req).result {
                 Ok(f) => (Some(f.call), true, Some(f.rule_id)),
-                Err(LookupError::NoRules(_)) => match slam_reply(bidder, &req, &tokens) {
+                Err(LookupError::NoRules(_)) => match table::slam_reply(bidder, &req, &tokens) {
                     Some(f) => (Some(f.call), true, Some(f.rule_id)),
                     None => (None, false, None),
                 },

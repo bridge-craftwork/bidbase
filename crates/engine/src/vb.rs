@@ -34,6 +34,24 @@ pub fn ival(s: &str) -> i32 {
     val(s) as i32
 }
 
+/// VB's conversion of a number to `Integer` (`CInt`): round half to even.
+pub fn cint(x: f64) -> i32 {
+    let r = x.round();
+    if (x - x.trunc()).abs() == 0.5 && r % 2.0 != 0.0 {
+        (r - x.signum()) as i32
+    } else {
+        r as i32
+    }
+}
+
+/// VB `InStr(haystack, needle) > 0`, where an empty needle matches.
+pub fn instr(haystack: &str, needle: &str) -> usize {
+    if needle.is_empty() {
+        return 1;
+    }
+    haystack.find(needle).map_or(0, |i| i + 1)
+}
+
 /// The text before the first comma and the text after it, both trimmed.
 /// The suit specs use commas for alternatives: "x,4+" is "x, else 4+".
 pub fn split_alt(s: &str) -> (String, String) {
@@ -73,6 +91,14 @@ mod tests {
         assert_eq!(val("+2"), 2.0);
         assert_eq!(val(""), 0.0);
         assert_eq!(val("x"), 0.0);
+    }
+
+    #[test]
+    fn cint_rounds_half_to_even() {
+        assert_eq!(
+            (cint(0.5), cint(1.5), cint(2.5), cint(3.0), cint(2.4)),
+            (0, 2, 2, 3, 2)
+        );
     }
 
     #[test]

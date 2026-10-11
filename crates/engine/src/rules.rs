@@ -15,7 +15,7 @@ use crate::vb::{ival, val};
 /// Columns missing from an export read as empty: the 2026 database
 /// dropped `AgainstID`, `ValSystem`, `SuitVal`, `NT_Val`, `Strength_Discl`
 /// and the disclosed lengths (`xLen`..`CLen`).
-#[derive(Debug, Clone, Default, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize, serde::Serialize)]
 #[serde(default)]
 pub struct Rule {
     #[serde(rename = "ID")]
@@ -182,7 +182,7 @@ impl Rule {
 }
 
 /// One row of `BidNames`: a convention that can be switched on and off.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, serde::Serialize)]
 pub struct Convention {
     #[serde(rename = "IDnum")]
     pub id: i64,
@@ -195,6 +195,17 @@ pub struct Convention {
     pub name: String,
     #[serde(rename = "Bid_Description")]
     pub description: String,
+}
+
+/// Which engine the rules were written for. The rules' meaning changed
+/// between the 2018 release and Nelson's 2026 engine (docs/ENGINE-2026.md);
+/// an export without the `Strength_Discl` column (dropped after 2018) is
+/// taken as 2026.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum Dialect {
+    #[default]
+    V2018,
+    V2026,
 }
 
 /// HCP ranges of the notrump openings. Responses to them say "P24-25"
@@ -213,6 +224,7 @@ pub struct RuleBase {
     pub rules: Vec<Rule>,
     pub conventions: HashMap<i64, Convention>,
     pub nt: NtRanges,
+    pub dialect: Dialect,
     by_prior: HashMap<String, Vec<usize>>,
     by_id: HashMap<i64, usize>,
 }
@@ -222,9 +234,24 @@ pub type LoadError = Box<dyn std::error::Error + Send + Sync>;
 impl RuleBase {
     /// Read `Bids.csv` and `BidNames.csv` from an export directory.
     pub fn load(dir: &Path) -> Result<Self, LoadError> {
-        let rules: Vec<Rule> = read_csv(&dir.join("Bids.csv"))?;
-        let names: Vec<Convention> = read_csv(&dir.join("BidNames.csv"))?;
-        Ok(Self::new(rules, names))
+        let read = |name: &str| {
+            let path = dir.join(name);
+            std::fs::read_to_string(&path).map_err(|e| format!("{}: {e}", path.display()))
+        };
+        Self::from_csv(&read("Bids.csv")?, &read("BidNames.csv")?)
+    }
+
+    /// The rule set from the text of `Bids.csv` and `BidNames.csv`. An
+    /// export without `Strength_Discl` is read as the 2026 dialect.
+    pub fn from_csv(bids: &str, names: &str) -> Result<Self, LoadError> {
+        let rules: Vec<Rule> = read_csv(bids, "Bids.csv")?;
+        let names: Vec<Convention> = read_csv(names, "BidNames.csv")?;
+        let header = csv::Reader::from_reader(bids.as_bytes()).headers()?.clone();
+        let mut base = Self::new(rules, names);
+        if !header.iter().any(|h| h == "Strength_Discl") {
+            base.dialect = Dialect::V2026;
+        }
+        Ok(base)
     }
 
     pub fn new(rules: Vec<Rule>, names: Vec<Convention>) -> Self {
@@ -255,6 +282,7 @@ impl RuleBase {
             rules,
             conventions,
             nt: NtRanges::default(),
+            dialect: Dialect::default(),
             by_prior,
             by_id,
         };
@@ -346,12 +374,11 @@ impl RuleBase {
     }
 }
 
-fn read_csv<T: for<'de> Deserialize<'de>>(path: &Path) -> Result<Vec<T>, LoadError> {
-    let mut reader =
-        csv::Reader::from_path(path).map_err(|e| format!("{}: {e}", path.display()))?;
+fn read_csv<T: for<'de> Deserialize<'de>>(text: &str, name: &str) -> Result<Vec<T>, LoadError> {
+    let mut reader = csv::Reader::from_reader(text.as_bytes());
     let mut out = Vec::new();
     for row in reader.deserialize() {
-        out.push(row.map_err(|e| format!("{}: {e}", path.display()))?);
+        out.push(row.map_err(|e| format!("{name}: {e}"))?);
     }
     Ok(out)
 }

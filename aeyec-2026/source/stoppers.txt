@@ -1,0 +1,304 @@
+Private Sub Calculate_Stoppers()
+    '******************************************************'
+    ' The Bridge World web site defines a "Stopper" as --  '
+    '   "a holding that will (or is likely to, or might)   '
+    '    prevent the opponents from immediately running    '
+    '    a large number of tricks in a suit at notrump."   '
+    '                                                      '
+    ' For example, K2 in declarer's hand is always a       '
+    ' stopper, but may not be in dummy's hand. If his RHO  '
+    ' bid the suit, then it is probably a stopper, but if  '
+    ' dummy's LHO bid the suit, then the opening lead thru '
+    ' the K2 will probably make the K fall to LHO's Ace.   '
+    '                                                      '
+    ' In this routine, Kx is always considered a stopper,  '
+    ' no matter who bid what. (In reality, LHO may lead a  '
+    ' different suit to partner who leads back through the '
+    ' Kx, in which case it is NOT a stopper, but for the   '
+    ' purposes of calculating stoppers, that is ignored.)  '
+    '                                                      '
+    ' To count as 2 stoppers, a holding in declarer's hand '
+    ' must withstand the opening lead from LHO plus a      '
+    ' subsequent lead by RHO. Example:  AQ2 = 2 stoppers   '
+    ' because the Q will take the first trick (or the A,   '
+    ' if RHO plays the K). KQ2 is not 2 stoppers because a '
+    ' low card can force the Q, then RHO leads thru the K. '
+    '                                                      '
+    ' QT9 = no stoppers. If LHO has AJ8 and RHO has Kx and '
+    ' leads thru the QT, but QT9x is a stopper after LHO   '
+    ' gets the lead back. QT87 is a stopper according to ML.
+    '                                                      '
+    ' Q98x is 1 stopper.  If LHO leads low and RHO takes K '
+    ' leads back low, you can cover with the 8, then after '
+    ' LHO takes with the T, your Q9 holds off the AJ.      '
+    '******************************************************'
+
+    Dim i As Integer
+    Dim s As Integer
+    Dim c2 As String
+    Dim c3 As String
+    Dim c4 As String
+    Dim pard As Integer
+
+    sng_NumStops(0) = 0 ' NOTE: '
+    ' sng_NumStops() for each suit is the total number of  '
+    ' stoppers in that suit, whereas sng_NumStops(0) is    '
+    ' the total number of SUITS stopped, excluding pard's. '
+
+    ' 2018 Update: I'm not sure where the idea came from   '
+    ' of not counting a suit stopper if partner has bid    '
+    ' the suit, but it is complicating things. For example '
+    ' if N opens 1H and S bids 1S and N has Kxx in Spades  '
+    ' and a bid like ID#17301 requires 3 suits stopped to  '
+    ' bid 1N it would be nice if N had stoppers in C,D,S   '
+    ' but that hand has Kxx-AQJTx-xx-ATx, so just 2 suits  '
+    ' stopped outside of Spades, yet I prefer 1N over 2H.  '
+    ' Plus in this case, S had QT94 but for a 1-over-1, he '
+    ' could have had a lot worse. An alternative would be  '
+    ' to require no more than 1 suit unstopped not counting'
+    ' partner's, but that sounds complicated to code. '
+
+GoTo SkipPard
+    ' Get partner's suit: '
+    If int_BidNum > 2 Then
+        If int_Pards_Suit(1) = 99 Then
+            GetOtherPlayersData
+            pard = int_Pards_Suit(1)
+        Else
+            i = int_PosNum
+            If i < 3 Then i = i + 4
+            s = i - 2 ' pard's position #
+            If s < 1 Then s = s + 3
+            If str_Call(s) = "P" Then s = s + 4
+
+            int_Pards_Pos = s
+
+            If Val(str_Call(s)) > 0 Then
+                ' Must have bid some number of something. '
+                s = InStr("CDHS", Mid$(str_Call(s), 2))
+                pard = s
+            End If
+        End If
+    End If
+SkipPard:
+
+    For s = 1 To 4
+        sng_NumStops(s) = 0
+
+        c2 = Left$(str_Suit(s) & "  ", 2)
+        c3 = Left$(str_Suit(s) & "   ", 3)
+        c4 = Left$(str_Suit(s) & "    ", 4)
+
+        If bln_Suit(s, Ace) Then
+            If c2 = "AK" Or c2 = "AQ" Then
+                'AK or AQ
+                sng_NumStops(s) = 2 'Max=2
+
+            ElseIf (c3 = "AJT" Or c3 = "AJ9") And _
+                   int_SuitLen(s) > 3 _
+            Then
+                'AJTx
+                sng_NumStops(s) = 2
+
+            ElseIf c4 = "AT98" And _
+                   int_SuitLen(s) > 4 _
+            Then
+                'AT98x
+                sng_NumStops(s) = 2
+
+            Else 'A
+                sng_NumStops(s) = 1
+            End If
+
+        ElseIf bln_Suit(s, King) And _
+               int_SuitLen(s) > 1 _
+        Then
+            If c2 = "KQ" Then
+                ' KQ... '
+                If c3 = "KQJ" Or c3 = "KQT" Then
+                    ' KQJ... or KQT...'
+                    sng_NumStops(s) = 2
+
+                ElseIf c3 = "KQ9" And _
+                       int_SuitLen(s) > 3 _
+                Then
+                    ' KQ9x -- J-Q, x-9-T, Ax vs Kx = 2
+                    sng_NumStops(s) = 2
+
+                Else ' KQx or less
+                    If int_LHOs_Suit(1) = s Then
+                        sng_NumStops(s) = 1
+                    Else
+                        sng_NumStops(s) = 2
+                    End If
+                End If
+
+            ElseIf bln_Suit(s, Jack) Then
+                ' KJ... '
+                If int_SuitLen(s) > 3 Then
+                    If bln_Suit(s, Ten) Then
+                        'KJTx -- LHO leads to RHO's and h's cards,  '
+                        '             then RHO leads (now or later) '
+                        '                   LHO:   h:               '
+                        '        A-x, x-T-Q, 9x vs KJ = 2 or        '
+                        '        Q-K, x-T-A, 9x vs Jx = 2 or        '
+                        '        x-T, x-J-Q, Ax vs Kx = 2           '
+                        sng_NumStops(s) = 2
+
+                    ElseIf bln_Suit(s, Nine) Or bln_Suit(s, 8) Then
+                        ' KJ9x -- Q-K, x-9-T, Ax vs Jx               '
+                        sng_NumStops(s) = 2
+
+                    Else ' KJxx+
+                        sng_NumStops(s) = 1
+                    End If
+
+                Else ' KJx or KJ
+                    If int_LHOs_Suit(1) = s Or _
+                       int_SuitLen(s) < 3 _
+                    Then
+                        sng_NumStops(s) = 1
+                    Else
+                        sng_NumStops(s) = 2
+                    End If
+                End If
+
+            ElseIf bln_Suit(s, Ten) And int_SuitLen(s) > 3 Then
+                ' KT9... or KT8...                   '
+                ' LHO leads low. Say RHO plays Q and '
+                ' we play K, leaving AJ9 over T8x.   '
+                ' If RHO gets in and leads low again,'
+                ' we play 8 and LHO plays 9. AJ takes'
+                ' our last 2. Only 1 stop, but for   '
+                ' this to be a problem, LHO must have'
+                ' most of the high cards and length  '
+                ' and RHO must get in twice. The odds'
+                ' of this are sufficiently low that  '
+                ' we are going to count KT9x and KT8x'
+                ' as 2 stoppers. I would prefer it as'
+                ' 1.5 stops, but that's not allowed. '
+                If bln_Suit(s, 9) Or bln_Suit(s, 8) Then
+                    sng_NumStops(s) = 2
+
+                Else 'KTxx+
+                    sng_NumStops(s) = 1
+
+                End If
+
+            Else 'Kx+
+                sng_NumStops(s) = 1
+            End If
+
+        ElseIf bln_Suit(s, Queen) And _
+               int_SuitLen(s) > 2 _
+        Then
+            ' Q??... '
+            If bln_Suit(s, Jack) Then
+                If bln_Suit(s, 9) Or bln_Suit(s, 8) Then
+                    ' QJT9 or QJT8 '
+                    sng_NumStops(s) = 2
+                Else
+                    ' QJx...
+                    sng_NumStops(s) = 1
+                End If
+
+            ElseIf bln_Suit(s, Ten) And int_SuitLen(s) > 3 Then
+                ' QTxx '
+                If bln_Suit(s, 9) Then
+                    ' QT9x '
+                    If int_LHOs_Suit(1) = s Then
+                        sng_NumStops(s) = 1
+                    Else
+                        sng_NumStops(s) = 2
+                    End If
+                End If
+
+                If bln_Suit(s, 8) Then ' QT8x looks like stopper to me.
+                    ' QT8x '
+                    If int_LHOs_Suit(1) = s Then
+                        sng_NumStops(s) = 1
+                    Else
+                        sng_NumStops(s) = 2
+                    End If
+                End If
+
+                ' In his book Overcalls, Mike Lawrence says (on '
+                ' page 102, hand 3) that QT7 is a stopper, but  '
+                ' if LHO has AJ8xx and RHO has Kx, QT7 is not a '
+                ' stopper, so I'm going against ML this time.   '
+
+                ' Later: In one of his columns, Bobby Wolff says'
+                ' that QT75 is a stopper. I give up:            '
+
+                If bln_Suit(s, 7) Then
+                    ' QT7x '
+                    sng_NumStops(s) = 1
+                End If
+
+
+            ElseIf bln_Suit(s, Nine) And _
+                   int_SuitLen(s) > 3 _
+            Then
+                ' Q9xx...
+                If bln_Suit(s, Ten) Then
+                    'QT9x RHO takes A, leads x-9-J, Kx vs Qx
+                    sng_NumStops(s) = 1
+
+                ElseIf bln_Suit(s, Eight) Then
+                    'Q98x RHO A, leads x-8-T, KJ vs Q9
+                    sng_NumStops(s) = 1
+                End If
+
+            Else ' Qxx '
+                If int_LHOs_Suit(1) = s Then
+                    sng_NumStops(s) = 0
+                Else
+                    sng_NumStops(s) = 1
+                End If
+            End If
+
+        ElseIf bln_Suit(s, Jack) And _
+               int_SuitLen(s) > 3 _
+        Then
+            ' J???... '
+            If int_SuitLen(s) > 4 Then
+                sng_NumStops(s) = 1
+
+            ElseIf bln_Suit(s, Ten) And _
+               (bln_Suit(s, Nine) Or bln_Suit(s, 8)) _
+            Then
+                'JT9x or JT8x  A takes x, K-T, Q-8/9
+                sng_NumStops(s) = 1
+
+            ElseIf c3 = "J98" And _
+                   int_SuitLen(s) > 4 _
+            Then
+                'J98xx  A-x, RHO leads x-8-T, K-x, Qx vs Jx
+                sng_NumStops(s) = 1
+
+            Else
+                sng_NumStops(s) = 0.5
+            End If
+
+        ElseIf (c3 = "T98" Or c3 = "T97") And _
+               int_SuitLen(s) > 4 _
+        Then
+            'T98xx -- Ax, 2-8-J, KQx vs T9x
+            sng_NumStops(s) = 1
+        End If
+
+
+        ' Total number of suits stopped '
+        ' XXXoutside of partner's 1st suit.XXX' no more '
+        If sng_NumStops(s) > 0 Then ' And s <> pard Then
+            If sng_NumStops(s) = 0.5 Then
+                sng_NumStops(0) = sng_NumStops(0) + 0.5
+            Else
+                sng_NumStops(0) = sng_NumStops(0) + 1
+            End If
+        End If
+
+    Next
+
+End Sub
+

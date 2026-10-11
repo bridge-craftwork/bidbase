@@ -39,6 +39,40 @@ pub fn calls_to_bidbase(calls: &[Call]) -> String {
         .join("-")
 }
 
+/// A hand typed by a person: BidBase "AK432-64-QJT3-T2" or PBN
+/// "AK432.64.QJT3.T2" (spades first; "10" for T allowed).
+pub fn normalize_hand(hand: &str) -> Option<String> {
+    let hand = hand.trim().to_ascii_uppercase().replace("10", "T");
+    if hand.contains('.') {
+        let parsed = Hand::from_pbn(&hand)?;
+        return Some(hand_to_bidbase(&parsed));
+    }
+    Some(hand)
+}
+
+/// An auction typed by a person: "P-1C-1N", "Pass 1C 1NT", "p 1c x" as
+/// BidBase tokens joined by dashes.
+pub fn normalize_auction(auction: &str) -> Option<String> {
+    let mut out = Vec::new();
+    for t in auction
+        .split(|c: char| c == '-' || c.is_whitespace() || c == ',')
+        .filter(|t| !t.is_empty())
+    {
+        let up = t.to_ascii_uppercase();
+        out.push(match up.as_str() {
+            "P" | "PASS" => "P".to_string(),
+            "D" | "X" | "DBL" => "D".to_string(),
+            "R" | "XX" | "RDBL" => "R".to_string(),
+            _ => {
+                let call =
+                    Call::from_pbn(&up).or_else(|| Call::from_pbn(&up.replace('N', "NT")))?;
+                call_to_bidbase(&call)
+            }
+        });
+    }
+    Some(out.join("-"))
+}
+
 /// The board's vulnerability from the bidder's side.
 pub fn vul_for(vul: Vulnerability, bidder: Direction) -> Vul {
     let we = vul.is_vulnerable(bidder);
@@ -81,6 +115,14 @@ mod tests {
         assert_eq!(calls_to_bidbase(&calls), "P-1N-D-R-2S");
         assert_eq!(call_from_bidbase("1N"), Call::from_pbn("1NT"));
         assert_eq!(call_from_bidbase("D"), Some(Call::Double));
+        assert_eq!(
+            normalize_auction("Pass 1c 1NT x").as_deref(),
+            Some("P-1C-1N-D")
+        );
+        assert_eq!(
+            normalize_hand("AK432.64.QJT3.T2").as_deref(),
+            Some("AK432-64-QJT3-T2")
+        );
     }
 
     #[test]

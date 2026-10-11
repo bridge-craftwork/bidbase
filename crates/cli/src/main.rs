@@ -11,7 +11,6 @@ use bidbase_engine::card::{Applied, CardMap, Switch};
 use bidbase_engine::selftest::{check_rule, Verdict};
 use bidbase_engine::{Bidder, Request, Rule, RuleBase, Scoring, Vul};
 use bridge_card::Card;
-use bridge_types::{Call, Hand};
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
@@ -185,14 +184,14 @@ fn bid(
     why: bool,
     disclose: bool,
 ) -> ExitCode {
-    let hand = match normalize_hand(hand) {
+    let hand = match bidbase_engine::convert::normalize_hand(hand) {
         Some(h) => h,
         None => {
             eprintln!("bidbase: cannot read hand {hand:?}");
             return ExitCode::FAILURE;
         }
     };
-    let Some(prior_calls) = normalize_auction(auction) else {
+    let Some(prior_calls) = bidbase_engine::convert::normalize_auction(auction) else {
         eprintln!("bidbase: cannot read auction {auction:?}");
         return ExitCode::FAILURE;
     };
@@ -257,40 +256,6 @@ fn bid(
             ExitCode::from(2)
         }
     }
-}
-
-/// BidBase "S-H-D-C" with dashes, or PBN with dots.
-fn normalize_hand(hand: &str) -> Option<String> {
-    let hand = hand.trim().to_ascii_uppercase().replace("10", "T");
-    if hand.contains('.') {
-        let parsed = Hand::from_pbn(&hand)?;
-        return Some(bidbase_engine::convert::hand_to_bidbase(&parsed));
-    }
-    Some(hand)
-}
-
-/// "P-1C-1N", "Pass 1C 1NT", "p 1c x": BidBase tokens joined by dashes.
-fn normalize_auction(auction: &str) -> Option<String> {
-    let tokens: Vec<&str> = auction
-        .split(|c: char| c == '-' || c.is_whitespace() || c == ',')
-        .filter(|t| !t.is_empty())
-        .collect();
-    let mut out = Vec::new();
-    for t in tokens {
-        let up = t.to_ascii_uppercase();
-        let token = match up.as_str() {
-            "P" | "PASS" => "P".to_string(),
-            "D" | "X" | "DBL" => "D".to_string(),
-            "R" | "XX" | "RDBL" => "R".to_string(),
-            _ => {
-                let call =
-                    Call::from_pbn(&up).or_else(|| Call::from_pbn(&up.replace('N', "NT")))?;
-                bidbase_engine::convert::call_to_bidbase(&call)
-            }
-        };
-        out.push(token);
-    }
-    Some(out.join("-"))
 }
 
 fn run_replay(base: RuleBase, input: &std::path::Path, verbose: bool) -> ExitCode {
