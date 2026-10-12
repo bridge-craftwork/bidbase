@@ -396,15 +396,23 @@ impl<'a> Ctx<'a> {
                 vec![4, 3, 2, 1]
             };
             let first = order.into_iter().find(|&i| !s_ok[i]).unwrap_or(4);
+            // Mention the x specs only for a rule that has them.
+            let x = if r.x_num.trim().is_empty() && r.x_hcp.trim().is_empty() {
+                String::new()
+            } else {
+                format!(
+                    " (x {}/{}{})",
+                    r.x_num,
+                    r.x_hcp,
+                    if x_found { "" } else { ", no x suit found" }
+                )
+            };
             Err(format!(
-                "{}: \"{}\" fails {}/{} (x {}/{}{})",
+                "{}: \"{}\" fails {}/{}{x}",
                 crate::vb::suit_letter(first),
                 self.hand.suit[first],
                 r.suit_num(first),
                 r.suit_hcp(first),
-                r.x_num,
-                r.x_hcp,
-                if x_found { "" } else { ", no x suit found" }
             ))
         }
     }

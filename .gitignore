@@ -7,3 +7,5 @@ __pycache__/
 /nelson-2026/
 /crates/wasm/pkg/
 /web/dist/
+.playwright-mcp/
+.wrangler/

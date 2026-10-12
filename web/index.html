@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BidBase: bridge bidding rules in the browser</title>
+<meta name="description" content="Nelson Ford's CardShark BidBase, a database of 16,000 bridge bidding rules, running in your browser: see the call for any hand, what it means, and every rule it tried.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <h1>BidBase</h1>
+  <p class="tagline">Nelson Ford's CardShark BidBase: a database of bridge bidding rules, bidding in your browser.</p>
+  <nav>
+    <a href="#about" data-tab-link="about">About</a>
+    <a href="http://www.aeyec.com/bidbase/">Nelson's BidBase site</a>
+    <a href="https://github.com/bridge-craftwork/bidbase">Source</a>
+  </nav>
+</header>
+
+<noscript>
+  <p class="panel">This page runs BidBase in your browser and needs JavaScript.</p>
+</noscript>
+
+<main>
+  <section class="panel settings" aria-label="Rules and conventions">
+    <label>Rules
+      <select id="rules">
+        <option value="2026">2026 (Nelson's current rules, 16,786)</option>
+        <option value="2018">2018 (SourceForge release, 5,465)</option>
+      </select>
+    </label>
+    <label>Conventions
+      <select id="convs">
+        <option value="db">Nelson's settings</option>
+        <option value="card">2/1 card (BBA's 21GF-DEFAULT)</option>
+        <option value="all">All switched on</option>
+      </select>
+    </label>
+    <span id="status" class="hint">Loading the engine and rules (about 1 MB)…</span>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="hand" aria-selected="true">Bid a hand</button>
+    <button role="tab" data-tab="deal">Bid a deal</button>
+    <button role="tab" data-tab="rules">Rules</button>
+    <button role="tab" data-tab="conventions">Conventions</button>
+    <button role="tab" data-tab="about">About</button>
+  </div>
+
+  <!-- Bid a hand -->
+  <section class="panel tab" data-for="hand">
+    <form id="hand-form" class="grid-form">
+      <label>Hand <span class="hint">spades, hearts, diamonds, clubs: AK432.64.QJT3.T2 or AK432-64-QJT3-T2</span>
+        <input id="hand" autocomplete="off" spellcheck="false" value="Q8432.32.K32.J32">
+      </label>
+      <label>Auction so far <span class="hint">dealer first: "1NT Pass" or "P-1C-1N"; empty to open</span>
+        <input id="auction" autocomplete="off" spellcheck="false" value="1NT Pass">
+      </label>
+      <label class="narrow">Vulnerable
+        <select id="vul">
+          <option value="none">Neither</option>
+          <option value="we">We are</option>
+          <option value="they">They are</option>
+          <option value="both">Both</option>
+        </select>
+      </label>
+      <button class="primary" type="submit">Bid</button>
+    </form>
+    <div id="hand-out"></div>
+  </section>
+
+  <!-- Bid a deal -->
+  <section class="panel tab" data-for="deal" hidden>
+    <div class="row">
+      <button id="new-deal" class="primary">New deal</button>
+      <label class="narrow">Dealer
+        <select id="dealer"><option>N</option><option>E</option><option selected>S</option><option>W</option></select>
+      </label>
+      <label class="narrow">Vulnerable
+        <select id="deal-vul"><option>None</option><option>NS</option><option>EW</option><option>All</option></select>
+      </label>
+      <span class="hint">BidBase bids all four seats. Click a call to see what it means.</span>
+    </div>
+    <div id="deal-out"></div>
+  </section>
+
+  <!-- Rules -->
+  <section class="panel tab" data-for="rules" hidden>
+    <form id="rules-form" class="row">
+      <label>Auction <span class="hint">the calls before, e.g. "1H Pass"; empty for openings</span>
+        <input id="rules-auction" autocomplete="off" spellcheck="false" value="1H Pass">
+      </label>
+      <button class="primary" type="submit">Show rules</button>
+    </form>
+    <p class="hint">BidBase tries these in order and makes the call of the first one the hand fits. Greyed rules are switched off.</p>
+    <div id="rules-out"></div>
+  </section>
+
+  <!-- Conventions -->
+  <section class="panel tab" data-for="conventions" hidden>
+    <div class="row">
+      <input id="conv-filter" placeholder="Filter, e.g. Stayman" autocomplete="off">
+      <span class="hint">Switching a convention changes this page's bidding until the rules or settings are changed.</span>
+    </div>
+    <div id="conv-out"></div>
+  </section>
+
+  <!-- About -->
+  <section class="panel tab prose" data-for="about" hidden>
+    <h2>About</h2>
+    <p><a href="http://www.aeyec.com/bidbase/">CardShark BidBase</a> is Nelson Ford's
+    bridge bidding program, written in Visual Basic since about 2000. Its knowledge is
+    a database of rules: each names the auction so far, a call, and what the hand needs
+    (points, suit lengths and strength, shape, stoppers, position, vulnerability). For a
+    hand, BidBase tries the auction's rules in order and makes the call of the first rule
+    the hand fits. Conventions can be switched on and off.</p>
+    <p>This page runs a Rust port of Nelson's engine, compiled to WebAssembly, on his
+    2026 rules (16,786) or the 2018 SourceForge release (5,465). Nothing is sent
+    anywhere: it all runs in your browser. Where no rule fits, BidBase passes; Nelson's
+    own practice program can also choose a call by double-dummy analysis there, which
+    this page does not do yet.</p>
+    <p>BidBase is Nelson Ford's work. His site says: "All the databases, text files and
+    programs making up BidBase are free public domain." The port is at
+    <a href="https://github.com/bridge-craftwork/bidbase">github.com/bridge-craftwork/bidbase</a>,
+    with Nelson's programs and rules.</p>
+  </section>
+
+  <div id="rule-detail" class="panel" hidden></div>
+</main>
+
+<footer class="foot">Rules and BidBase by Nelson Ford. Port and page by bridge-craftwork.</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>

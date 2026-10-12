@@ -1,0 +1,92 @@
+/* The BidBase page. Tokens are in styles.css (copied from Bridge-Classroom). */
+
+body { font-size: 15px; line-height: 1.45; }
+a { color: var(--color-text-info); }
+
+.top { padding: 20px 16px 8px; max-width: 1100px; margin: 0 auto; }
+.top h1 { font-size: 26px; }
+.tagline { color: var(--color-text-secondary); margin-top: 2px; }
+.top nav { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; font-size: 14px; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 0 16px 24px; }
+.panel {
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
+  margin-top: 12px;
+}
+.foot { max-width: 1100px; margin: 0 auto; padding: 8px 16px 32px; color: var(--color-text-tertiary); font-size: 13px; }
+
+label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 14px; }
+label .hint { font-weight: 400; }
+input, select, button { font: inherit; }
+input, select {
+  padding: 7px 9px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-primary);
+  min-width: 0;
+}
+button {
+  padding: 7px 14px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-secondary);
+  cursor: pointer;
+}
+button.primary { background: var(--color-text-info); color: #fff; border-color: transparent; }
+.hint { color: var(--color-text-secondary); font-size: 13px; }
+.error { color: var(--color-text-danger); }
+.mono { font-family: var(--font-mono); font-size: 13px; }
+
+.settings { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+.row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+.row.spread { justify-content: space-between; align-items: center; }
+.row label { flex: 1 1 220px; }
+.row label.narrow, .grid-form label.narrow { flex: 0 0 auto; }
+.grid-form { display: grid; grid-template-columns: 2fr 2fr auto auto; gap: 12px; align-items: end; }
+@media (max-width: 760px) { .grid-form { grid-template-columns: 1fr; } }
+
+.tabs { display: flex; gap: 4px; margin-top: 16px; flex-wrap: wrap; }
+.tabs button { border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; border-bottom: none; background: var(--color-background-secondary); }
+.tabs button[aria-selected="true"] { background: var(--color-background-primary); font-weight: 600; }
+.tab { margin-top: 0; border-top-left-radius: 0; }
+
+.red { color: #c0262d; }
+.black { color: var(--color-text-primary); }
+.pass { color: var(--color-text-secondary); }
+.dbl { color: #b45309; font-weight: 600; }
+
+.answer { display: flex; gap: 16px; align-items: center; margin-top: 16px; padding: 12px; background: var(--color-background-info); border-radius: var(--border-radius-md); }
+.big { font-size: 34px; font-weight: 700; min-width: 88px; text-align: center; }
+.meaning { font-size: 16px; }
+h3 { margin: 18px 0 6px; font-size: 16px; }
+.meanings { margin-left: 18px; }
+.meanings li { margin: 4px 0; }
+
+table { border-collapse: collapse; width: 100%; }
+.trace th, .trace td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--color-border-tertiary); vertical-align: top; font-size: 14px; }
+.trace th { font-size: 13px; color: var(--color-text-secondary); font-weight: 600; }
+.trace tr.hit { background: var(--color-background-success); }
+.trace tr.off { color: var(--color-text-tertiary); }
+.fail { font-weight: 600; color: var(--color-text-secondary); }
+.ok { font-weight: 600; color: var(--color-text-success); }
+#hand-out, #rules-out, #conv-out { overflow-x: auto; }
+
+.table-wrap { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; }
+.compass { display: grid; grid-template-columns: repeat(3, minmax(110px, 1fr)); grid-template-areas: ". n ." "w c e" ". s ."; gap: 8px; flex: 1 1 380px; }
+.seat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px; font-family: var(--font-mono); font-size: 14px; }
+.seat-name { font-family: var(--font-sans); font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.seat-N { grid-area: n; } .seat-W { grid-area: w; } .seat-E { grid-area: e; } .seat-S { grid-area: s; }
+.seat.center { grid-area: c; background: none; }
+.auction-wrap { flex: 1 1 300px; }
+.auction th, .auction td { text-align: center; padding: 3px; width: 25%; }
+.auction th { color: var(--color-text-secondary); font-size: 13px; }
+.callbtn { width: 100%; padding: 4px; background: var(--color-background-secondary); font-weight: 600; }
+.nocall .callbtn { opacity: 0.55; }
+.contract { margin: 10px 0 6px; font-weight: 600; }
+
+#rule-detail .fields th { text-align: left; font-weight: 600; color: var(--color-text-secondary); padding: 3px 12px 3px 0; width: 160px; font-size: 13px; }
+#rule-detail .fields td { padding: 3px 0; font-size: 14px; word-break: break-word; }
+.prose p { margin: 10px 0; max-width: 72ch; }

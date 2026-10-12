@@ -148,6 +148,16 @@ bridge-encodings = { path = "../bridge-encodings" }
   agreement and head-to-head IMPs. `runs/random-500/` is the first run
   (README there): BidBase 6.6 IMPs/board from par, BBA 4.3, Rusty 4.8;
   BidBase's gap is rule coverage (no rule for 68% of calls).
+- **Web page: https://bridge-craftwork.com/bidbase/** (live 2026-10-12;
+  Cloudflare Pages project `bidbase`, mounted by bridge-craftwork-site's
+  router, `TOOL_ORIGINS['/bidbase']`). `web/build.sh` builds `web/dist`
+  (engine from `crates/wasm` with the 2018 and 2026 rules compiled in, ~1 MB
+  compressed); deploy with `npx --yes wrangler@4 pages deploy --branch
+  main` from the repo root. Tabs: bid a hand (call, meaning, every rule
+  tried), bid a deal, rules of an auction, conventions. The hand tab's
+  inputs live in the URL fragment, so links show a given bid.
+- `crates/wasm/src/api.rs`: the JSON API (createEngine, bid, rule,
+  section, conventions, setConvention, bidDeal, deal), tested natively.
 - `tools/export-db.sh <BidBase.accdb> data/<name>`: export a new copy;
   `--data data/<name>` (or `BIDBASE_DATA`) points the CLI at it.
 

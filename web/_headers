@@ -1,0 +1,11 @@
+# Cloudflare Pages response headers. build.sh copies this file to the root
+# of web/dist. The bridge-craftwork.com router proxies /bidbase/* here with
+# the prefix stripped and keeps these headers.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+
+# The engine and its rules change only with a new build.
+/pkg/*
+  Cache-Control: public, max-age=3600

@@ -1,0 +1,12 @@
+// Cloudflare Pages configuration for the BidBase page (web/).
+//
+// A static site: the engine runs in the visitor's browser. Build with
+// `web/build.sh`, then `npx --yes wrangler@4 pages deploy`.
+// bridge-craftwork.com mounts it at /bidbase/ through the site's router
+// (bridge-craftwork-site, src/index.js), which strips the prefix and keeps
+// this project's headers (web/_headers).
+{
+  "name": "bidbase",
+  "compatibility_date": "2026-08-01",
+  "pages_build_output_dir": "web/dist"
+}
