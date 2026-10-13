@@ -9,3 +9,7 @@
 # The engine and its rules change only with a new build.
 /pkg/*
   Cache-Control: public, max-age=3600
+
+# The practice program, likewise.
+/practice/pkg/*
+  Cache-Control: public, max-age=3600

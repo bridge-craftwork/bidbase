@@ -1,0 +1,132 @@
+# Build the Rust ports of Nelson Ford's BidBase programs for Windows, macOS
+# and Linux, and test the workspace.
+#
+# Every push and pull request: tests, plus the practice program built on
+# the three systems and kept as workflow artifacts (Actions tab, the run,
+# "Artifacts"). A tag practice-v* (e.g. practice-v0.1.0) also publishes the
+# three builds as a GitHub release.
+#
+# Plain cargo with --locked: a fresh checkout has no .cargo/config.toml, so
+# the sibling crates come from their git pins in Cargo.lock (CLAUDE.md,
+# Commands).
+name: practice
+
+on:
+  push:
+    branches: [main]
+    tags: ["practice-v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+      - name: Linux libraries for the window
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libgl1-mesa-dev
+      - name: Tests
+        run: cargo test --workspace --locked
+      - name: Practice program for the browser (compile only)
+        run: |
+          rustup target add wasm32-unknown-unknown
+          cargo build --locked --release -p bidbase-practice-web --target wasm32-unknown-unknown
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x64
+          - os: macos-latest
+            name: macos-arm64
+          - os: ubuntu-latest
+            name: linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.name }}
+      - name: Linux libraries for the window
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libgl1-mesa-dev
+      - name: Build
+        run: cargo build --locked --release -p bidbase-practice
+      - name: Package
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="bidbase-practice-${{ matrix.name }}"
+          mkdir -p "dist/$out"
+          cp README.md PERMISSION.md "dist/$out/"
+          case "${{ runner.os }}" in
+            Windows)
+              cp target/release/bidbase-practice.exe "dist/$out/BidBase Practice.exe"
+              (cd dist && 7z a "$out.zip" "$out" >/dev/null)
+              ;;
+            macOS)
+              app="dist/$out/BidBase Practice.app"
+              mkdir -p "$app/Contents/MacOS"
+              cp target/release/bidbase-practice "$app/Contents/MacOS/"
+              cat > "$app/Contents/Info.plist" <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key><string>BidBase Practice</string>
+            <key>CFBundleIdentifier</key><string>com.bridge-craftwork.bidbase-practice</string>
+            <key>CFBundleExecutable</key><string>bidbase-practice</string>
+            <key>CFBundlePackageType</key><string>APPL</string>
+            <key>CFBundleShortVersionString</key><string>0.1.0</string>
+            <key>NSHighResolutionCapable</key><true/>
+          </dict>
+          </plist>
+          PLIST
+              (cd dist && zip -qry "$out.zip" "$out")
+              ;;
+            Linux)
+              cp target/release/bidbase-practice "dist/$out/"
+              tar -C dist -czf "dist/$out.tar.gz" "$out"
+              ;;
+          esac
+          ls -l dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bidbase-practice-${{ matrix.name }}
+          path: |
+            dist/*.zip
+            dist/*.tar.gz
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/practice-v')
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "BidBase Practice $GITHUB_REF_NAME" \
+            --notes "Nelson Ford's BidBase Bidding Practice program, ported from Visual Basic to Rust. Unsigned builds: on macOS, right-click the app and choose Open the first time; on Windows, SmartScreen may ask you to confirm (More info, Run anyway)."

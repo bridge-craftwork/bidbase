@@ -19,6 +19,12 @@ Basic 6 programs and rules it is ported from.
   matched or not), check every rule against its test hand, bid PBN deals,
   replay another engine's auctions
 - `crates/wasm`: the engine for the browser (JSON API)
+- `crates/practice`: Nelson's Bidding Practice program, ported from VB6:
+  his screen (read from his form file), his deals, the engine's calls and
+  a double-dummy table, for Windows, macOS, Linux and the browser
+  (`docs/PRACTICE-PROGRAM.md`). `crates/forms` reads VB6 form files;
+  `crates/vbui` draws them with egui; `crates/practice-web` is the
+  browser build.
 - `card/`: a map from a convention card ([convention-card](https://github.com/bridge-craftwork/convention-card)
   JSON) to BidBase's convention switches
 - `data/2018`, `data/2026`: the rules, exported to CSV (`tools/export-db.sh`)
@@ -27,7 +33,10 @@ Basic 6 programs and rules it is ported from.
 - `runs/random-500`: BidBase, BBA and rusty-bidding-bot bidding the same
   500 deals, scored double-dummy
 
-Build with `./dev-build.sh` (see CLAUDE.md).
+Build with `./dev-build.sh` (see CLAUDE.md). The practice program:
+`./dev-build.sh run --release -p bidbase-practice`; builds for Windows,
+macOS and Linux come from GitHub Actions (`.github/workflows/practice.yml`:
+artifacts on every run, a release for each `practice-v*` tag).
 
 ## License
 

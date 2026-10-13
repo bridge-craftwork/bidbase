@@ -1,0 +1,11 @@
+# bidbase-forms: reads Nelson's VB6 form files (.frm/.frx) so the Rust
+# ports of his programs can lay out their screens from his own designs.
+[package]
+name = "bidbase-forms"
+description = "Read VB6 form files (.frm/.frx): control tree, properties, resources"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]

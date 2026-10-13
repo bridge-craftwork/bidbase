@@ -65,6 +65,12 @@ rules. All of it is public domain (his license page, below). Started
 ```
 crates/engine/               bidbase-engine: the Rust port of the VB6 engine (docs/PORTING.md)
 crates/cli/                  bidbase-cli: the `bidbase` binary (bid, rule, selftest)
+crates/forms/                bidbase-forms: reads VB6 .frm/.frx (control tree, properties, lists, pictures)
+crates/vbui/                 bidbase-vbui: draws a parsed form with egui (classic look, Liberation fonts)
+crates/practice/             bidbase-practice: the Bidding Practice program port (docs/PRACTICE-PROGRAM.md)
+crates/practice-web/         its browser build (cdylib; crates/practice-web/build.sh)
+.github/workflows/practice.yml  tests; practice builds for Windows/macOS/Linux; release on practice-v* tags
+docs/PRACTICE-PROGRAM.md     behaviour spec of Nelson's practice program, and what the port does
 data/2018/, data/2026/       CSV exports of the 2018 and 2026 BidBase.accdb (every table, schema, queries)
 aeyec-2026/                  Nelson's current files (Oct 2026): VB6 source in source/, the rules in BidBase database.zip
 docs/ENGINE-2026.md          how the 2026 engine differs from 2018, and the port's 2026 dialect
@@ -148,6 +154,13 @@ bridge-encodings = { path = "../bridge-encodings" }
   agreement and head-to-head IMPs. `runs/random-500/` is the first run
   (README there): BidBase 6.6 IMPs/board from par, BBA 4.3, Rusty 4.8;
   BidBase's gap is rule coverage (no rule for 68% of calls).
+- `./dev-build.sh run --release -p bidbase-practice`: the practice program
+  port (window 664 x 598, his form). `BIDBASE_SHOTS=<dir> ./dev-build.sh
+  test -p bidbase-practice --test screens` writes its screens as PNGs
+  (offscreen egui_kittest; capturing the real window on the Mac was
+  unreliable). The GUI crates use eframe with `glow` and no egui default
+  fonts (vbui bundles Liberation Sans/Mono), which keeps the web build
+  near 3 MB gzipped.
 - **Web page: https://bridge-craftwork.com/bidbase/** (live 2026-10-12;
   Cloudflare Pages project `bidbase`, mounted by bridge-craftwork-site's
   router, `TOOL_ORIGINS['/bidbase']`). `web/build.sh` builds `web/dist`
@@ -254,6 +267,20 @@ their rules), 9 test hands have typos. Details and the open questions in
 docs/PORTING.md. Next: port Nelson's current engine and data when his zip
 arrives (diff its `.cls` against 2018 first), and choose a convention
 profile for comparisons.
+
+## Nelson's GUIs: Rust ports, not VB6 builds (2026-10-13)
+
+Rick decided against building Nelson's VB6 programs in CI: VB6 is
+licensed, not on GitHub's runners and not installable from a public
+workflow; Rick has no licence; twinBASIC's command-line build is
+experimental and the Editor's ADODC/DataGrid binding is unproven there.
+Instead the GUIs are ported to Rust as look-alikes ("don't have to be 100%
+picture perfect"), native and web, laid out from Nelson's own `.frm`
+files. Order: the Bidding Practice program first (done as an MVP; section
+9 of docs/PRACTICE-PROGRAM.md), then the Editor, which will edit the CSVs
+under `data/` (Rick's choice; nothing writes `.accdb`), then BidSim and the
+File Viewer. His screenshots of every program are in the SourceForge File
+Viewer zip (`Notes/*.jpg`), the targets to match.
 
 ## Ideas for goals 3-4 (unverified)
 
