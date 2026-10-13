@@ -30,7 +30,9 @@ The engine's changes since 2018 are in `../docs/ENGINE-2026.md`.
 BidBase is Nelson's work. His web site (http://www.aeyec.com/bidbase/)
 says: "All the databases, text files and programs making up BidBase are
 free public domain", and BidBaseDB.DLL is free for use in any bridge
-software.
+software. On 13 October 2026 he gave this project his specific
+permission to publish and distribute these files, as they are or modified
+(`../PERMISSION.md`).
 
 The executables were not run in this project; build or run them on
 Windows from Nelson's own copies.

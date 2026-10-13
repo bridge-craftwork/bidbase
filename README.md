@@ -38,6 +38,7 @@ your option.
 BidBase itself (the programs, source and rules in `sourceforge-2018/`,
 `aeyec-2026/` and `data/`) is Nelson Ford's work. His web site says: "All
 the databases, text files and programs making up BidBase are free public
-domain", and BidBaseDB.DLL is free for use in any bridge software. A
-formal statement from Nelson about publishing his 2026 files here is on
-its way.
+domain", and BidBaseDB.DLL is free for use in any bridge software. On
+13 October 2026 he gave this project his specific permission to publish
+and distribute his files, as they are or modified: see
+[PERMISSION.md](PERMISSION.md).
