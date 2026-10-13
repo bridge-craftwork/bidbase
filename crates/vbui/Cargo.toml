@@ -1,0 +1,13 @@
+# bidbase-vbui: draws Nelson's VB6 forms with egui, from his .frm files,
+# so the Rust ports of his programs look like his.
+[package]
+name = "bidbase-vbui"
+description = "Draw VB6 forms with egui: controls, menus, grids, classic look"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+bidbase-forms = { path = "../forms" }
+egui = { version = "0.36", default-features = false }

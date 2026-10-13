@@ -108,6 +108,9 @@ agreed, `4D@CS` a control bid. The practice program keeps the whole
 token in the auction; for the following calls it passes only the calls
 from the ask on ("4N@30-P", the rules' key) and sets the trump suit from
 the digits (`TrumpSuit` 30 means suit 3). The 2026 data has 92 such keys.
+When the auction holds more than one ask, the key starts at the first
+(frm:6101): 22 keys hold two or more, such as "3S@CH-P-4N@30-P-4H".
+`table::key_for` cut at the last one until 2026-10-13.
 
 ## Not ported
 

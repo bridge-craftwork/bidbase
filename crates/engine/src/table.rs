@@ -43,9 +43,12 @@ pub struct TableCall {
 }
 
 /// The prior calls to look up and the trump suit: after an ace-asking
-/// token ("4N@30") only the calls from it on, with the suit from its code.
+/// token ("4N@30") only the calls from the first such token on, with the
+/// suit from its code. The first, as the practice program cuts it
+/// (frm:6101): the 2026 rules key later asks from the first one
+/// ("3S@CH-P-4N@30-P-4H").
 pub fn key_for(tokens: &[String]) -> (String, usize) {
-    match tokens.iter().rposition(|t| t.contains('@')) {
+    match tokens.iter().position(|t| t.contains('@')) {
         Some(i) => {
             let code = tokens[i].split('@').nth(1).unwrap_or("");
             let trump = code
@@ -101,16 +104,31 @@ pub fn next_call(
     trace: bool,
 ) -> (TableCall, Vec<crate::lookup::Tried>) {
     let seat = auction.next_caller();
-    let (prior_calls, trump) = key_for(tokens);
-    let req = Request {
+    let template = Request {
         hand: hand.to_string(),
-        prior_calls,
-        trump,
         vul: vul_for(vulnerability, seat),
         scoring,
-        disclose: false,
         trace,
         ..Default::default()
+    };
+    next_call_with(bidder, auction, tokens, template)
+}
+
+/// [`next_call`] from a request template: its hand, vulnerability,
+/// scoring and flags (`disclose`, `trace`) are kept; the prior calls and
+/// trump suit come from `tokens`.
+pub fn next_call_with(
+    bidder: &mut Bidder,
+    auction: &Auction,
+    tokens: &[String],
+    template: Request,
+) -> (TableCall, Vec<crate::lookup::Tried>) {
+    let seat = auction.next_caller();
+    let (prior_calls, trump) = key_for(tokens);
+    let req = Request {
+        prior_calls,
+        trump,
+        ..template
     };
     let out = bidder.lookup(&req);
     let tried = out.tried;
@@ -190,4 +208,26 @@ pub fn bid_deal(
         calls.push(tc);
     }
     (auction, calls, false)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn toks(s: &str) -> Vec<String> {
+        s.split('-').map(String::from).collect()
+    }
+
+    #[test]
+    fn key_starts_at_first_ask() {
+        assert_eq!(key_for(&toks("1H-P-1S")), ("1H-P-1S".into(), 0));
+        assert_eq!(
+            key_for(&toks("1H-P-1S-2D-2S-P-4N@30-P")),
+            ("4N@30-P".into(), 3)
+        );
+        assert_eq!(
+            key_for(&toks("1S-P-3S@CH-P-4N@30-P-4H")),
+            ("3S@CH-P-4N@30-P-4H".into(), 0)
+        );
+    }
 }

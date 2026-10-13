@@ -2,7 +2,8 @@
 #
 # Build the BidBase page into web/dist/: the static files, the engine
 # (crates/wasm/build.sh into dist/pkg, with the 2018 and 2026 rules compiled
-# in) and the example convention card. dist/ is what the Cloudflare Pages
+# in), the example convention card, and the practice program port
+# (crates/practice-web/build.sh into dist/practice/pkg). dist/ is what the Cloudflare Pages
 # project serves (wrangler.jsonc); bridge-craftwork.com mounts it at
 # /bidbase/.
 #
@@ -23,4 +24,7 @@ BIDBASE_WASM_OUT="$dist/pkg" "$root/crates/wasm/build.sh" "$@"
 rm -f "$dist/pkg/.gitignore" "$dist/pkg/package.json" "$dist/pkg/README.md"
 cp "$here"/{index.html,app.js,app.css,styles.css,favicon.svg,_headers} "$dist/"
 cp "$root/card/examples/21GF-DEFAULT.card.json" "$dist/cards/"
+mkdir -p "$dist/practice"
+BIDBASE_PRACTICE_OUT="$dist/practice/pkg" "$root/crates/practice-web/build.sh" "$@"
+cp "$here/practice/index.html" "$dist/practice/"
 ls -l "$dist" "$dist/pkg"

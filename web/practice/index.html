@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BidBase Practice Dealer</title>
+<meta name="description" content="Nelson Ford's CardShark BidBase Bidding Practice program, ported from Visual Basic to Rust and running in your browser.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+  :root { color-scheme: light; }
+  html, body { margin: 0; background: #2b2b2b; font: 14px/1.4 system-ui, sans-serif; color: #eee; }
+  header { max-width: 664px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+  header h1 { font-size: 16px; margin: 0; }
+  header a { color: #9cf; }
+  .frame { width: 664px; max-width: 100%; margin: 0 auto 24px; overflow-x: auto; }
+  canvas { display: block; width: 664px; height: 598px; outline: none; }
+  #loading { text-align: center; padding: 40px 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>BidBase Practice Dealer</h1>
+  <a href="../">BidBase in the browser</a>
+  <a href="http://www.aeyec.com/bidbase/Notes/CardShark_BidBase_Practice_Program.htm">Nelson's help page</a>
+  <a href="https://github.com/bridge-craftwork/bidbase">Source</a>
+</header>
+<div class="frame">
+  <p id="loading">Loading Nelson's rules and the dealer…</p>
+  <canvas id="practice"></canvas>
+</div>
+<script type="module">
+  import init, { start } from "./pkg/bidbase_practice.js";
+  await init();
+  document.getElementById("loading").remove();
+  start("practice");
+</script>
+</body>
+</html>

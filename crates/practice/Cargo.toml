@@ -1,0 +1,24 @@
+# bidbase-practice: Nelson Ford's BidBase Bidding Practice program, ported
+# from VB6 to Rust (egui), laid out from his own form file.
+[package]
+name = "bidbase-practice"
+description = "Port of the CardShark BidBase Bidding Practice program"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+bidbase-engine.workspace = true
+bidbase-forms = { path = "../forms" }
+bidbase-vbui = { path = "../vbui" }
+bridge-types.workspace = true
+bridge-solver = { git = "https://github.com/bridge-craftwork/bridge-solver", tag = "v2.0.0" }
+eframe = { version = "0.36", default-features = false, features = ["glow", "persistence", "accesskit", "x11", "wayland"] }
+egui = { version = "0.36", default-features = false }
+serde.workspace = true
+web-time = "1"
+
+[dev-dependencies]
+# Offscreen rendering for screenshots of the port (tests/screens.rs).
+egui_kittest = { version = "0.36", features = ["wgpu", "snapshot"] }
