@@ -6,6 +6,11 @@ bidder whose knowledge lives in an Access database of rules (5,465 in the
 2018 release, 16,786 in 2026), together with Nelson's original Visual
 Basic 6 programs and rules it is ported from.
 
+**Try it in your browser: [bridge-craftwork.com/bidbase](https://bridge-craftwork.com/bidbase/)**:
+the call for any hand, what it means and every rule it tried. Nelson's
+Bidding Practice program, ported from Visual Basic, is at
+[bridge-craftwork.com/bidbase/practice](https://bridge-craftwork.com/bidbase/practice/).
+
 ```
 ./dev-build.sh run -q -p bidbase-cli -- bid AK2-KQ2-A432-J32
 1N  (rule #13) Opening 1N HCP Specification: ...
