@@ -275,6 +275,9 @@ impl App {
             g.set_text(0, c, *t);
         }
         self.screen.set_visible("p_BidBoxLbl", None, false);
+        // The convention-practice list sits just below the window; his
+        // program shows it only when it enlarges the form for practice.
+        self.screen.set_visible("cmb_FindDeals", None, false);
         self.screen.set_text("cmb_DDA", None, dda::CAPTION);
         let vul = if self.settings.vul == Vul::None {
             "none"

@@ -824,7 +824,9 @@ impl Screen {
             .unwrap_or_default();
         let selected = self.list_index(&c.name, c.index());
         let painter = ui.painter().with_clip_rect(visible_rect);
-        let row_h = font_id.size + 1.0;
+        // Rows as tight as the font allows, so a list shows as many lines as
+        // Nelson sized it for (the DDA table's five in 90 pixels).
+        let row_h = font_id.size;
         if dropdown {
             let rect = Rect::from_min_size(rect.min, Vec2::new(rect.width(), row_h + 6.0));
             painter.rect_filled(rect, 0.0, vb_color(back));
@@ -883,7 +885,7 @@ impl Screen {
         }
         // A simple combo has its text line above the list.
         let rect = if c.kind() == "ComboBox" {
-            let line = Rect::from_min_size(rect.min, Vec2::new(rect.width(), row_h + 6.0));
+            let line = Rect::from_min_size(rect.min, Vec2::new(rect.width(), row_h + 4.0));
             painter.rect_filled(line, 0.0, vb_color(back));
             theme::sunken(&painter, line);
             painter.with_clip_rect(line.shrink(2.0)).text(
