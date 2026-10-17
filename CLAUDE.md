@@ -54,7 +54,10 @@ rules. All of it is public domain (his license page, below). Started
   test hand (was 1,681), the rest checked to match his code as written. On
   runs/random-500: 6.39 IMPs/board from par (2018 rules 6.61, BBA 4.32,
   Rusty 4.80). Not ported: `ComputeOptBid`, the double-dummy fallback when
-  no rule fits.
+  no rule fits. 2026-10-17: checked every code on Nelson's abbreviations
+  page (aeyec.com/bidbase/notes/cardShark_BidBase_abbreviations.htm);
+  the port departs from his VB on Vul "V"/"N" and Position "F"/"T", which
+  his code matched so that 83 rules could never fire (ENGINE-2026.md).
 - Nelson's design notes (email 2026-10-10): rules are in sections by the
   prior bids; within a section the first entry that matches the hand and
   the conventions in use wins (as the port does). Docs start at

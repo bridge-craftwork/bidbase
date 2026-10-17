@@ -43,15 +43,18 @@ impl Vul {
         }
     }
 
-    /// The one-letter code the 2026 engine compares with a rule's `Vul`,
-    /// as the practice program passes it: U (we alone vulnerable), F
-    /// (they alone), B (both), "" (neither, or not given).
+    /// The one-letter code the 2026 engine compares with a rule's `Vul`:
+    /// U (we alone vulnerable), F (they alone), B (both), N (neither), ""
+    /// (not given). The practice program passed "" for neither, so the
+    /// rules Nelson marked N never matched; his abbreviations page
+    /// defines N as neither side vulnerable (docs/ENGINE-2026.md).
     pub fn code_2026(&self) -> &str {
         match self {
             Vul::We => "U",
             Vul::They => "F",
             Vul::Both => "B",
-            Vul::Neither | Vul::Unknown => "",
+            Vul::Neither => "N",
+            Vul::Unknown => "",
             Vul::Spec(s) => s.as_str(),
         }
     }
