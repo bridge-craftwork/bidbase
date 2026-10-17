@@ -64,17 +64,21 @@ reads `sel`/`sel2` from a lookup of convention 0, so they are always "".
 - **Losers**: **a number is now a maximum** ("# in DB means <= #"), "n+"
   a minimum; "<n" never matches (`Val("<5")` is 0).
 - **Intermediates**: "0" means exactly none; otherwise a minimum.
-- **Vulnerability**: one-letter codes compared with what the client
-  passes: B both, N neither, U unfavourable, F favourable, V we are
-  vulnerable, X we are not (matches any client code but U and V). The
-  practice program passes U, F, B, or "" when neither side is
-  vulnerable, so a rule with "N" never matches there and "V" only in the
-  Editor.
+- **Vulnerability**: one-letter codes compared exactly with what the
+  client passes. His abbreviations page defines U unfavourable, F
+  favourable, V both vulnerable, N neither, E equal or favourable; the
+  code also knows B (both, which the client sends) and X (matches any
+  client code but U and V). The practice program passes U, F, B, or ""
+  when neither side is vulnerable, so in his programs a rule with "N" or
+  "V" never matches. The port matches both (below).
 - **Position** (`Position_Ok`, `Position_calc`): seat counted from the
-  dealer over the full prior calls. "1"/"F" first seat, "2", "3"/"T" third
-  seat, "4"; "Y"/"N" the bidder's first call was / wasn't a pass; "P"/"U"
-  partner's first call was / wasn't a pass (for seats 1-2 "U" looks at the
-  bidder's own first call).
+  dealer over the full prior calls. "1" .. "4" the seat; "F" first or
+  second seat and "T" third or fourth, as his abbreviations page and the
+  function's own comments say, though the code tests only seat 1 for "F"
+  and seat 3 for "T" (the port follows the page, below); "Y"/"N" the
+  bidder's first call was / wasn't a pass; "P"/"U" partner's first call
+  was / wasn't a pass (for seats 1-2 "U" looks at the bidder's own first
+  call).
 
 ## Suits (`Suits_Ok` 3803, `Suit_Ok`, `SuitQty_Ok`, `SuitHCP_Ok`, `Combo_Ok`)
 
@@ -111,6 +115,39 @@ the digits (`TrumpSuit` 30 means suit 3). The 2026 data has 92 such keys.
 When the auction holds more than one ask, the key starts at the first
 (frm:6101): 22 keys hold two or more, such as "3S@CH-P-4N@30-P-4H".
 `table::key_for` cut at the last one until 2026-10-13.
+
+## Where the port departs from the 2026 code
+
+Checked against Nelson's abbreviations page
+(http://www.aeyec.com/bidbase/notes/cardShark_BidBase_abbreviations.htm),
+which defines every code the rules use. Two differ in his code, and the
+rules using them could never fire; the port follows the page (2026-10-17,
+`crates/engine/tests/codes_2026.rs`):
+
+- **Vul "N"** (7 rules) and **"V"** (46 rules): the port sends "N" when
+  neither side is vulnerable (`Vul::code_2026`; "" is now only "not
+  given"), and a "V" rule matches when the client sends B
+  (`vul_2026`).
+- **Position "F"** (8 rules) and **"T"** (22 rules): seats 1-2 and 3-4
+  (`position_2026`).
+
+Each affected rule's test hand bid where its code applies (both or
+neither side vulnerable; each seat F or T covers), rules switched off
+and "@" keys left out. How often the rule itself is chosen:
+
+| Code | Cases | Before | After |
+|---|---|---|---|
+| Vul V | 44 | 0 | 33 |
+| Vul N | 8 | 0 | 6 |
+| Pos F | 14 | 3 | 6 |
+| Pos T | 44 | 7 | 13 |
+
+The rest are taken by earlier rules or fail another of their own tests.
+The self-test does not move: it passes each rule its own Vul code and
+skips the position check for the rule under test.
+
+Codes on the page that no 2026 rule uses, and the port does not read:
+"1N+2+3", "2N+2+3" (HCP), "E" (Vul).
 
 ## Not ported
 

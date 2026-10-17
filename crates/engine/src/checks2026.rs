@@ -276,8 +276,11 @@ impl<'a> Ctx<'a> {
     pub(crate) fn vul_2026(&mut self, r: &Rule) -> Check {
         let want = r.vul.as_str();
         let have = self.req.vul.code_2026();
+        // His page defines V as both sides vulnerable, which the client
+        // sends as B; the VB's exact comparison never matched V.
         let ok = want == have
             || want.is_empty()
+            || (want == "V" && have == "B")
             || (want == "X" && (instr("UV", have) == 0 || have.is_empty()));
         if ok {
             Ok(())
@@ -315,11 +318,16 @@ impl<'a> Ctx<'a> {
         if pos_num == 0 {
             pos_num = 1;
         }
+        // F is first or second seat and T third or fourth, as his
+        // abbreviations page and this function's own comments say; the VB
+        // tested only seat 1 for F and seat 3 for T.
         let ok = match want.as_str() {
-            "1" | "F" => pos_num == 1,
+            "1" => pos_num == 1,
             "2" => pos_num == 2,
+            "3" => pos_num == 3,
             "4" => pos_num == 4,
-            "3" | "T" => pos_num == 3,
+            "F" => pos_num <= 2,
+            "T" => pos_num >= 3,
             "Y" => c[pos_num] == "P",
             "N" => a.call_num < 5 || a.call(pos_num as i32) != "P",
             "P" => {
